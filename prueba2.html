@@ -1,0 +1,56 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8" />
+    <title>Making your first Phaser 3 Game - Part 10</title>       
+     <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style> 
+    <script src="node_modules/phaser/dist/phaser.js"></script>    
+</head>
+<body>
+    
+<script type="text/javascript">
+
+var config = {
+    type: Phaser.AUTO,
+    dom: {
+        createContainer: true
+    },
+    scale: {
+        mode: Phaser.Scale.FIT,
+        parent: 'phaser-example',
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        width: 800,
+        height: 600
+    },
+    physics: {
+        default: 'arcade',
+        arcade: {
+            //gravity: { y: -300 },
+            debug: false
+        }
+    },  
+    scene: {
+        preload: preload,
+        create: create,             
+    }
+};
+// declaro la creacion del juego
+var game = new Phaser.Game(config);
+
+function preload ()
+{
+    this.load.html('html', 'prueba3.html');
+}
+
+function create ()
+{    
+    element = this.add.dom(800 ,600).createFromCache('html');
+}
+
+</script>
+</body>
+</html>

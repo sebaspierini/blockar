@@ -1,0 +1,446 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8" />
+    <title>Making your first Phaser 3 Game - Part 10</title>             
+     <style type="text/css">
+        body {
+            margin: 0;
+        }
+
+        .instructions{
+            width: 370px;
+        }
+
+        .centerBlocklyDiv{
+            height: 600px; 
+            width: 50%; 
+            display: inline-block;
+        }
+
+        .centergame{
+            height: 800px; 
+            width: 50%; 
+            float: right;
+        }
+    </style> 
+      <script src="acorn_interpreter.js"></script>
+      <script src="https://blockly-demo.appspot.com/static/blockly_compressed.js"></script>
+      <script src="https://blockly-demo.appspot.com/static/blocks_compressed.js"></script>
+      <script src="https://blockly-demo.appspot.com/static/javascript_compressed.js"></script>
+      <script src="https://blockly-demo.appspot.com/static/msg/js/en.js"></script>    
+      <script src="movement_block.js"></script>
+      <script src="movement_stub.js"></script>
+    <script src="node_modules/phaser/dist/phaser.js"></script>    
+</head>
+<body>
+  
+  <div id="blocklyDiv" class="centerBlocklyDiv"></div>
+  <div id="gameRight" class="centergame"></div>
+  <xml id="toolbox" style="display: none">
+        <category name="Loops" colour="#5CA65C">
+            <block type="controls_repeat_ext">
+              <value name="TIMES">
+                <shadow type="math_number">
+                  <field name="NUM">10</field>
+                </shadow>
+              </value>
+            </block>
+        </category>
+        <category name="movement" colour="#a55b6d">
+            <block type="move_right"></block>
+            <block type="move_left"></block>
+          </category>
+          <category name="Logic" colour="#5C81A6">
+            <block type="controls_if"></block>
+            <block type="logic_compare">
+              <field name="OP">EQ</field>
+            </block>
+            <block type="logic_operation">
+              <field name="OP">AND</field>
+            </block>
+            <block type="logic_negate"></block>
+            <block type="logic_boolean">
+              <field name="BOOL">TRUE</field>
+            </block>
+            <block type="logic_null"></block>
+            <!--<block type="logic_ternary"></block>-->
+          </category>
+    </xml>
+    <xml id="startBlocks" style="display: none">
+        </xml>
+<script type="text/javascript">
+
+var config = {
+    type: Phaser.AUTO,
+    parent: document.getElementById("gameRight"),
+    width: 800,
+    height: 600,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            //gravity: { y: -300 },
+            debug: false
+        }
+    },  
+    scene: {
+        preload: preload,
+        create: create,
+        update: update        
+    }
+};
+// declaro la creacion del juego
+var game = new Phaser.Game(config);
+
+// ubicacion sprite al comienzo
+var sprite;
+const initPosX = 68;
+const initPosY = 544;
+// ubicacion sobre el eje Y de los botones que ejecutan las acciones
+var posYExecutables = 174;
+var posYInstructions = 430;
+//inicia tablero
+var horizontal = 400;
+var vertical = 300;
+var width = 800;
+var hight = 600;
+var cellWidth = 134;
+var cellhight = 120;
+// movimiento en tablero
+const moveX = 134;
+const moveY = 120;
+// sector botones
+var playButton;
+var resetButton;
+
+// posicion variale del sprite
+var posX;
+var posY;
+// linea de movimientos animados y avance
+var timeline;
+
+// tiempo del sprite para moverse de "a" a "b"
+var tiempoSprite = 1000;
+//titulo de juego terminado
+var title;
+
+var star;
+
+var element;
+
+var myInterpreter = null;
+var runner;
+var demoWorkspace;
+var latestCode = '';
+
+var goToTheRight;
+var goToTheLeft;
+
+var yo;
+function initApi(interpreter, scope) {
+      var wrapper = function (text) {
+        text = text ? text.toString() : '';
+        console.log(text);
+      };
+      interpreter.setProperty(scope, 'alert',
+        interpreter.createNativeFunction(wrapper));
+
+      var wrapper = function (text) {
+        text = text ? text.toString() : '';
+        return interpreter.createPrimitive(1);
+      };
+      interpreter.setProperty(scope, 'prompt',
+        interpreter.createNativeFunction(wrapper));
+      
+      initInterpreterGoRight(interpreter, scope);
+      initInterpreterGoLeft(interpreter, scope);
+
+      var wrapper = function (id) {
+        id = id ? id.toString() : '';
+        return interpreter.createPrimitive(highlightBlock(id));
+      };
+      interpreter.setProperty(scope, 'highlightBlock',
+        interpreter.createNativeFunction(wrapper));
+
+    }
+
+function highlightBlock(id) {
+      demoWorkspace.highlightBlock(id);
+    }
+
+    function resetStepUi() {
+      demoWorkspace.highlightBlock(null);      
+    }
+
+    function generateCodeAndLoadIntoInterpreter() {
+      // Generate JavaScript code and parse it.
+      Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
+      Blockly.JavaScript.addReservedWords('highlightBlock');
+      latestCode = Blockly.JavaScript.workspaceToCode(demoWorkspace);
+
+      resetStepUi();
+    }
+
+    function resetInterpreter() {
+      myInterpreter = null;
+      if (runner) {
+        clearTimeout(runner);
+        runner = null;
+      }
+    }
+
+    function runCode() {
+      if (!myInterpreter) {
+        // First statement of this code.
+        // Clear the program output.
+        resetStepUi();        
+
+        // And then show generated code in an alert.
+        // In a timeout to allow the outputArea.value to reset first.
+        setTimeout(function () {
+
+
+          // Begin execution
+          //highlightPause = false;
+          myInterpreter = new Interpreter(latestCode, initApi);
+          runner = function () {
+            if (myInterpreter) {
+              var hasMore = myInterpreter.run();
+              if (hasMore) {
+                // Execution is currently blocked by some async call.
+                // Try again later.
+                setTimeout(runner, 10);
+              } else {
+                // Program is complete.
+                //outputArea.value += '\n\n<< Program complete >>';
+                resetInterpreter();
+                resetStepUi();
+              }
+            }
+          };
+          runner();
+        }, 1);
+        return;
+      }
+    }
+
+    demoWorkspace = Blockly.inject('blocklyDiv',
+      {        
+        toolbox: document.getElementById('toolbox')
+      });
+    Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
+      demoWorkspace);    
+    Blockly.JavaScript.addReservedWords('exit');
+
+    // Load the interpreter now, and upon future changes.
+    generateCodeAndLoadIntoInterpreter();
+    demoWorkspace.addChangeListener(function (event) {
+      if (!(event instanceof Blockly.Events.Ui)) {
+        // Something changed. Parser needs to be reloaded.
+        resetInterpreter();
+        generateCodeAndLoadIntoInterpreter();
+      }
+    });
+
+function preload ()
+{
+    this.load.image('sky', 'assets/sky.png');
+    this.load.image('play', 'assets/play.png');
+    this.load.image('reset', 'assets/reset.png');
+    this.load.image('star', 'assets/star.png');
+    this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
+    this.load.html('html', 'prueba.html');
+}
+
+function create ()
+{    
+  yo = this;
+    posX = initPosX;
+    posY = initPosY;      
+    
+    this.add.image(400, 300, 'sky');
+    
+    this.add.grid(horizontal, vertical, width, hight, cellWidth, cellhight, 0xDADADA).setAltFillStyle(0xA5A5A5).setOutlineStyle();
+
+    sprite = this.physics.add.sprite(initPosX, initPosY, 'dude');
+
+    star = this.physics.add.image(initPosX, initPosY - (moveY * 2), 'star');
+
+    //colision con el mundo
+    sprite.setBounce(0.2);
+    sprite.setCollideWorldBounds(true);
+
+    this.physics.add.overlap(sprite, star, collectStar, null, this);
+
+    playButton = this.add.image(40, posYExecutables, 'play').setInteractive().setDisplaySize(70,70);
+    resetButton = this.add.image(120, posYExecutables, 'reset').setInteractive().setDisplaySize(70,70);
+    resetButton.visible = false;
+
+    timeline = this.tweens.createTimeline();    
+
+    var style = {
+        fontSize: '32px',
+        fontFamily: 'Arial',
+        color: '#376280',
+        backgroundColor: '#000000'
+    };
+
+    title = this.add.text(50, 100, '', style).setPadding(16);
+    title.setText('Juego terminado');
+    title.visible = false;
+
+    element = this.add.dom(600 ,300).createFromCache('html');
+
+    this.anims.create({
+        key: 'left',
+        frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+        frameRate: 10,
+        repeat: -1
+    });
+
+    this.anims.create({
+        key: 'turn',
+        frames: [ { key: 'dude', frame: 4 } ],
+        frameRate: 20
+    });
+
+    this.anims.create({
+        key: 'right',
+        frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
+        frameRate: 10,
+        repeat: -1
+    });
+
+    playButton.on('pointerdown', function(){                       
+            playButton.visible = false;
+            resetButton.visible = true;   
+            runCode();       
+    });
+    resetButton.on('pointerdown', function(){                        
+            resetButton.visible = false;  
+            playButton.visible = true;    
+            sprite.x = initPosX;
+            sprite.y = initPosY;
+            posX = initPosX;
+            posY = initPosY;     
+            title.visible = false;  
+            sprite.visible = true;                 
+    },this);
+}
+
+function spriteRight(){
+    timeline.add({
+        targets: sprite,        
+        x: {
+            getEnd: function (sprite, key, value)
+            {                                
+                posX += moveX;                
+                return posX;
+            },
+            getStart: function (sprite, key, value)
+            {                     
+                sprite.anims.play('right');                            
+                return posX;
+            }
+        },
+        ease: 'Power1',
+        duration: tiempoSprite
+    });
+}
+
+function spriteLeft(){
+    
+    timeline.add({
+        targets: sprite,              
+        x: {
+            getEnd: function (sprite, key, value)
+            {                                
+                posX -= moveX;                
+                return posX;
+            },
+            getStart: function (sprite, key, value)
+            {          
+                sprite.anims.play('left');                      
+                return posX;
+            }
+        },
+        ease: 'Power1',
+        duration: tiempoSprite
+    });
+}
+
+function spriteUp(){
+    
+    timeline.add({
+        targets: sprite,              
+        y: {
+            getEnd: function (sprite, key, value)
+            {                                
+                posY -= moveY;                
+                return posY;
+            },
+            getStart: function (sprite, key, value)
+            {          
+                sprite.anims.play('turn');                      
+                return posY;
+            }
+        },
+        ease: 'Power1',
+        duration: tiempoSprite
+    });
+}
+
+function spriteDown(){
+    
+    timeline.add({
+        targets: sprite,              
+        y: {
+            getEnd: function (sprite, key, value)
+            {                                
+                posY += moveY;                
+                return posY;
+            },
+            getStart: function (sprite, key, value)
+            {          
+                sprite.anims.play('turn');                      
+                return posY;
+            }
+        },        
+        ease: 'Power1',
+        duration: tiempoSprite
+    });
+}
+
+function update ()
+{
+    if(!timeline.isPlaying()){
+        sprite.anims.play('turn'); 
+    }
+    if(sprite.x > (initPosX + (moveX * 5))){
+        console.log("se cayo a la derecha");
+        title.visible = true;  
+    }
+    if(sprite.x < initPosX){
+        console.log("se cayo a la izq");
+        title.visible = true;  
+    }
+    if(sprite.y > initPosY){
+        console.log("se cayo abajo");        
+        sprite.visible = false;
+        title.visible = true;  
+    }
+    if(sprite.y < (initPosY - (moveY * 5)) ){
+        console.log("se cayo arriba");   
+        title.visible = true;     
+    }
+}
+
+function collectStar (sprite, star)
+{
+    star.disableBody(true, true);
+    console.log("choca con star");
+}
+
+</script>
+</body>
+</html>
