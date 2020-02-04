@@ -8,8 +8,12 @@ function initInterpreterGoRight(interpreter, scope) {
    var wrapper = interpreter.createAsyncFunction(    
     function(callback) {
       spriteRight();
-      console.log("paso");
-      setTimeout(function(){ callback(); },  700);            
+      timeline.play();      
+      setTimeout(function(){ 
+        timeline.destroy();
+        timeline = yo.tweens.createTimeline();
+        callback(); 
+      },  tiempoSprite);            
     });   
   interpreter.setProperty(scope, 'goRightBlock', wrapper);
 }
@@ -22,8 +26,14 @@ Blockly.JavaScript['move_left'] = function(block) {
 function initInterpreterGoLeft(interpreter, scope) {
   Blockly.JavaScript.addReservedWords('goLeftBlock');
   var wrapper = interpreter.createAsyncFunction(
-    function() {           
+    function(callback) {
       spriteLeft();
-    });
+      timeline.play();      
+      setTimeout(function(){ 
+        timeline.destroy();
+        timeline = yo.tweens.createTimeline();
+        callback(); 
+      },  tiempoSprite);            
+    }); 
   interpreter.setProperty(scope, 'goLeftBlock', wrapper);
 }
