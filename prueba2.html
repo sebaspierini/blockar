@@ -24,7 +24,7 @@ var config = {
         parent: 'phaser-example',
         autoCenter: Phaser.Scale.CENTER_BOTH,
         width: 800,
-        height: 600
+        height: 400
     },
     physics: {
         default: 'arcade',
@@ -48,7 +48,7 @@ function preload ()
 
 function create ()
 {    
-    element = this.add.dom(400 ,300).createFromCache('html');
+    element = this.add.dom(400 ,200).createFromCache('html');
 }
 
 </script>

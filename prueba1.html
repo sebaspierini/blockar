@@ -13,13 +13,13 @@
         }
 
         .centerBlocklyDiv{
-            height:600px; 
+            height:400px; 
             width: 400px; 
             position: absolute;
         }
 
         .centergame{
-            height: 800px; 
+            height: 400px; 
             width: 100%; 
             float: right;
         }
@@ -75,7 +75,7 @@ var config = {
     type: Phaser.AUTO,
     parent: document.getElementById("gameRight"),
     width: 800,
-    height: 600,
+    height: 400,
     physics: {
         default: 'arcade',
         arcade: {
@@ -91,21 +91,22 @@ var config = {
 };
 // declaro la creacion del juego
 var game = new Phaser.Game(config);
-
+var widthGame = 800;
+var hightGame = 400;
 // ubicacion sprite al comienzo
 var sprite;
 const initPosX = 434;
-const initPosY = 564;
+const initPosY = 364;
 // ubicacion sobre el eje Y de los botones que ejecutan las acciones
 var posYExecutables = 30;
 var posYInstructions = 430;
 //inicia tablero
 var horizontal = 600;
-var vertical = 330;
+var vertical = 230;
 var width = 400;
-var hight = 540;
+var hight = 350;
 var cantCellVertical = 6;
-var cantCellHorizontal = 8;
+var cantCellHorizontal = 5;
 var cellWidth = width / cantCellVertical;
 var cellhight = hight / cantCellHorizontal;
 // movimiento en tablero
@@ -149,9 +150,9 @@ function initApi(interpreter, scope) {
         interpreter.createNativeFunction(wrapper));
     }
 
-/*     function highlightBlock(id) {
+     function highlightBlock(id) {
       demoWorkspace.highlightBlock(id);
-    } */
+    } 
 
     function resetStepUi() {
       demoWorkspace.highlightBlock(null);      
@@ -159,8 +160,8 @@ function initApi(interpreter, scope) {
 
     function generateCodeAndLoadIntoInterpreter() {
       // Generate JavaScript code and parse it.
-      //Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
-      //Blockly.JavaScript.addReservedWords('highlightBlock');
+      Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
+      Blockly.JavaScript.addReservedWords('highlightBlock');
       latestCode = Blockly.JavaScript.workspaceToCode(demoWorkspace);
       
       console.log(latestCode);
@@ -222,8 +223,8 @@ function initApi(interpreter, scope) {
             {controls: true,
               wheel: true,
               startScale: 1.0,
-              maxScale: 3,
-              minScale: 0.3,
+              maxScale: 2,
+              minScale: 0.6,
               scaleSpeed: 1.2},
         trashcan: true
       });
@@ -283,9 +284,10 @@ function create ()
         color: '#376280',
         backgroundColor: '#000000'
     };
-
-    title = this.add.text(300, 300, '', style).setPadding(16);
-    title.setText('Juego terminado');
+    var gameOver = "Juego terminado";
+    var paddingGameOver = 16;
+    title = this.add.text(465, 300, '', style).setPadding(paddingGameOver);
+    title.setText(gameOver);
     title.visible = false;
 
     element = this.add.dom(600 ,300).createFromCache('html');
