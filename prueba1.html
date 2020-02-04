@@ -25,10 +25,10 @@
         }
     </style> 
       <script src="acorn_interpreter.js"></script>
-      <script src="https://blockly-demo.appspot.com/static/blockly_compressed.js"></script>
-      <script src="https://blockly-demo.appspot.com/static/blocks_compressed.js"></script>
-      <script src="https://blockly-demo.appspot.com/static/javascript_compressed.js"></script>
-      <script src="https://blockly-demo.appspot.com/static/msg/js/en.js"></script>    
+      <script src="blockly/blockly_compressed.js"></script>
+      <script src="blockly/blocks_compressed.js"></script>
+      <script src="blockly/javascript_compressed.js"></script>
+      <script src="blockly/msg/js/es.js"></script>    
       <script src="movement_block.js"></script>
       <script src="movement_stub.js"></script>
     <script src="node_modules/phaser/dist/phaser.js"></script>    
@@ -134,25 +134,9 @@ var myInterpreter = null;
 var runner;
 var demoWorkspace;
 var latestCode = '';
-
-var goToTheRight;
-var goToTheLeft;
-
 var yo;
-function initApi(interpreter, scope) {
-      var wrapper = function (text) {
-        text = text ? text.toString() : '';
-        console.log(text);
-      };
-      interpreter.setProperty(scope, 'alert',
-        interpreter.createNativeFunction(wrapper));
 
-      var wrapper = function (text) {
-        text = text ? text.toString() : '';
-        return interpreter.createPrimitive(1);
-      };
-      interpreter.setProperty(scope, 'prompt',
-        interpreter.createNativeFunction(wrapper));
+function initApi(interpreter, scope) {
       
       initInterpreterGoRight(interpreter, scope);
       initInterpreterGoLeft(interpreter, scope);
@@ -163,12 +147,11 @@ function initApi(interpreter, scope) {
       };
       interpreter.setProperty(scope, 'highlightBlock',
         interpreter.createNativeFunction(wrapper));
-
     }
 
-function highlightBlock(id) {
+/*     function highlightBlock(id) {
       demoWorkspace.highlightBlock(id);
-    }
+    } */
 
     function resetStepUi() {
       demoWorkspace.highlightBlock(null);      
@@ -176,10 +159,11 @@ function highlightBlock(id) {
 
     function generateCodeAndLoadIntoInterpreter() {
       // Generate JavaScript code and parse it.
-      Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
-      Blockly.JavaScript.addReservedWords('highlightBlock');
+      //Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
+      //Blockly.JavaScript.addReservedWords('highlightBlock');
       latestCode = Blockly.JavaScript.workspaceToCode(demoWorkspace);
-
+      
+      console.log(latestCode);
       resetStepUi();
     }
 
@@ -228,7 +212,20 @@ function highlightBlock(id) {
 
     demoWorkspace = Blockly.inject('blocklyDiv',
       {        
-        toolbox: document.getElementById('toolbox')
+        toolbox: document.getElementById('toolbox'), 
+        grid:
+         {spacing: 20,
+          length: 3,
+          colour: '#ccc',
+          snap: true},            
+        zoom:
+            {controls: true,
+              wheel: true,
+              startScale: 1.0,
+              maxScale: 3,
+              minScale: 0.3,
+              scaleSpeed: 1.2},
+        trashcan: true
       });
     Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
       demoWorkspace);    
@@ -287,7 +284,7 @@ function create ()
         backgroundColor: '#000000'
     };
 
-    title = this.add.text(50, 100, '', style).setPadding(16);
+    title = this.add.text(300, 300, '', style).setPadding(16);
     title.setText('Juego terminado');
     title.visible = false;
 
@@ -421,10 +418,12 @@ function update ()
     if(sprite.x > (initPosX + (moveX * 5))){
         console.log("se cayo a la derecha");
         title.visible = true;  
+        sprite.visible = false;
     }
     if(sprite.x < initPosX){
         console.log("se cayo a la izq");
         title.visible = true;  
+        sprite.visible = false;
     }
     if(sprite.y > initPosY){
         console.log("se cayo abajo");        
@@ -434,6 +433,7 @@ function update ()
     if(sprite.y < (initPosY - (moveY * 5)) ){
         console.log("se cayo arriba");   
         title.visible = true;     
+        sprite.visible = false;
     }
 }
 
