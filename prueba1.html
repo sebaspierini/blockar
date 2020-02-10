@@ -91,6 +91,7 @@ var config = {
 };
 // declaro la creacion del juego
 var game = new Phaser.Game(config);
+var score = "1";
 var widthGame = 800;
 var hightGame = 480;
 // ubicacion sprite al comienzo
@@ -142,17 +143,17 @@ function initApi(interpreter, scope) {
       initInterpreterGoRight(interpreter, scope);
       initInterpreterGoLeft(interpreter, scope);
 
-      var wrapper = function (id) {
+/*       var wrapper = function (id) {
         id = id ? id.toString() : '';
         return interpreter.createPrimitive(highlightBlock(id));
       };
       interpreter.setProperty(scope, 'highlightBlock',
-        interpreter.createNativeFunction(wrapper));
+        interpreter.createNativeFunction(wrapper)); */
     }
 
-     function highlightBlock(id) {
+/*      function highlightBlock(id) {
       demoWorkspace.highlightBlock(id);
-    } 
+    }  */
 
     function resetStepUi() {
       demoWorkspace.highlightBlock(null);      
@@ -160,8 +161,8 @@ function initApi(interpreter, scope) {
 
     function generateCodeAndLoadIntoInterpreter() {
       // Generate JavaScript code and parse it.
-      Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
-      Blockly.JavaScript.addReservedWords('highlightBlock');
+      /* Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
+      Blockly.JavaScript.addReservedWords('highlightBlock'); */
       latestCode = Blockly.JavaScript.workspaceToCode(demoWorkspace);
       
       console.log(latestCode);
@@ -314,8 +315,8 @@ function create ()
 
     playButton.on('pointerdown', function(){                       
             playButton.visible = false;
-            resetButton.visible = true;   
-            runCode();       
+            resetButton.visible = true;               
+            runCode();                                   
     });
     resetButton.on('pointerdown', function(){                        
             resetButton.visible = false;  

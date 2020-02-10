@@ -13,7 +13,69 @@
 <body>
     
 <script type="text/javascript">
+class SceneA extends Phaser.Scene {
 
+constructor ()
+{
+    super({ key: 'sceneA' });
+}
+
+preload ()
+{
+    this.load.image('lv1', 'assets/lv 1.png');
+    this.load.image('lv2', 'assets/lv 2.png');
+    this.load.image('lv3', 'assets/lv 3.png');
+}
+
+create ()
+{
+    
+    var lv1Click = this.add.image(200, 200, 'lv1').setInteractive().setDisplaySize(50,50);
+    var lv2Click = this.add.image(430, 200, 'lv2').setInteractive().setDisplaySize(50,50);
+    var lv3Click = this.add.image(600, 200, 'lv3').setInteractive().setDisplaySize(50,50);
+    
+    
+    lv1Click.on('pointerdown', function(){                       
+        this.scene.start('sceneB');    
+    }, this);
+
+    lv2Click.on('pointerdown', function(){                       
+        this.scene.start('sceneB');    
+    }, this);
+    
+    lv3Click.on('pointerdown', function(){                       
+        this.scene.start('sceneB');    
+    }, this);
+
+}
+
+}
+var doc
+class SceneB extends Phaser.Scene { 
+
+constructor ()
+{
+    super({ key: 'sceneB' });
+}
+
+preload ()
+{
+    this.load.html('html', 'prueba3.html');
+}
+
+create ()
+{
+    this.add.dom(400 ,240).createFromCache('html');    
+    var x = document.getElementById("iframeid");
+    doc = (x.contentWindow || x.contentDocument);
+}
+
+update(){    
+    //comparto la variable score para compartir los diferentes escenarios.
+    //console.log(doc.score );
+}
+
+}
 var config = {
     type: Phaser.AUTO,
     dom: {
@@ -33,15 +95,12 @@ var config = {
             debug: false
         }
     },  
-    scene: {
-        preload: preload,
-        create: create,             
-    }
+    scene: [ SceneA, SceneB ]
 };
 // declaro la creacion del juego
 var game = new Phaser.Game(config);
 
-function preload ()
+/* function preload ()
 {
     this.load.html('html', 'prueba3.html');
 }
@@ -49,7 +108,7 @@ function preload ()
 function create ()
 {    
     element = this.add.dom(400 ,240).createFromCache('html');
-}
+} */
 
 </script>
 </body>
