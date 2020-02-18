@@ -23,14 +23,6 @@
             width: 800px; 
             float: right;
         }
-
-        .blocklyText{
-            height: 240px; 
-            width: 395px;             
-            position: absolute;
-            margin-top: 235px;
-            margin-left: 400px;
-        }
     </style> 
       <script src="acorn_interpreter.js"></script>
       <script src="blockly/blockly_compressed.js"></script>
@@ -44,7 +36,6 @@
 <body>
   
   <div id="blocklyDiv" class="centerBlocklyDiv"></div>
-  <textarea id="blocklyTextId" class="blocklyText"></textarea>
   <div id="gameRight" class="centergame"></div>
   <xml id="toolbox" style="display: none">
         <category name="Loops" colour="#5CA65C">
@@ -173,7 +164,8 @@ function initApi(interpreter, scope) {
       /* Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
       Blockly.JavaScript.addReservedWords('highlightBlock'); */
       latestCode = Blockly.JavaScript.workspaceToCode(demoWorkspace);
-      document.getElementById("blocklyTextId").value = latestCode;      
+      
+      console.log(latestCode);
       resetStepUi();
     }
 

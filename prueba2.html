@@ -40,7 +40,7 @@ create ()
     }, this);
 
     lv2Click.on('pointerdown', function(){                       
-        this.scene.start('sceneB');    
+        this.scene.start('sceneC');    
     }, this);
     
     lv3Click.on('pointerdown', function(){                       
@@ -76,6 +76,31 @@ update(){
 }
 
 }
+class SceneC extends Phaser.Scene { 
+
+constructor ()
+{
+    super({ key: 'sceneC' });
+}
+
+preload ()
+{
+    this.load.html('html', 'iframeprueba4.html');
+}
+
+create ()
+{
+    this.add.dom(400 ,240).createFromCache('html');    
+    var x = document.getElementById("iframeid");
+    doc = (x.contentWindow || x.contentDocument);
+}
+
+update(){    
+    //comparto la variable score para compartir los diferentes escenarios.
+    //console.log(doc.score );
+}
+
+}
 var config = {
     type: Phaser.AUTO,
     dom: {
@@ -95,7 +120,7 @@ var config = {
             debug: false
         }
     },  
-    scene: [ SceneA, SceneB ]
+    scene: [ SceneA, SceneB, SceneC ]
 };
 // declaro la creacion del juego
 var game = new Phaser.Game(config);
