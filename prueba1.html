@@ -8,12 +8,8 @@
             margin: 0;
         }
 
-        .instructions{
-            width: 370px;
-        }
-
         .centerBlocklyDiv{
-            height:480px; 
+            height:425px; 
             width: 400px; 
             position: absolute;
         }
@@ -25,10 +21,9 @@
         }
 
         .blocklyText{
-            height: 240px; 
+            height: 195px; 
             width: 395px;             
-            position: absolute;
-            margin-top: 235px;
+            position: absolute;            
             margin-left: 400px;
         }
     </style> 
@@ -105,20 +100,21 @@ var widthGame = 800;
 var hightGame = 480;
 // ubicacion sprite al comienzo
 var sprite;
-const initPosX = 434;
-const initPosY = 364;
-// ubicacion sobre el eje Y de los botones que ejecutan las acciones
-var posYExecutables = 30;
-var posYInstructions = 430;
-//inicia tablero
-var horizontal = 600;
-var vertical = 230;
-var width = 400;
-var hight = 350;
+//inicia tablero 195 es el valor de height + 5 por un defasaje
+var horizontal = widthGame - (( widthGame / 2 ) / 2);
+var vertical = hightGame - ((hightGame - (195 + 5)) / 2);
+var width = widthGame / 2;
+var hight = hightGame - (195 + 5);
 var cantCellVertical = 6;
 var cantCellHorizontal = 5;
 var cellWidth = width / cantCellVertical;
 var cellhight = hight / cantCellHorizontal;
+// ubicacion sobre el eje Y de los botones que ejecutan las acciones
+var posYExecutables = hightGame - (cellhight / 2);
+var posXExecutables = cellWidth / 2;
+// posicion de sprite de inicio
+const initPosX = width + (cellWidth / 2);
+const initPosY = hightGame - (cellhight / 2);
 // movimiento en tablero
 const moveX = cellWidth;
 const moveY = cellhight;
@@ -281,8 +277,8 @@ function create ()
 
     this.physics.add.overlap(sprite, star, collectStar, null, this);
 
-    playButton = this.add.image(430, posYExecutables, 'play').setInteractive().setDisplaySize(50,50);
-    resetButton = this.add.image(430 + cellWidth, posYExecutables, 'reset').setInteractive().setDisplaySize(50,50);
+    playButton = this.add.image(posXExecutables, posYExecutables, 'play').setInteractive().setDisplaySize(50,50);
+    resetButton = this.add.image(posXExecutables + cellWidth, posYExecutables, 'reset').setInteractive().setDisplaySize(50,50);
     resetButton.visible = false;
 
     timeline = this.tweens.createTimeline();    
