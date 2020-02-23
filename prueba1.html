@@ -17,7 +17,7 @@
         .centergame{
             height: 480px; 
             width: 800px; 
-            float: right;
+            float: left;
         }
 
         .blocklyText{
@@ -181,6 +181,11 @@ function initApi(interpreter, scope) {
       }
     }
 
+    function resetEstado(){
+      document.getElementById("blocklyTextId").value = "" ; 
+      demoWorkspace.clear();
+    }
+
     function runCode() {
       if (!myInterpreter) {
         // First statement of this code.
@@ -252,6 +257,7 @@ function preload ()
     this.load.image('sky', 'assets/sky.png');
     this.load.image('play', 'assets/play.png');
     this.load.image('reset', 'assets/reset.png');
+    this.load.image('menu', 'assets/menu.png');
     this.load.image('star', 'assets/star.png');
     this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
     this.load.html('html', 'prueba.html');
@@ -278,6 +284,7 @@ function create ()
     this.physics.add.overlap(sprite, star, collectStar, null, this);
 
     playButton = this.add.image(posXExecutables, posYExecutables, 'play').setInteractive().setDisplaySize(50,50);
+    menuButton = this.add.image((widthGame / 2) - (cellWidth / 2), posYExecutables, 'menu').setInteractive().setDisplaySize(50,50);
     resetButton = this.add.image(posXExecutables + cellWidth, posYExecutables, 'reset').setInteractive().setDisplaySize(50,50);
     resetButton.visible = false;
 
@@ -322,7 +329,11 @@ function create ()
             resetButton.visible = true;               
             runCode();                                   
     });
-    resetButton.on('pointerdown', function(){                        
+    menuButton.on('pointerdown', function(){                                              
+            modalMenu();                                   
+    });
+    resetButton.on('pointerdown', function(){       
+            resetEstado();                
             resetButton.visible = false;  
             playButton.visible = true;    
             sprite.x = initPosX;
