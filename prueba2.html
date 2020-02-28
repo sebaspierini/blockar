@@ -71,6 +71,9 @@ create ()
 }
 
 update(){    
+    if(doc.score==="menu"){                             
+        this.scene.start('sceneA');        
+    }
     //comparto la variable score para compartir los diferentes escenarios.
     //console.log(doc.score );
 }

@@ -54,8 +54,10 @@
         <category name="movement" colour="#a55b6d">
             <block type="move_right"></block>
             <block type="move_left"></block>
+            <block type="move_down"></block>
+            <block type="move_up"></block>
           </category>
-          <category name="Logic" colour="#5C81A6">
+<!--           <category name="Logic" colour="#5C81A6">
             <block type="controls_if"></block>
             <block type="logic_compare">
               <field name="OP">EQ</field>
@@ -68,8 +70,8 @@
               <field name="BOOL">TRUE</field>
             </block>
             <block type="logic_null"></block>
-            <!--<block type="logic_ternary"></block>-->
-          </category>
+            
+          </category> -->
     </xml>
     <xml id="startBlocks" style="display: none">
         </xml>
@@ -147,6 +149,8 @@ function initApi(interpreter, scope) {
       
       initInterpreterGoRight(interpreter, scope);
       initInterpreterGoLeft(interpreter, scope);
+      initInterpreterGoUp(interpreter, scope);
+      initInterpreterGoDown(interpreter, scope);
 
 /*       var wrapper = function (id) {
         id = id ? id.toString() : '';
@@ -179,11 +183,6 @@ function initApi(interpreter, scope) {
         clearTimeout(runner);
         runner = null;
       }
-    }
-
-    function resetEstado(){
-      document.getElementById("blocklyTextId").value = "" ; 
-      demoWorkspace.clear();
     }
 
     function runCode() {
@@ -330,10 +329,9 @@ function create ()
             runCode();                                   
     });
     menuButton.on('pointerdown', function(){                                              
-            modalMenu();                                   
+      score = "menu";                                 
     });
-    resetButton.on('pointerdown', function(){       
-            resetEstado();                
+    resetButton.on('pointerdown', function(){                                  
             resetButton.visible = false;  
             playButton.visible = true;    
             sprite.x = initPosX;

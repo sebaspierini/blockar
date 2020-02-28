@@ -3,7 +3,7 @@
 Blockly.Blocks['move_right'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("move right");
+        .appendField("ir a derecha");
     /*this.appendValueInput("shouldJump")
         .setCheck("Boolean")
         .setAlign(Blockly.ALIGN_RIGHT)
@@ -20,11 +20,7 @@ Blockly.Blocks['move_right'] = {
 Blockly.Blocks['move_left'] = {
     init: function() {
       this.appendDummyInput()
-          .appendField("move left");
-      /*this.appendValueInput("shouldJump")
-          .setCheck("Boolean")
-          .setAlign(Blockly.ALIGN_RIGHT)
-          .appendField("jump?");*/
+          .appendField("ir a izquierda");
       this.setInputsInline(false);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
@@ -34,30 +30,28 @@ Blockly.Blocks['move_left'] = {
     }
   };
 
-/*
-Blockly.Blocks['jump'] = {
+  Blockly.Blocks['move_up'] = {
     init: function() {
       this.appendDummyInput()
-          .appendField("jump");
-      this.setOutput(true, "Boolean");
+          .appendField("subir");
+      this.setInputsInline(false);
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
       this.setColour(330);
    this.setTooltip("");
    this.setHelpUrl("");
     }
   };
-*/
-/*
-  Blockly.Blocks['display_text'] = {
+
+  Blockly.Blocks['move_down'] = {
     init: function() {
       this.appendDummyInput()
-          .appendField("display text ");
-      this.appendValueInput("NAME")
-          .setCheck(null);
-      this.setInputsInline(true);
+          .appendField("bajar");
+      this.setInputsInline(false);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour(230);
+      this.setColour(330);
    this.setTooltip("");
    this.setHelpUrl("");
     }
-  };*/
+  };
