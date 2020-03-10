@@ -1,1 +1,1 @@
-El proyecto lo estoy corriendo en un xampp
+El proyecto lo estamos corriendo en un xampp
