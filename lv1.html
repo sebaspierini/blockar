@@ -137,8 +137,6 @@ var title;
 
 var star;
 
-var element;
-
 var myInterpreter = null;
 var runner;
 var demoWorkspace;
@@ -299,9 +297,7 @@ function create ()
     var paddingGameOver = 16;
     title = this.add.text(465, 300, '', style).setPadding(paddingGameOver);
     title.setText(gameOver);
-    title.visible = false;
-
-    element = this.add.dom(600 ,300).createFromCache('html');
+    title.visible = false;    
 
     this.anims.create({
         key: 'left',
