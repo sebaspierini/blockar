@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+}
+
+.centerBlocklyDiv{
+  height:425px; 
+  width: 400px; 
+  position: absolute;
+}
+
+.centergame{
+  height: 480px; 
+  width: 800px; 
+  float: left;
+}
+
+.blocklyText{
+  height: 195px; 
+  width: 395px;             
+  position: absolute;            
+  margin-left: 400px;
+}

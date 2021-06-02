@@ -3,11 +3,7 @@
 <head> 
     <meta charset="UTF-8" />
     <title>Juego Educativo</title>       
-     <style type="text/css">
-        body {
-            margin: 0;
-        }
-    </style> 
+    <link rel="stylesheet" href="styles/style_index.css">
     <script src="node_modules/phaser/dist/phaser.js"></script>    
 </head>
 <body>
@@ -60,7 +56,7 @@ constructor ()
 
 preload ()
 {
-    this.load.html('html', 'iframelv1.html');
+    this.load.html('html', 'levels/lv1/iframelv1.html');
 }
 
 create ()
