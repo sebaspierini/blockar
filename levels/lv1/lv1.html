@@ -26,17 +26,8 @@
   <div id="blocklyDiv" class="centerBlocklyDiv"></div>
   <textarea id="blocklyTextId" class="blocklyText"></textarea>
   <div id="gameRight" class="centergame"></div>
-  <xml id="toolbox" style="display: none">
-        <category name="Loops" colour="#5CA65C">
-            <block type="controls_repeat_ext">
-              <value name="TIMES">
-                <shadow type="math_number">
-                  <field name="NUM">10</field>
-                </shadow>
-              </value>
-            </block>
-        </category>
-        <category name="movement" colour="#a55b6d">
+  <xml id="toolbox" style="display: none">        
+        <category name="movimientos" colour="#a55b6d">
             <block type="move_right"></block>
             <block type="move_left"></block>
             <block type="move_down"></block>
@@ -102,9 +93,14 @@ var timeline;
 
 // tiempo del sprite para moverse de "a" a "b"
 var tiempoSprite = 1000;
-//titulo de juego terminado
+// Título de juego terminado
 var title;
 
+var titleOutTable;
+// Título de juego teminado.
+var titleGameComplete;
+
+var cantStars = 1;
 var star;
 var yo;
 
@@ -117,8 +113,7 @@ function preload ()
     this.load.image('reset', '../../assets/reset.png');
     this.load.image('menu', '../../assets/menu.png');
     this.load.image('star', '../../assets/star.png');
-    this.load.spritesheet('dude', '../../assets/dude.png', { frameWidth: 32, frameHeight: 48 });
-    this.load.html('html', 'lv1.html');
+    this.load.spritesheet('dude', '../../assets/dude.png', { frameWidth: 32, frameHeight: 48 });    
 }
 
 function create ()
@@ -133,7 +128,7 @@ function create ()
 
     sprite = this.physics.add.sprite(initPosX, initPosY, 'dude');
 
-    star = this.physics.add.image(initPosX, initPosY - (moveY * 2), 'star');
+    star = this.physics.add.image(initPosX + (moveX * 2), initPosY - (moveY * 2), 'star');
 
     //colision con el mundo
     sprite.setBounce(0.2);
@@ -149,16 +144,35 @@ function create ()
     timeline = this.tweens.createTimeline();    
 
     var style = {
-        fontSize: '32px',
+        fontSize: '16px',
         fontFamily: 'Arial',
-        color: '#376280',
+        color: 'white',
         backgroundColor: '#000000'
     };
     var gameOver = "Juego terminado";
     var paddingGameOver = 16;
     title = this.add.text(465, 300, '', style).setPadding(paddingGameOver);
     title.setText(gameOver);
-    title.visible = false;    
+    title.visible = false;  
+
+    titleOutTable = this.add.text(465, 300, '', style).setPadding(paddingGameOver);
+    titleOutTable.setText("Juego terminado. Se cayó del tanblero.");
+    titleOutTable.visible = false; 
+    
+    
+    
+    var style = {
+        fontSize: '16px',
+        fontFamily: 'Arial',
+        color: 'white',
+        backgroundColor: '#28B463'
+    };
+    var gameComplete = "Juego completado";
+    var paddingGameComplete = 16;
+    titleGameComplete = this.add.text(465, 300, '', style).setPadding(paddingGameComplete);
+    titleGameComplete.setText(gameComplete);
+    titleGameComplete.visible = false;  
+    
 
     this.anims.create({
         key: 'left',
@@ -196,7 +210,12 @@ function create ()
             posX = initPosX;
             posY = initPosY;     
             title.visible = false;  
-            sprite.visible = true;                 
+            titleOutTable.visible = false;
+            titleGameComplete.visible = false;
+            sprite.visible = true;       
+            cantStars = 1;               
+            /* star = yo.physics.add.image(initPosX + (moveX * 2), initPosY - (moveY * 2), 'star');    
+            yo.physics.add.overlap(sprite, star, collectStar, null, this); */  
     },this);
 }
 
@@ -290,30 +309,33 @@ function update ()
     }
     if(sprite.x > (initPosX + (moveX * 5))){
         console.log("se cayo a la derecha");
-        title.visible = true;  
-        sprite.visible = false;
+        titleOutTable.visible = true;  
+        sprite.visible = false;        
     }
     if(sprite.x < initPosX){
         console.log("se cayo a la izq");
-        title.visible = true;  
-        sprite.visible = false;
+        titleOutTable.visible = true;  
+        sprite.visible = false;        
     }
-    if(sprite.y > initPosY){
-        console.log("se cayo abajo");        
+    if(sprite.y > initPosY){        
+        console.log("se cayo abajo", sprite.y, initPosY);        
         sprite.visible = false;
-        title.visible = true;  
+        titleOutTable.visible = true;            
     }
     if(sprite.y < (initPosY - (moveY * 5)) ){
         console.log("se cayo arriba");   
-        title.visible = true;     
-        sprite.visible = false;
+        titleOutTable.visible = true;     
+        sprite.visible = false;        
     }
 }
 
 function collectStar (sprite, star)
 {
-    star.disableBody(true, true);
-    console.log("choca con star");
+    cantStars--;
+    if(cantStars === 0){
+        star.disableBody(false, true);        
+        titleGameComplete.visible = true;    
+    }    
 }
 
 </script>
