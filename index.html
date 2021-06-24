@@ -9,11 +9,12 @@
 <body>
     
 <script type="text/javascript">
-class SceneA extends Phaser.Scene {
+// Menú principal
+class SceneMenu extends Phaser.Scene {
 
 constructor ()
 {
-    super({ key: 'sceneA' });
+    super({ key: 'SceneMenu' });
 }
 
 preload ()
@@ -28,34 +29,35 @@ create ()
     
     var lv1Click = this.add.image(200, 200, 'lv1').setInteractive().setDisplaySize(50,50);
     var lv2Click = this.add.image(400, 200, 'lv2').setInteractive().setDisplaySize(50,50);
-    var lv3Click = this.add.image(600, 200, 'lv3').setInteractive().setDisplaySize(50,50);
-    
+    var lv3Click = this.add.image(600, 200, 'lv3').setInteractive().setDisplaySize(50,50);       
     
     lv1Click.on('pointerdown', function(){                       
-        this.scene.start('sceneB');    
+        this.scene.start('sceneA');    
     }, this);
 
-    lv2Click.on('pointerdown', function(){                       
-        this.scene.start('sceneC');    
+    lv2Click.on('pointerdown', function(){                                      
+        this.scene.start('sceneB');    
     }, this);
     
     lv3Click.on('pointerdown', function(){                       
-        this.scene.start('sceneB');    
+        //this.scene.start('sceneB');    
     }, this);
 
+    
 }
 
 }
+// LV1
 var doc
-class SceneB extends Phaser.Scene { 
+class SceneA extends Phaser.Scene { 
 
 constructor ()
 {
-    super({ key: 'sceneB' });
+    super({ key: 'sceneA' });
 }
 
 preload ()
-{
+{    
     this.load.html('html', 'levels/lv1/iframelv1.html');
 }
 
@@ -68,23 +70,23 @@ create ()
 
 update(){    
     if(doc.score==="menu"){                             
-        this.scene.start('sceneA');        
+        this.scene.start('SceneMenu');        
     }
     //comparto la variable score para compartir los diferentes escenarios.
-    //console.log(doc.score );
+    
 }
 
 }
-class SceneC extends Phaser.Scene { 
+class SceneB extends Phaser.Scene { 
 
 constructor ()
 {
-    super({ key: 'sceneC' });
+    super({ key: 'sceneB' });
 }
 
 preload ()
-{
-    this.load.html('html', 'iframelv2.html');
+{    
+    this.load.html('html', 'levels/lv2/iframelv2.html');
 }
 
 create ()
@@ -94,9 +96,12 @@ create ()
     doc = (x.contentWindow || x.contentDocument);
 }
 
-update(){    
+update(){ 
+    if(doc.score==="menu"){                             
+        this.scene.start('SceneMenu');        
+    }   
     //comparto la variable score para compartir los diferentes escenarios.
-    //console.log(doc.score );
+    
 }
 
 }
@@ -119,7 +124,7 @@ var config = {
             debug: false
         }
     },  
-    scene: [ SceneA, SceneB, SceneC ]
+    scene: [ SceneMenu, SceneA, SceneB ]
 };
 // declaro la creacion del juego
 var game = new Phaser.Game(config);

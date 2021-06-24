@@ -1,24 +1,34 @@
-<!doctype html> 
+
+      <!doctype html> 
 <html lang="en"> 
 <head> 
     <meta charset="UTF-8" />
-      <title>BlockAr - Nivel 2</title>             
-      <link rel="stylesheet" href="style_levels.css">
-      <script src="acorn_interpreter.js"></script>
-      <script src="node_modules/blockly/blockly_compressed.js"></script>
-      <script src="node_modules/blockly/blocks_compressed.js"></script>
-      <script src="node_modules/blockly/javascript_compressed.js"></script>
-      <script src="node_modules/blockly/msg/es.js"></script>    
-      <script src="movement_block.js"></script>
-      <script src="movement_stub.js"></script>
-      <script src="node_modules/phaser/dist/phaser.js"></script>    
+    <title>BlockAr - Nivel 1</title>             
+    <link rel="stylesheet" href="../../styles/style_levels.css">
+    <script src="../../js/acorn_interpreter.js"></script>    
+    <!-- Se carga el espacio de trabajo de tamaño fijo -->
+    <script src="../../node_modules/blockly/blockly_compressed.js"></script>
+    <script src="../../node_modules/blockly/blocks_compressed.js"></script>
+    <!-- Se carga generador de código para javascript-->
+    <script src="../../node_modules/blockly/javascript_compressed.js"></script>
+    <!-- Se carga el idioma de los bloques -->
+    <script src="../../node_modules/blockly/msg/es.js"></script>   
+    <!-- Seteo los movimientos a traves de los bloques --> 
+    <script src="../../js/movement_block.js"></script>
+    <script src="../../js/movement_stub.js"></script>
+
+    <script src="../../node_modules/phaser/dist/phaser.js"></script>    
+    <!-- Declaro el javascript que contiene la inicialización de blockly -->
+    <script src="../../js/init_blockly.js"></script>
+      
 </head>
 <body>
   
   <div id="blocklyDiv" class="centerBlocklyDiv"></div>
+  <textarea id="blocklyTextId" class="blocklyText"></textarea>
   <div id="gameRight" class="centergame"></div>
   <xml id="toolbox" style="display: none">
-        <category name="Loops" colour="#5CA65C">
+        <category name="Iterador" colour="#5CA65C">
             <block type="controls_repeat_ext">
               <value name="TIMES">
                 <shadow type="math_number">
@@ -27,25 +37,13 @@
               </value>
             </block>
         </category>
-        <category name="movement" colour="#a55b6d">
-            <block type="move_right"></block>
-            <block type="move_left"></block>
-          </category>
-          <category name="Logic" colour="#5C81A6">
-            <block type="controls_if"></block>
-            <block type="logic_compare">
-              <field name="OP">EQ</field>
-            </block>
-            <block type="logic_operation">
-              <field name="OP">AND</field>
-            </block>
-            <block type="logic_negate"></block>
-            <block type="logic_boolean">
-              <field name="BOOL">TRUE</field>
-            </block>
-            <block type="logic_null"></block>
-            <!--<block type="logic_ternary"></block>-->
-          </category>
+        <category name="Secuencia" colour="#a55b6d">
+          <block type="move_right"></block>
+          <block type="move_left"></block>
+          <block type="move_down"></block>
+          <block type="move_up"></block>
+        </category>
+          
     </xml>
     <xml id="startBlocks" style="display: none">
         </xml>
@@ -76,20 +74,21 @@ var widthGame = 800;
 var hightGame = 480;
 // ubicacion sprite al comienzo
 var sprite;
-const initPosX = 434;
-const initPosY = 364;
-// ubicacion sobre el eje Y de los botones que ejecutan las acciones
-var posYExecutables = 30;
-var posYInstructions = 430;
-//inicia tablero
-var horizontal = 600;
-var vertical = 230;
-var width = 400;
-var hight = 350;
+//inicia tablero 195 es el valor de height + 5 por un defasaje
+var horizontal = widthGame - (( widthGame / 2 ) / 2);
+var vertical = hightGame - ((hightGame - (195 + 5)) / 2);
+var width = widthGame / 2;
+var hight = hightGame - (195 + 5);
 var cantCellVertical = 6;
 var cantCellHorizontal = 5;
 var cellWidth = width / cantCellVertical;
 var cellhight = hight / cantCellHorizontal;
+// ubicacion sobre el eje Y de los botones que ejecutan las acciones
+var posYExecutables = hightGame - (cellhight / 2);
+var posXExecutables = cellWidth / 2;
+// posicion de sprite de inicio
+const initPosX = width + (cellWidth / 2);
+const initPosY = hightGame - (cellhight / 2);
 // movimiento en tablero
 const moveX = cellWidth;
 const moveY = cellhight;
@@ -105,132 +104,27 @@ var timeline;
 
 // tiempo del sprite para moverse de "a" a "b"
 var tiempoSprite = 1000;
-//titulo de juego terminado
+// Título de juego terminado
 var title;
 
+var titleOutTable;
+// Título de juego teminado.
+var titleGameComplete;
+
+var cantStars = 1;
 var star;
-
-var element;
-
-var myInterpreter = null;
-var runner;
-var demoWorkspace;
-var latestCode = '';
 var yo;
 
-function initApi(interpreter, scope) {
-      
-      initInterpreterGoRight(interpreter, scope);
-      initInterpreterGoLeft(interpreter, scope);
-
-/*       var wrapper = function (id) {
-        id = id ? id.toString() : '';
-        return interpreter.createPrimitive(highlightBlock(id));
-      };
-      interpreter.setProperty(scope, 'highlightBlock',
-        interpreter.createNativeFunction(wrapper)); */
-    }
-
-/*      function highlightBlock(id) {
-      demoWorkspace.highlightBlock(id);
-    }  */
-
-    function resetStepUi() {
-      demoWorkspace.highlightBlock(null);      
-    }
-
-    function generateCodeAndLoadIntoInterpreter() {
-      // Generate JavaScript code and parse it.
-      /* Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
-      Blockly.JavaScript.addReservedWords('highlightBlock'); */
-      latestCode = Blockly.JavaScript.workspaceToCode(demoWorkspace);
-      
-      console.log(latestCode);
-      resetStepUi();
-    }
-
-    function resetInterpreter() {
-      myInterpreter = null;
-      if (runner) {
-        clearTimeout(runner);
-        runner = null;
-      }
-    }
-
-    function runCode() {
-      if (!myInterpreter) {
-        // First statement of this code.
-        // Clear the program output.
-        resetStepUi();        
-
-        // And then show generated code in an alert.
-        // In a timeout to allow the outputArea.value to reset first.
-        setTimeout(function () {
-
-
-          // Begin execution
-          //highlightPause = false;
-          myInterpreter = new Interpreter(latestCode, initApi);
-          runner = function () {
-            if (myInterpreter) {
-              var hasMore = myInterpreter.run();
-              if (hasMore) {
-                // Execution is currently blocked by some async call.
-                // Try again later.
-                setTimeout(runner, 10);
-              } else {
-                // Program is complete.
-                //outputArea.value += '\n\n<< Program complete >>';
-                resetInterpreter();
-                resetStepUi();
-              }
-            }
-          };
-          runner();
-        }, 1);
-        return;
-      }
-    }
-
-    demoWorkspace = Blockly.inject('blocklyDiv',
-      {        
-        toolbox: document.getElementById('toolbox'), 
-        grid:
-         {spacing: 20,
-          length: 3,
-          colour: '#ccc',
-          snap: true},            
-        zoom:
-            {controls: true,
-              wheel: true,
-              startScale: 1.0,
-              maxScale: 2,
-              minScale: 0.6,
-              scaleSpeed: 1.2},
-        trashcan: true
-      });
-    Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
-      demoWorkspace);    
-    Blockly.JavaScript.addReservedWords('exit');
-
-    // Load the interpreter now, and upon future changes.
-    generateCodeAndLoadIntoInterpreter();
-    demoWorkspace.addChangeListener(function (event) {
-      if (!(event instanceof Blockly.Events.Ui)) {
-        // Something changed. Parser needs to be reloaded.
-        resetInterpreter();
-        generateCodeAndLoadIntoInterpreter();
-      }
-    });
+inject_blockly();
 
 function preload ()
 {
-    this.load.image('sky', 'assets/sky.png');
-    this.load.image('play', 'assets/play.png');
-    this.load.image('reset', 'assets/reset.png');
-    this.load.image('star', 'assets/star.png');
-    this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
-    this.load.html('html', 'lv2.html');
+    this.load.image('sky', '../../assets/sky.png');
+    this.load.image('play', '../../assets/play.png');
+    this.load.image('reset', '../../assets/reset.png');
+    this.load.image('menu', '../../assets/menu.png');
+    this.load.image('star', '../../assets/star.png');
+    this.load.spritesheet('dude', '../../assets/dude.png', { frameWidth: 32, frameHeight: 48 });    
 }
 
 function create ()
@@ -245,7 +139,7 @@ function create ()
 
     sprite = this.physics.add.sprite(initPosX, initPosY, 'dude');
 
-    star = this.physics.add.image(initPosX, initPosY - (moveY * 2), 'star');
+    star = this.physics.add.image(initPosX + (moveX * 2), initPosY - (moveY * 2), 'star');
 
     //colision con el mundo
     sprite.setBounce(0.2);
@@ -253,25 +147,43 @@ function create ()
 
     this.physics.add.overlap(sprite, star, collectStar, null, this);
 
-    playButton = this.add.image(430, posYExecutables, 'play').setInteractive().setDisplaySize(50,50);
-    resetButton = this.add.image(430 + cellWidth, posYExecutables, 'reset').setInteractive().setDisplaySize(50,50);
+    playButton = this.add.image(posXExecutables, posYExecutables, 'play').setInteractive().setDisplaySize(50,50);
+    menuButton = this.add.image((widthGame / 2) - (cellWidth / 2), posYExecutables, 'menu').setInteractive().setDisplaySize(50,50);
+    resetButton = this.add.image(posXExecutables + cellWidth, posYExecutables, 'reset').setInteractive().setDisplaySize(50,50);
     resetButton.visible = false;
 
     timeline = this.tweens.createTimeline();    
 
     var style = {
-        fontSize: '32px',
+        fontSize: '16px',
         fontFamily: 'Arial',
-        color: '#376280',
+        color: 'white',
         backgroundColor: '#000000'
     };
     var gameOver = "Juego terminado";
     var paddingGameOver = 16;
     title = this.add.text(465, 300, '', style).setPadding(paddingGameOver);
     title.setText(gameOver);
-    title.visible = false;
+    title.visible = false;  
 
-    element = this.add.dom(600 ,300).createFromCache('html');
+    titleOutTable = this.add.text(465, 300, '', style).setPadding(paddingGameOver);
+    titleOutTable.setText("Juego terminado. Se cayó del tanblero.");
+    titleOutTable.visible = false; 
+    
+    
+    
+    var style = {
+        fontSize: '16px',
+        fontFamily: 'Arial',
+        color: 'white',
+        backgroundColor: '#28B463'
+    };
+    var gameComplete = "Juego completado";
+    var paddingGameComplete = 16;
+    titleGameComplete = this.add.text(465, 300, '', style).setPadding(paddingGameComplete);
+    titleGameComplete.setText(gameComplete);
+    titleGameComplete.visible = false;  
+    
 
     this.anims.create({
         key: 'left',
@@ -298,7 +210,10 @@ function create ()
             resetButton.visible = true;               
             runCode();                                   
     });
-    resetButton.on('pointerdown', function(){                        
+    menuButton.on('pointerdown', function(){                                              
+      score = "menu";                                 
+    });
+    resetButton.on('pointerdown', function(){                                  
             resetButton.visible = false;  
             playButton.visible = true;    
             sprite.x = initPosX;
@@ -306,7 +221,12 @@ function create ()
             posX = initPosX;
             posY = initPosY;     
             title.visible = false;  
-            sprite.visible = true;                 
+            titleOutTable.visible = false;
+            titleGameComplete.visible = false;
+            sprite.visible = true;       
+            cantStars = 1;               
+            /* star = yo.physics.add.image(initPosX + (moveX * 2), initPosY - (moveY * 2), 'star');    
+            yo.physics.add.overlap(sprite, star, collectStar, null, this); */  
     },this);
 }
 
@@ -400,30 +320,33 @@ function update ()
     }
     if(sprite.x > (initPosX + (moveX * 5))){
         console.log("se cayo a la derecha");
-        title.visible = true;  
-        sprite.visible = false;
+        titleOutTable.visible = true;  
+        sprite.visible = false;        
     }
     if(sprite.x < initPosX){
         console.log("se cayo a la izq");
-        title.visible = true;  
-        sprite.visible = false;
+        titleOutTable.visible = true;  
+        sprite.visible = false;        
     }
-    if(sprite.y > initPosY){
-        console.log("se cayo abajo");        
+    if(sprite.y > initPosY){        
+        console.log("se cayo abajo", sprite.y, initPosY);        
         sprite.visible = false;
-        title.visible = true;  
+        titleOutTable.visible = true;            
     }
     if(sprite.y < (initPosY - (moveY * 5)) ){
         console.log("se cayo arriba");   
-        title.visible = true;     
-        sprite.visible = false;
+        titleOutTable.visible = true;     
+        sprite.visible = false;        
     }
 }
 
 function collectStar (sprite, star)
 {
-    star.disableBody(true, true);
-    console.log("choca con star");
+    cantStars--;
+    if(cantStars === 0){
+        star.disableBody(false, true);        
+        titleGameComplete.visible = true;    
+    }    
 }
 
 </script>
