@@ -29,14 +29,23 @@
     <div id="blocklyDiv" class="centerBlocklyDiv"></div>
     <textarea id="blocklyTextId" class="blocklyText"></textarea>
     <div id="gameRight" class="centergame"></div>
-    <xml id='toolbox' style='display: none'>        
-          <category name='movimientos' colour='#a55b6d'>
+    <xml id='toolbox' style='display: none'> 
+        <category name="Iterador" toolboxitemid="loop_for" colour="#5CA65C">
+            <block type="controls_repeat_ext">
+              <value name="TIMES">
+                <shadow type="math_number">
+                  <field name="NUM">10</field>
+                </shadow>
+              </value>
+            </block>
+        </category>       
+          <category name='movimientos' toolboxitemid="movement_sprite" colour='#a55b6d'>
               <block type='move_right'></block>
               <block type='move_left'></block>
               <block type='move_down'></block>
               <block type='move_up'></block>
             </category>
-      </xml>
+      </xml>      
       <xml id='startBlocks' style='display: none'></xml>
     
 <script type="text/javascript">
@@ -98,10 +107,16 @@ function ocultarBloques(){
     $("#blocklyTextId").hide();
 }
 
-function mostrarBloques(){
+function mostrarBloques(){    
     $("#blocklyDiv").show();
     $("#blocklyTextId").show();
 }
+
+function ocultarCategorias(){
+    demoWorkspace.getToolbox().getToolboxItemById('loop_for').hide();
+}
+
+ocultarCategorias();
 
 ocultarBloques();
 

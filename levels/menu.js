@@ -20,13 +20,17 @@ class SceneMenu extends Phaser.Scene {
         var lv3Click = this.add.image(600, 200, 'lv3').setInteractive().setDisplaySize(50,50);       
         
         lv1Click.on('pointerdown', function(){  
-            mostrarBloques();
+            mostrarBloques();            
+            demoWorkspace.getToolbox().getToolboxItemById('loop_for').hide();
             score = '1';            
             this.scene.start('sceneA');    
         }, this);
     
-        lv2Click.on('pointerdown', function(){                                      
-            //this.scene.start('sceneB');    
+        lv2Click.on('pointerdown', function(){   
+            mostrarBloques();
+            demoWorkspace.getToolbox().getToolboxItemById('loop_for').show();            
+            score = '1';                                     
+            this.scene.start('sceneA');    
         }, this);
         
         lv3Click.on('pointerdown', function(){                       

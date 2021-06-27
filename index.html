@@ -1,1 +1,62 @@
-<iframe id="iframeid" src="menu.html" width="800" height="480" scrolling="no"></iframe>
+<!doctype html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8" />
+    <title>Juego Educativo</title>           
+    <script src="node_modules/phaser/dist/phaser.js"></script>    
+</head>
+<body>
+    
+<script type="text/javascript">
+
+// LV1
+var doc
+class SceneMenu extends Phaser.Scene { 
+
+constructor ()
+{
+    super({ key: 'sceneA' });
+}
+
+preload ()
+{    
+    this.load.html('html', 'iframe_menu.html');
+}
+
+create ()
+{
+    this.add.dom(400 ,240).createFromCache('html');        
+}
+
+update(){    
+    
+}
+
+}
+var config = {
+    type: Phaser.AUTO,
+    dom: {
+        createContainer: true
+    },
+    scale: {
+        mode: Phaser.Scale.FIT,
+        parent: 'phaser-menu',
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        width: 800,
+        height: 480
+    },
+    physics: {
+        default: 'arcade',
+        arcade: {
+            //gravity: { y: -300 },
+            debug: false
+        }
+    },  
+    scene: [ SceneMenu ]
+};
+// declaro la creacion del juego
+var game = new Phaser.Game(config);
+
+</script>
+</body>
+</html>

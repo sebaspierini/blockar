@@ -3,7 +3,6 @@ var runner;
 var demoWorkspace;
 var latestCode = '';
 
-
 function initApi(interpreter, scope) {
     
     initInterpreterGoRight(interpreter, scope);
@@ -87,8 +86,9 @@ function inject_blockly(){
     });
     
     Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
-        demoWorkspace);    
-    Blockly.JavaScript.addReservedWords('exit');
+        demoWorkspace);            
+    
+        Blockly.JavaScript.addReservedWords('exit');
 
     // Load the interpreter now, and upon future changes.
     generateCodeAndLoadIntoInterpreter();
