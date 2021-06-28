@@ -16,6 +16,7 @@
     <!-- Seteo los movimientos a traves de los bloques --> 
     <script src="js/movement_block.js"></script>
     <script src="js/movement_stub.js"></script>
+    <script src="js/movement_sprite.js"></script>
 
     <script src="node_modules/phaser/dist/phaser.js"></script>    
     <!-- Declaro el javascript que contiene la inicialización de blockly -->
@@ -30,6 +31,18 @@
     <textarea id="blocklyTextId" class="blocklyText"></textarea>
     <div id="gameRight" class="centergame"></div>
     <xml id='toolbox' style='display: none'> 
+
+        <category name='movimientos' toolboxitemid="movement_sprite" colour='#a55b6d'>
+            <block type='move_right'></block>
+            <block type='move_left'></block>
+            <block type='move_down'></block>
+            <block type='move_up'></block>
+        </category>
+
+        <category name='operaciones' toolboxitemid="function_sprite" colour='20'>
+            <block type='get_element'></block>
+        </category>
+
         <category name="Iterador" toolboxitemid="loop_for" colour="#5CA65C">
             <block type="controls_repeat_ext">
               <value name="TIMES">
@@ -38,19 +51,29 @@
                 </shadow>
               </value>
             </block>
-        </category>       
-          <category name='movimientos' toolboxitemid="movement_sprite" colour='#a55b6d'>
-              <block type='move_right'></block>
-              <block type='move_left'></block>
-              <block type='move_down'></block>
-              <block type='move_up'></block>
+        </category>                 
+
+        <category name="Condicional" toolboxitemid="logic" colour="%{BKY_LOGIC_HUE}">
+            <category name="If" colour="green">
+                <block type="controls_if"></block>
+                <block type="controls_if">
+                <mutation else="1"></mutation>
+                </block>
+                <block type="controls_if">
+                <mutation elseif="1" else="1"></mutation>
+                </block>
             </category>
-      </xml>      
+            <category name="Boolean" colour="%{BKY_LOGIC_HUE}">
+                <block type="logic_compare"></block>
+                <block type="logic_operation"></block>                
+            </category>
+        </category>
+
+      </xml> 
+
       <xml id='startBlocks' style='display: none'></xml>
     
 <script type="text/javascript">
-
-
 
 var score = "menu";
 var widthGame = 800;
@@ -121,10 +144,7 @@ ocultarCategorias();
 ocultarBloques();
 
 var config = {
-    type: Phaser.AUTO,
-    /* dom: {
-        createContainer: true
-    }, */
+    type: Phaser.AUTO,    
     scale: {
         width: 800,
         height: 480,
@@ -134,8 +154,7 @@ var config = {
     },    
     physics: {
         default: 'arcade',
-        arcade: {
-            //gravity: { y: -300 },
+        arcade: {            
             debug: false
         }
     },  
@@ -143,98 +162,6 @@ var config = {
 };
 // declaro la creacion del juego
 var game = new Phaser.Game(config);
-
-function spriteRight(){
-    timeline.add({
-        targets: sprite,        
-        x: {
-            getEnd: function (sprite, key, value)
-            {                                
-                posX += moveX;                
-                return posX;
-            },
-            getStart: function (sprite, key, value)
-            {                     
-                sprite.anims.play('right');                            
-                return posX;
-            }
-        },
-        ease: 'Power1',
-        duration: tiempoSprite
-    });
-}
-
-function spriteLeft(){
-    
-    timeline.add({
-        targets: sprite,              
-        x: {
-            getEnd: function (sprite, key, value)
-            {                                
-                posX -= moveX;                
-                return posX;
-            },
-            getStart: function (sprite, key, value)
-            {          
-                sprite.anims.play('left');                      
-                return posX;
-            }
-        },
-        ease: 'Power1',
-        duration: tiempoSprite
-    });
-}
-
-function spriteUp(){
-    
-    timeline.add({
-        targets: sprite,              
-        y: {
-            getEnd: function (sprite, key, value)
-            {                                
-                posY -= moveY;                
-                return posY;
-            },
-            getStart: function (sprite, key, value)
-            {          
-                sprite.anims.play('turn');                      
-                return posY;
-            }
-        },
-        ease: 'Power1',
-        duration: tiempoSprite
-    });
-}
-
-function spriteDown(){
-    
-    timeline.add({
-        targets: sprite,              
-        y: {
-            getEnd: function (sprite, key, value)
-            {                                
-                posY += moveY;                
-                return posY;
-            },
-            getStart: function (sprite, key, value)
-            {          
-                sprite.anims.play('turn');                      
-                return posY;
-            }
-        },        
-        ease: 'Power1',
-        duration: tiempoSprite
-    });
-}
-
-function collectStar (sprite, star)
-{
-    cantStars--;
-    if(cantStars === 0){
-        star.disableBody(false, true);        
-        titleGameComplete.visible = true;    
-    }    
-}
 
 </script>
 </body>

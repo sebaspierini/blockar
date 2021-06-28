@@ -14,7 +14,11 @@ class SceneMenu extends Phaser.Scene {
     
     create ()
     {
+        // Oculto las opciones de bloques y el textarea
         ocultarBloques();
+        // Limpio el area de bloques
+        demoWorkspace.clear();
+        
         var lv1Click = this.add.image(200, 200, 'lv1').setInteractive().setDisplaySize(50,50);
         var lv2Click = this.add.image(400, 200, 'lv2').setInteractive().setDisplaySize(50,50);
         var lv3Click = this.add.image(600, 200, 'lv3').setInteractive().setDisplaySize(50,50);       
@@ -22,6 +26,7 @@ class SceneMenu extends Phaser.Scene {
         lv1Click.on('pointerdown', function(){  
             mostrarBloques();            
             demoWorkspace.getToolbox().getToolboxItemById('loop_for').hide();
+            
             score = '1';            
             this.scene.start('sceneA');    
         }, this);
@@ -34,7 +39,11 @@ class SceneMenu extends Phaser.Scene {
         }, this);
         
         lv3Click.on('pointerdown', function(){                       
-            //this.scene.start('sceneB');    
+            mostrarBloques();
+            demoWorkspace.getToolbox().getToolboxItemById('loop_for').hide();            
+            demoWorkspace.getToolbox().getToolboxItemById('logic').show();
+            score = '1';                                     
+            this.scene.start('sceneA');   
         }, this);
     
         

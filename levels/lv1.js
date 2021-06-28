@@ -1,3 +1,17 @@
+
+function collectStar (sprite, star)
+{
+    cantStars--;
+    if(cantStars === 0){
+        star.disableBody(true, true);        
+        titleGameComplete.visible = true;    
+    }    
+}
+
+function spriteGetElement(){
+
+}
+
 class SceneA extends Phaser.Scene { 
 
     constructor ()
@@ -27,11 +41,11 @@ class SceneA extends Phaser.Scene {
 
         sprite = this.physics.add.sprite(initPosX, initPosY, 'dude');
 
-        star = this.physics.add.image(initPosX + (moveX * 2), initPosY - (moveY * 2), 'star');
-
         //colision con el mundo
         sprite.setBounce(0.2);
         sprite.setCollideWorldBounds(true);
+
+        star = this.physics.add.image(initPosX + (moveX * 1), initPosY /* - (moveY * 2) */, 'star');
 
         this.physics.add.overlap(sprite, star, collectStar, null, this);
 
@@ -57,8 +71,6 @@ class SceneA extends Phaser.Scene {
         titleOutTable = this.add.text(465, 300, '', style).setPadding(paddingGameOver);
         titleOutTable.setText("Juego terminado. Se cayó del tanblero.");
         titleOutTable.visible = false; 
-        
-        
         
         var style = {
             fontSize: '16px',
@@ -99,7 +111,7 @@ class SceneA extends Phaser.Scene {
                 runCode();                                   
         });
         menuButton.on('pointerdown', function(){                                              
-        score = "menu";                                 
+            score = "menu";                                 
         });
         resetButton.on('pointerdown', function(){                                  
                 resetButton.visible = false;  
@@ -112,9 +124,9 @@ class SceneA extends Phaser.Scene {
                 titleOutTable.visible = false;
                 titleGameComplete.visible = false;
                 sprite.visible = true;       
-                cantStars = 1;               
-                /* star = yo.physics.add.image(initPosX + (moveX * 2), initPosY - (moveY * 2), 'star');    
-                yo.physics.add.overlap(sprite, star, collectStar, null, this); */  
+                cantStars = 1;        
+                star = this.physics.add.image(initPosX + (moveX * 1), initPosY /* - (moveY * 2) */, 'star');
+                this.physics.add.overlap(sprite, star, collectStar, null, this);                                                              
         },this);
     }
     
@@ -142,6 +154,7 @@ class SceneA extends Phaser.Scene {
             titleOutTable.visible = true;     
             sprite.visible = false;        
         }   
+        // Me traslado al menu
         if(score==="menu"){                             
             this.scene.start('SceneMenu');        
         }

@@ -4,69 +4,85 @@ var demoWorkspace;
 var latestCode = '';
 
 function initApi(interpreter, scope) {
-    
+    // var wrapper = function(id) {
+    //     id = id ? id.toString() : '';
+    //     return interpreter.createPrimitive(highlightBlock(id));
+    //   };
+    //   interpreter.setProperty(scope, 'highlightBlock',
+    //       interpreter.createNativeFunction(wrapper));
+
     initInterpreterGoRight(interpreter, scope);
     initInterpreterGoLeft(interpreter, scope);
     initInterpreterGoUp(interpreter, scope);
     initInterpreterGoDown(interpreter, scope);
-
+    initInterpreterGetElement(interpreter, scope);
 }
 
-function resetStepUi() {
-    demoWorkspace.highlightBlock(null);      
-}
+/* function highlightBlock(id) {
+    demoWorkspace.highlightBlock(id);    
+  } */
+
+/* function resetStepUi() {
+    demoWorkspace.highlightBlock(null);  
+} */
 
 function generateCodeAndLoadIntoInterpreter() {
-    // Generate JavaScript code and parse it.
+    
+    //Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
+    //Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
+    //Blockly.JavaScript.addReservedWords('highlightBlock');
+
+    // Genera codigo JavaScript y lo parsea.
     latestCode = Blockly.JavaScript.workspaceToCode(demoWorkspace);
-    document.getElementById("blocklyTextId").value = latestCode;      
-    resetStepUi();
+    
+    document.getElementById("blocklyTextId").value = latestCode;     
+         
+    //resetStepUi();
 }
 
 function resetInterpreter() {
     myInterpreter = null;
     if (runner) {
-    clearTimeout(runner);
-    runner = null;
+        clearTimeout(runner);
+        runner = null;
     }
 }
 
 function runCode() {
     if (!myInterpreter) {
-    // First statement of this code.
-    // Clear the program output.
-    resetStepUi();        
+    
+        //resetStepUi();        
 
-    // And then show generated code in an alert.
-    // In a timeout to allow the outputArea.value to reset first.
-    setTimeout(function () {
+        // And then show generated code in an alert.
+        // In a timeout to allow the outputArea.value to reset first.
+        setTimeout(function () {
 
-
-        // Begin execution
-        //highlightPause = false;
-        myInterpreter = new Interpreter(latestCode, initApi);
-        runner = function () {
-        if (myInterpreter) {
-            var hasMore = myInterpreter.run();
-            if (hasMore) {
-            // Execution is currently blocked by some async call.
-            // Try again later.
-            setTimeout(runner, 10);
-            } else {
-            // Program is complete.
-            //outputArea.value += '\n\n<< Program complete >>';
-            resetInterpreter();
-            resetStepUi();
+            // Begin execution
+            
+            myInterpreter = new Interpreter(latestCode, initApi);
+            runner = function () {
+            if (myInterpreter) {
+                var hasMore = myInterpreter.run();
+                if (hasMore) {
+                    // Execution is currently blocked by some async call.
+                    // Try again later.
+                    setTimeout(runner, 10);
+                } else {
+                    // Program is complete.
+                    //outputArea.value += '\n\n<< Program complete >>';
+                    resetInterpreter();
+                    //resetStepUi();
+                }
             }
-        }
-        };
-        runner();
-    }, 1);
-    return;
+            };
+            runner();
+        }, 1);
+        return;
     }
 }
 
 function inject_blockly(){
+    // Inyecta un editor Blockly en el elemento contenedor especificado
     demoWorkspace = Blockly.inject('blocklyDiv',
     {        
     toolbox: document.getElementById('toolbox'), 
@@ -85,18 +101,19 @@ function inject_blockly(){
     trashcan: true
     });
     
+    // Decodifica un DOM XML y crea bloques en el espacio de trabajo
     Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
         demoWorkspace);            
     
-        Blockly.JavaScript.addReservedWords('exit');
+    //Blockly.JavaScript.addReservedWords('exit');
 
     // Load the interpreter now, and upon future changes.
-    generateCodeAndLoadIntoInterpreter();
+    //generateCodeAndLoadIntoInterpreter();
     demoWorkspace.addChangeListener(function (event) {
         if (!(event instanceof Blockly.Events.Ui)) {
-        // Something changed. Parser needs to be reloaded.
-        resetInterpreter();
-        generateCodeAndLoadIntoInterpreter();
+            // Something changed. Parser needs to be reloaded.
+            resetInterpreter();
+            generateCodeAndLoadIntoInterpreter();
         }
     });
 }

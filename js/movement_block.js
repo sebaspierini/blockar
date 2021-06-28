@@ -55,3 +55,26 @@ Blockly.Blocks['move_left'] = {
    this.setHelpUrl("");
     }
   };
+
+  Blockly.Blocks['get_element'] = {
+    init: function() {
+      this.appendDummyInput()
+          .appendField("tomar_elemento");
+      this.setInputsInline(true);
+      this.setPreviousStatement(true, null);
+      this.setColour(20);
+   this.setTooltip("");
+   this.setHelpUrl("");
+    }
+  };
+
+/*   Blockly.Blocks['there_is_element'] = {
+    init: function() {
+      this.appendDummyInput()
+          .appendField("hay_elemento");
+      this.setOutput(true, "Boolean");
+      this.setColour(20);
+   this.setTooltip("");
+   this.setHelpUrl("");
+    }
+  }; */
