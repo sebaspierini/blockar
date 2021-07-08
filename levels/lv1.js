@@ -1,15 +1,30 @@
 
+var x_star;
+var y_star;
+
+/* function gameBegin(){
+    comenzarJuego = true;
+}
+
+function gameEnd(){
+    terminarJuego = true;
+} */
+
 function collectStar (sprite, star)
 {
-    cantStars--;
-    if(cantStars === 0){
-        star.disableBody(true, true);        
+    if (tomarElemento){
+        star.disableBody(true, true); 
+        cantStars--; 
+        tomarElemento = false;          
+    }
+    
+    if(cantStars === 0){        
         titleGameComplete.visible = true;    
     }    
 }
 
 function spriteGetElement(){
-
+    tomarElemento = true;
 }
 
 class SceneA extends Phaser.Scene { 
@@ -44,8 +59,10 @@ class SceneA extends Phaser.Scene {
         //colision con el mundo
         sprite.setBounce(0.2);
         sprite.setCollideWorldBounds(true);
-
-        star = this.physics.add.image(initPosX + (moveX * 1), initPosY /* - (moveY * 2) */, 'star');
+        
+        x_star = initPosX + (moveX * 1);
+        y_star = initPosY /* - (moveY * 2) */;
+        star = this.physics.add.image(x_star, y_star, 'star');
 
         this.physics.add.overlap(sprite, star, collectStar, null, this);
 
@@ -106,9 +123,13 @@ class SceneA extends Phaser.Scene {
         });
 
         playButton.on('pointerdown', function(){                       
-                playButton.visible = false;
-                resetButton.visible = true;               
-                runCode();                                   
+                
+                //if(comenzarJuego){
+                    playButton.visible = false;
+                    resetButton.visible = true; 
+                    runCode();
+                //}
+                                                   
         });
         menuButton.on('pointerdown', function(){                                              
             score = "menu";                                 
@@ -125,8 +146,8 @@ class SceneA extends Phaser.Scene {
                 titleGameComplete.visible = false;
                 sprite.visible = true;       
                 cantStars = 1;        
-                star = this.physics.add.image(initPosX + (moveX * 1), initPosY /* - (moveY * 2) */, 'star');
-                this.physics.add.overlap(sprite, star, collectStar, null, this);                                                              
+                star.enableBody(true,x_star,y_star,true,true);
+                tomarElemento = false;
         },this);
     }
     

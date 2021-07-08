@@ -16,6 +16,9 @@ function initApi(interpreter, scope) {
     initInterpreterGoUp(interpreter, scope);
     initInterpreterGoDown(interpreter, scope);
     initInterpreterGetElement(interpreter, scope);
+    //initInterpreterBegin(interpreter, scope);
+    //initInterpreterEnd(interpreter, scope);
+    
 }
 
 /* function highlightBlock(id) {
@@ -28,12 +31,14 @@ function initApi(interpreter, scope) {
 
 function generateCodeAndLoadIntoInterpreter() {
     
+    // Probar de meter el resultado en un array separado por ; y devolver todos los textos que no contienen highlightblock pueden ser los indices impares. Ver que pasa cuando hay un for. 
     //Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
     //Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
     //Blockly.JavaScript.addReservedWords('highlightBlock');
 
     // Genera codigo JavaScript y lo parsea.
     latestCode = Blockly.JavaScript.workspaceToCode(demoWorkspace);
+    
     
     document.getElementById("blocklyTextId").value = latestCode;     
          
@@ -60,6 +65,7 @@ function runCode() {
             // Begin execution
             
             myInterpreter = new Interpreter(latestCode, initApi);
+            
             runner = function () {
             if (myInterpreter) {
                 var hasMore = myInterpreter.run();
@@ -103,17 +109,24 @@ function inject_blockly(){
     
     // Decodifica un DOM XML y crea bloques en el espacio de trabajo
     Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
-        demoWorkspace);            
+        demoWorkspace);   
+        
+    // Indica que los bloques deben estar conectados para funcionar.    
     
-    //Blockly.JavaScript.addReservedWords('exit');
-
+    Blockly.JavaScript.addReservedWords('exit');
+    
     // Load the interpreter now, and upon future changes.
     //generateCodeAndLoadIntoInterpreter();
     demoWorkspace.addChangeListener(function (event) {
         if (!(event instanceof Blockly.Events.Ui)) {
+            
+            // el siguiente metodo se utiliza para utilizar bloques conectados pero no logro comprender porque no ejecuta los bloques al tener esta opcion.
+            //demoWorkspace.addChangeListener(Blockly.Events.disableOrphans(event));
             // Something changed. Parser needs to be reloaded.
+
             resetInterpreter();
             generateCodeAndLoadIntoInterpreter();
+            
         }
     });
 }

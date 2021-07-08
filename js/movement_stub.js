@@ -87,16 +87,39 @@ function initInterpreterGetElement(interpreter, scope) {
   Blockly.JavaScript.addReservedWords('tomar_elemento');
   var wrapper = interpreter.createAsyncFunction(
     function(callback) {
-      spriteGetElement();
-      //timeline.play();      
-      /* setTimeout(function(){ 
-        timeline.destroy();
-        timeline = yo.tweens.createTimeline();
-        callback(); 
-      },  tiempoSprite); */            
+      spriteGetElement();  
+      //callback();          
     }); 
   interpreter.setProperty(scope, 'tomar_elemento', wrapper);
 }
+
+/* Blockly.JavaScript['begin'] = function(block) {  
+  var code = 'comenzar();\n';
+  return code;
+};
+
+function initInterpreterBegin(interpreter, scope) {
+  Blockly.JavaScript.addReservedWords('comenzar');
+  var wrapper = interpreter.createAsyncFunction(
+    function(callback) {
+      gameBegin();           
+    }); 
+  interpreter.setProperty(scope, 'comenzar', wrapper);
+} */
+
+/* Blockly.JavaScript['end'] = function(block) {  
+  var code = 'terminar();\n';
+  return code;
+};
+
+function initInterpreterEnd(interpreter, scope) {
+  Blockly.JavaScript.addReservedWords('terminar');
+  var wrapper = interpreter.createAsyncFunction(
+    function(callback) {
+      gameEnd();           
+    }); 
+  interpreter.setProperty(scope, 'terminar', wrapper);
+} */
 
 /* Blockly.JavaScript['there_is_element'] = function(block) {
   // TODO: Assemble JavaScript into code variable.

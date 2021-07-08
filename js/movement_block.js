@@ -3,11 +3,7 @@
 Blockly.Blocks['move_right'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("ir a derecha");
-    /*this.appendValueInput("shouldJump")
-        .setCheck("Boolean")
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("jump?");*/
+        .appendField("Ir a derecha");
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -20,7 +16,7 @@ Blockly.Blocks['move_right'] = {
 Blockly.Blocks['move_left'] = {
     init: function() {
       this.appendDummyInput()
-          .appendField("ir a izquierda");
+          .appendField("Ir a izquierda");
       this.setInputsInline(false);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
@@ -33,7 +29,7 @@ Blockly.Blocks['move_left'] = {
   Blockly.Blocks['move_up'] = {
     init: function() {
       this.appendDummyInput()
-          .appendField("subir");
+          .appendField("Subir");
       this.setInputsInline(false);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
@@ -46,7 +42,7 @@ Blockly.Blocks['move_left'] = {
   Blockly.Blocks['move_down'] = {
     init: function() {
       this.appendDummyInput()
-          .appendField("bajar");
+          .appendField("Bajar");
       this.setInputsInline(false);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
@@ -59,14 +55,39 @@ Blockly.Blocks['move_left'] = {
   Blockly.Blocks['get_element'] = {
     init: function() {
       this.appendDummyInput()
-          .appendField("tomar_elemento");
-      this.setInputsInline(true);
+          .appendField("Tomar elemento");
+      this.setInputsInline(false);
       this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
       this.setColour(20);
    this.setTooltip("");
    this.setHelpUrl("");
     }
   };
+
+/*   Blockly.Blocks['begin'] = {
+    init: function() {
+      this.appendDummyInput()
+          .appendField("Comenzar");
+      this.setInputsInline(false);      
+      this.setNextStatement(true, null);
+      this.setColour(120);
+   this.setTooltip("");
+   this.setHelpUrl("");
+    }
+  };
+
+  Blockly.Blocks['end'] = {
+    init: function() {
+      this.appendDummyInput()
+          .appendField("Terminar");
+      this.setInputsInline(false);
+      this.setPreviousStatement(true, null);      
+      this.setColour(360);
+   this.setTooltip("");
+   this.setHelpUrl("");
+    }
+  }; */
 
 /*   Blockly.Blocks['there_is_element'] = {
     init: function() {
