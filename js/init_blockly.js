@@ -45,6 +45,7 @@ function generateCodeAndLoadIntoInterpreter() {
     //resetStepUi();
 }
 
+//Detiene la ejecución delos bloques
 function resetInterpreter() {
     myInterpreter = null;
     if (runner) {
@@ -54,6 +55,7 @@ function resetInterpreter() {
 }
 
 function runCode() {
+    
     if (!myInterpreter) {
     
         //resetStepUi();        
@@ -69,13 +71,14 @@ function runCode() {
             runner = function () {
             if (myInterpreter) {
                 var hasMore = myInterpreter.run();
+                //console.log(hasMore);
                 if (hasMore) {
                     // Execution is currently blocked by some async call.
                     // Try again later.
+                    
                     setTimeout(runner, 10);
                 } else {
-                    // Program is complete.
-                    //outputArea.value += '\n\n<< Program complete >>';
+                    // Program is complete.                    
                     resetInterpreter();
                     //resetStepUi();
                 }

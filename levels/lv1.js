@@ -19,7 +19,9 @@ function collectStar (sprite, star)
     }
     
     if(cantStars === 0){        
-        titleGameComplete.visible = true;    
+        titleGameComplete.visible = true;
+        //Detengo la ejecución delos bloques
+        resetInterpreter();    
     }    
 }
 

@@ -26,22 +26,26 @@ class SceneMenu extends Phaser.Scene {
         lv1Click.on('pointerdown', function(){  
             mostrarBloques();            
             demoWorkspace.getToolbox().getToolboxItemById('loop_for').hide();
-            
+            demoWorkspace.getToolbox().getToolboxItemById('logic').hide();
+            demoWorkspace.getToolbox().getToolboxItemById('condition').hide();
             score = '1';            
             this.scene.start('sceneA');    
         }, this);
     
         lv2Click.on('pointerdown', function(){   
             mostrarBloques();
-            demoWorkspace.getToolbox().getToolboxItemById('loop_for').show();            
+            demoWorkspace.getToolbox().getToolboxItemById('loop_for').show(); 
+            demoWorkspace.getToolbox().getToolboxItemById('logic').hide();     
+            demoWorkspace.getToolbox().getToolboxItemById('condition').hide();      
             score = '1';                                     
             this.scene.start('sceneA');    
         }, this);
         
         lv3Click.on('pointerdown', function(){                       
             mostrarBloques();
-            demoWorkspace.getToolbox().getToolboxItemById('loop_for').hide();            
+            demoWorkspace.getToolbox().getToolboxItemById('loop_for').show();            
             demoWorkspace.getToolbox().getToolboxItemById('logic').show();
+            demoWorkspace.getToolbox().getToolboxItemById('condition').show();
             score = '1';                                     
             this.scene.start('sceneA');   
         }, this);

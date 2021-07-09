@@ -87,8 +87,12 @@ function initInterpreterGetElement(interpreter, scope) {
   Blockly.JavaScript.addReservedWords('tomar_elemento');
   var wrapper = interpreter.createAsyncFunction(
     function(callback) {
-      spriteGetElement();  
-      //callback();          
+      spriteGetElement(); 
+      // necesito definir el tiempo para cortar la ejecucion del bloque actual para pasar al siguiente bloque y resetear el interpreter para avanzar.
+      setTimeout(function(){         
+        callback(); 
+      },  10);  
+                
     }); 
   interpreter.setProperty(scope, 'tomar_elemento', wrapper);
 }

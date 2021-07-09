@@ -32,14 +32,14 @@
     <div id="gameRight" class="centergame"></div>
     <xml id='toolbox' style='display: none'> 
 
-        <category name='movimientos' toolboxitemid="movement_sprite" colour='#a55b6d'>
+        <category name='Movimientos' toolboxitemid="movement_sprite" colour='#a55b6d'>
             <block type='move_right'></block>
             <block type='move_left'></block>
             <block type='move_down'></block>
             <block type='move_up'></block>
         </category>
 
-        <category name='operaciones' toolboxitemid="function_sprite" colour='20'>
+        <category name='Operaciones' toolboxitemid="function_sprite" colour='20'>
             <block type='get_element'></block>
             <!-- <block type='begin'></block>
             <block type='end'></block> -->
@@ -54,21 +54,20 @@
               </value>
             </block>
         </category>                 
+        
+        <category name="Condicional" toolboxitemid="condition" colour="%{BKY_LOGIC_HUE}">
+            <block type="controls_if"></block>
+            <block type="controls_if">
+            <mutation else="1"></mutation>
+            </block>
+            <block type="controls_if">
+            <mutation elseif="1" else="1"></mutation>
+            </block>
+        </category>
 
-        <category name="Condicional" toolboxitemid="logic" colour="%{BKY_LOGIC_HUE}">
-            <category name="If" colour="green">
-                <block type="controls_if"></block>
-                <block type="controls_if">
-                <mutation else="1"></mutation>
-                </block>
-                <block type="controls_if">
-                <mutation elseif="1" else="1"></mutation>
-                </block>
-            </category>
-            <category name="Boolean" colour="%{BKY_LOGIC_HUE}">
-                <block type="logic_compare"></block>
-                <block type="logic_operation"></block>                
-            </category>
+        <category name="Lógico" toolboxitemid="logic" colour="%{BKY_LOGIC_HUE}">
+            <block type="logic_compare"></block>
+            <block type="logic_operation"></block>                
         </category>
 
       </xml> 
@@ -146,6 +145,8 @@ function mostrarBloques(){
 
 function ocultarCategorias(){
     demoWorkspace.getToolbox().getToolboxItemById('loop_for').hide();
+    demoWorkspace.getToolbox().getToolboxItemById('logic').hide();
+    demoWorkspace.getToolbox().getToolboxItemById('condition').hide();
 }
 
 ocultarCategorias();
