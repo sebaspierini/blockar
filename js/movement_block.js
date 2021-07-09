@@ -65,6 +65,19 @@ Blockly.Blocks['move_left'] = {
     }
   };
 
+  Blockly.Blocks['block_cant_stars'] = {
+    init: function() {
+      this.appendDummyInput()
+          .appendField(new Blockly.FieldLabelSerializable("Cantidad de estrellas"), "cantStars");
+      this.setOutput(true, "Number");
+      this.setColour(300);
+   this.setTooltip("");
+   this.setHelpUrl("");
+    }
+  };
+
+  // Chequear tambien otra opcion para ver si hay estrellas
+
 /*   Blockly.Blocks['begin'] = {
     init: function() {
       this.appendDummyInput()

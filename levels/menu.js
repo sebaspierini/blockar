@@ -1,3 +1,35 @@
+var x_star;
+var y_star;
+var x_star2;
+var y_star2;
+
+/* function gameBegin(){
+    comenzarJuego = true;
+}
+
+function gameEnd(){
+    terminarJuego = true;
+} */
+
+function collectStar (sprite, star)
+{
+    if (tomarElemento){
+        star.disableBody(true, true); 
+        cantStars--; 
+        tomarElemento = false;          
+    }
+    
+    if(cantStars === 0){        
+        titleGameComplete.visible = true;
+        //Detengo la ejecución delos bloques
+        resetInterpreter();    
+    }    
+}
+
+function spriteGetElement(){
+    tomarElemento = true;
+}
+
 class SceneMenu extends Phaser.Scene {
 
     constructor ()
@@ -25,9 +57,7 @@ class SceneMenu extends Phaser.Scene {
         
         lv1Click.on('pointerdown', function(){  
             mostrarBloques();            
-            demoWorkspace.getToolbox().getToolboxItemById('loop_for').hide();
-            demoWorkspace.getToolbox().getToolboxItemById('logic').hide();
-            demoWorkspace.getToolbox().getToolboxItemById('condition').hide();
+            ocultarCategorias();
             score = '1';            
             this.scene.start('sceneA');    
         }, this);
@@ -36,7 +66,8 @@ class SceneMenu extends Phaser.Scene {
             mostrarBloques();
             demoWorkspace.getToolbox().getToolboxItemById('loop_for').show(); 
             demoWorkspace.getToolbox().getToolboxItemById('logic').hide();     
-            demoWorkspace.getToolbox().getToolboxItemById('condition').hide();      
+            demoWorkspace.getToolbox().getToolboxItemById('condition').hide(); 
+            demoWorkspace.getToolbox().getToolboxItemById('math').hide();     
             score = '1';                                     
             this.scene.start('sceneA');    
         }, this);
@@ -46,8 +77,9 @@ class SceneMenu extends Phaser.Scene {
             demoWorkspace.getToolbox().getToolboxItemById('loop_for').show();            
             demoWorkspace.getToolbox().getToolboxItemById('logic').show();
             demoWorkspace.getToolbox().getToolboxItemById('condition').show();
+            demoWorkspace.getToolbox().getToolboxItemById('math').show();
             score = '1';                                     
-            this.scene.start('sceneA');   
+            this.scene.start('sceneB');   
         }, this);
     
         

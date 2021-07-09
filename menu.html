@@ -24,6 +24,7 @@
     <script src="node_modules/jquery/dist/jquery.min.js"></script>     
     <script src="levels/menu.js"></script>  
     <script src="levels/lv1.js"></script>  
+    <script src="levels/lv3.js"></script> 
 </head>
 <body>
     
@@ -68,6 +69,14 @@
         <category name="Lógico" toolboxitemid="logic" colour="%{BKY_LOGIC_HUE}">
             <block type="logic_compare"></block>
             <block type="logic_operation"></block>                
+        </category>
+
+        <category name="Matemáticas" toolboxitemid="math" colour="300">
+            <block type="math_number">
+                <field name="NUM">0</field>
+              </block> 
+              <block type="block_cant_stars">                
+              </block>                       
         </category>
 
       </xml> 
@@ -126,8 +135,9 @@ var titleOutTable;
 // Título de juego teminado.
 var titleGameComplete;
 
-var cantStars = 1;
+var cantStars;
 var star;
+var star2;
 var yo;
 
 inject_blockly();
@@ -147,6 +157,7 @@ function ocultarCategorias(){
     demoWorkspace.getToolbox().getToolboxItemById('loop_for').hide();
     demoWorkspace.getToolbox().getToolboxItemById('logic').hide();
     demoWorkspace.getToolbox().getToolboxItemById('condition').hide();
+    demoWorkspace.getToolbox().getToolboxItemById('math').hide();
 }
 
 ocultarCategorias();

@@ -1,8 +1,8 @@
-class SceneA extends Phaser.Scene { 
+class SceneB extends Phaser.Scene { 
 
     constructor ()
     {
-        super({ key: 'sceneA' });
+        super({ key: 'sceneB' });
     }
     
     preload ()
@@ -16,9 +16,9 @@ class SceneA extends Phaser.Scene {
     }
     
     create ()
-    {
-        console.log("escena 1"); 
-        cantStars = 1;
+    {     
+        console.log("escena 3");   
+        cantStars = 2;
         yo = this;
         posX = initPosX;
         posY = initPosY;      
@@ -35,7 +35,10 @@ class SceneA extends Phaser.Scene {
         
         x_star = initPosX + (moveX * 1);
         y_star = initPosY /* - (moveY * 2) */;
+        x_star2 = initPosX + (moveX * 3);
+        y_star2 = initPosY /* - (moveY * 2) */;
         star = this.physics.add.image(x_star, y_star, 'star');
+        star2 = this.physics.add.image(x_star2, y_star2, 'star');
 
         this.physics.add.overlap(sprite, star, collectStar, null, this);
 
@@ -118,8 +121,9 @@ class SceneA extends Phaser.Scene {
                 titleOutTable.visible = false;
                 titleGameComplete.visible = false;
                 sprite.visible = true;       
-                cantStars = 1;        
+                cantStars = 2;        
                 star.enableBody(true,x_star,y_star,true,true);
+                star2.enableBody(true,x_star2,y_star2,true,true);
                 tomarElemento = false;
         },this);
     }
