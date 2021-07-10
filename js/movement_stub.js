@@ -100,8 +100,8 @@ function initInterpreterGetElement(interpreter, scope) {
 Blockly.JavaScript['block_cant_stars'] = function(block) {
   // TODO: Assemble JavaScript into code variable.
   var code = cantStars;
-  // TODO: Change ORDER_NONE to the correct strength.
-  return [code, Blockly.JavaScript.ORDER_NONE];
+  // TODO: Change ORDER_NONE to the correct strength. ORDER_ATOMIC devuelve el valor tal cual está.
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 
