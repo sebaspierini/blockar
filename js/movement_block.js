@@ -78,30 +78,6 @@ Blockly.Blocks['move_left'] = {
 
   // Chequear tambien otra opcion para ver si hay estrellas
 
-/*   Blockly.Blocks['begin'] = {
-    init: function() {
-      this.appendDummyInput()
-          .appendField("Comenzar");
-      this.setInputsInline(false);      
-      this.setNextStatement(true, null);
-      this.setColour(120);
-   this.setTooltip("");
-   this.setHelpUrl("");
-    }
-  };
-
-  Blockly.Blocks['end'] = {
-    init: function() {
-      this.appendDummyInput()
-          .appendField("Terminar");
-      this.setInputsInline(false);
-      this.setPreviousStatement(true, null);      
-      this.setColour(360);
-   this.setTooltip("");
-   this.setHelpUrl("");
-    }
-  }; */
-
 /*   Blockly.Blocks['there_is_element'] = {
     init: function() {
       this.appendDummyInput()

@@ -91,7 +91,7 @@ function initInterpreterGetElement(interpreter, scope) {
       // necesito definir el tiempo para cortar la ejecucion del bloque actual para pasar al siguiente bloque y resetear el interpreter para avanzar.
       setTimeout(function(){         
         callback(); 
-      },  10);  
+      },  0);  // lo pongo en 0 para que corte rápido.
                 
     }); 
   interpreter.setProperty(scope, 'tomar_elemento', wrapper);
@@ -103,36 +103,6 @@ Blockly.JavaScript['block_cant_stars'] = function(block) {
   // TODO: Change ORDER_NONE to the correct strength. ORDER_ATOMIC devuelve el valor tal cual está.
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
-
-
-
-/* Blockly.JavaScript['begin'] = function(block) {  
-  var code = 'comenzar();\n';
-  return code;
-};
-
-function initInterpreterBegin(interpreter, scope) {
-  Blockly.JavaScript.addReservedWords('comenzar');
-  var wrapper = interpreter.createAsyncFunction(
-    function(callback) {
-      gameBegin();           
-    }); 
-  interpreter.setProperty(scope, 'comenzar', wrapper);
-} */
-
-/* Blockly.JavaScript['end'] = function(block) {  
-  var code = 'terminar();\n';
-  return code;
-};
-
-function initInterpreterEnd(interpreter, scope) {
-  Blockly.JavaScript.addReservedWords('terminar');
-  var wrapper = interpreter.createAsyncFunction(
-    function(callback) {
-      gameEnd();           
-    }); 
-  interpreter.setProperty(scope, 'terminar', wrapper);
-} */
 
 /* Blockly.JavaScript['there_is_element'] = function(block) {
   // TODO: Assemble JavaScript into code variable.

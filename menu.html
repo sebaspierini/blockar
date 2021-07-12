@@ -24,6 +24,7 @@
     <script src="node_modules/jquery/dist/jquery.min.js"></script>     
     <script src="levels/menu.js"></script>  
     <script src="levels/lv1.js"></script>  
+    <script src="levels/lv2.js"></script> 
     <script src="levels/lv3.js"></script> 
 </head>
 <body>
@@ -87,27 +88,27 @@
 
 var score = "menu";
 var widthGame = 800;
-var hightGame = 480;
+var heightGame = 480;
 // ubicacion sprite al comienzo
 var sprite;
 //inicia tablero 195 es el valor de height + 5 por un defasaje
 var horizontal = widthGame - (( widthGame / 2 ) / 2);
-var vertical = hightGame - ((hightGame - (195 + 5)) / 2);
+var vertical = heightGame - ((heightGame - (195 + 5)) / 2);
 var width = widthGame / 2;
-var hight = hightGame - (195 + 5);
+var height = heightGame - (195 + 5);
 var cantCellVertical = 6;
 var cantCellHorizontal = 5;
 var cellWidth = width / cantCellVertical;
-var cellhight = hight / cantCellHorizontal;
+var cellHeight = height / cantCellHorizontal;
 // ubicacion sobre el eje Y de los botones que ejecutan las acciones
-var posYExecutables = hightGame - (cellhight / 2);
+var posYExecutables = heightGame - (cellHeight / 2);
 var posXExecutables = cellWidth / 2;
 // posicion de sprite de inicio
 const initPosX = width + (cellWidth / 2);
-const initPosY = hightGame - (cellhight / 2);
+const initPosY = heightGame - (cellHeight / 2);
 // movimiento en tablero
 const moveX = cellWidth;
-const moveY = cellhight;
+const moveY = cellHeight;
 // sector botones
 var playButton;
 var resetButton;
@@ -137,7 +138,8 @@ var titleGameComplete;
 
 var cantStars;
 var star;
-var star2;
+var x_star;
+var y_star;
 var yo;
 
 inject_blockly();
@@ -179,7 +181,7 @@ var config = {
             debug: false
         }
     },  
-    scene: [ SceneMenu, SceneA, SceneB ]
+    scene: [ SceneMenu, Scene1, Scene2, Scene3 ]
 };
 // declaro la creacion del juego
 var game = new Phaser.Game(config);

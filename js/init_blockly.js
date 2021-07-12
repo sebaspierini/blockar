@@ -108,7 +108,7 @@ function inject_blockly(){
             minScale: 0.6,
             scaleSpeed: 1.2},
     trashcan: true
-    });
+    });    
     
     // Decodifica un DOM XML y crea bloques en el espacio de trabajo
     Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),

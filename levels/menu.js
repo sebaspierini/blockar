@@ -1,16 +1,3 @@
-var x_star;
-var y_star;
-var x_star2;
-var y_star2;
-
-/* function gameBegin(){
-    comenzarJuego = true;
-}
-
-function gameEnd(){
-    terminarJuego = true;
-} */
-
 function collectStar (sprite, star)
 {
     if (tomarElemento){
@@ -21,7 +8,7 @@ function collectStar (sprite, star)
     
     if(cantStars === 0){        
         titleGameComplete.visible = true;
-        //Detengo la ejecución delos bloques
+        //Detengo la ejecución de los bloques
         resetInterpreter();    
     }    
 }
@@ -59,7 +46,7 @@ class SceneMenu extends Phaser.Scene {
             mostrarBloques();            
             ocultarCategorias();
             score = '1';            
-            this.scene.start('sceneA');    
+            this.scene.start('scene1');    
         }, this);
     
         lv2Click.on('pointerdown', function(){   
@@ -69,7 +56,7 @@ class SceneMenu extends Phaser.Scene {
             demoWorkspace.getToolbox().getToolboxItemById('condition').hide(); 
             demoWorkspace.getToolbox().getToolboxItemById('math').hide();     
             score = '1';                                     
-            this.scene.start('sceneA');    
+            this.scene.start('scene2');    
         }, this);
         
         lv3Click.on('pointerdown', function(){                       
@@ -79,7 +66,7 @@ class SceneMenu extends Phaser.Scene {
             demoWorkspace.getToolbox().getToolboxItemById('condition').show();
             demoWorkspace.getToolbox().getToolboxItemById('math').show();
             score = '1';                                     
-            this.scene.start('sceneB');   
+            this.scene.start('scene3');   
         }, this);
     
         

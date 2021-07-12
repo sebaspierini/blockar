@@ -1,22 +1,23 @@
-class Scene3 extends Phaser.Scene { 
+class Scene2 extends Phaser.Scene { 
 
     constructor ()
     {
-        super({ key: 'scene3' });
+        super({ key: 'scene2' });
     }
     
     preload ()
     {    
+        this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
         this.load.image('sky', 'assets/sky.png');
         this.load.image('play', 'assets/play.png');
         this.load.image('reset', 'assets/reset.png');
         this.load.image('menu', 'assets/menu.png');
         this.load.image('star', 'assets/star.png');
-        this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 }); 
+         
     }
     
     create ()
-    {     
+    {
         cantStars = 2;
         yo = this;
         posX = initPosX;
@@ -31,12 +32,66 @@ class Scene3 extends Phaser.Scene {
         //colision con el mundo
         sprite.setBounce(0.2);
         sprite.setCollideWorldBounds(true);
-        
-        x_star = initPosX + (moveX * 1);
-        y_star = initPosY /* - (moveY * 2) */;
-        star = this.physics.add.image(x_star, y_star, 'star');        
+        //sprite.depth = 100; con depth pongo delante al sprite para que la estrella no lo tape.
 
-        this.physics.add.overlap(sprite, star, collectStar, null, this);
+        //star = this.add.group();
+        var stars = this.physics.add.group({
+            key: 'star',
+            frameQuantity: cantStars,
+            maxSize: 12,
+            active: false,
+            visible: false,
+            enable: false,
+            collideWorldBounds: true,
+            bounceX: 0.5,
+            bounceY: 0.5,
+            dragX: 30,
+            dragY: 0            
+        });
+
+        let posiciones = [];
+
+        for (var i = 0; i < cantStars; i++)
+        {
+
+            x_star = initPosX + (moveX * Phaser.Math.RND.between(0,5));
+            y_star = initPosY - (moveY * Phaser.Math.RND.between(0,4));
+            
+            // Controlo que no aparezcan al inicio las estrellas
+            if(x_star == initPosX && y_star == initPosY){
+                x_star = initPosX + (moveX * Phaser.Math.RND.between(1,5));
+            }
+
+            // Controlo que no se repitan las estrellas en las posiciones que aparecieron. 
+            if(i>0){
+                posiciones.forEach(function(element) {                            
+                    while(x_star == element.x && y_star == element.y){                        
+                        x_star = initPosX + (moveX * Phaser.Math.RND.between(0,5));
+                        y_star = initPosY - (moveY * Phaser.Math.RND.between(0,4));
+                        if(x_star == initPosX && y_star == initPosY){
+                            x_star = initPosX + (moveX * Phaser.Math.RND.between(1,5));
+                        }    
+                    }
+                });
+                posiciones.push({x:x_star,y:y_star});
+            }else{
+                posiciones.push({x:x_star,y:y_star});
+            } 
+
+            star = stars.get();
+            //  This creates a new Phaser.Sprite instance within the group
+            //  It will be randomly placed within the world and use the 'baddie' image to display
+            
+            star.enableBody(true,x_star,y_star,true,true);
+        }
+
+        //var group = this.add.group({ key: 'star', frame: 0, repeat: 0 });
+
+        //Phaser.Actions.GridAlign(group.getChildren(), { width: width, height: height, cellWidth: cellWidth, cellHeight: cellHeight, position: Phaser.Display.Align.CENTER, x:  initPosX + (moveX * Phaser.Math.RND.between(1,5)), y: initPosY - (moveY * Phaser.Math.RND.between(0,4)) });        
+        
+        //star = this.physics.add.image(x_star, y_star, 'star');
+
+        this.physics.add.overlap(sprite, stars, collectStar, null, this);
 
         playButton = this.add.image(posXExecutables, posYExecutables, 'play').setInteractive().setDisplaySize(50,50);
         menuButton = this.add.image((widthGame / 2) - (cellWidth / 2), posYExecutables, 'menu').setInteractive().setDisplaySize(50,50);
@@ -45,6 +100,7 @@ class Scene3 extends Phaser.Scene {
 
         timeline = this.tweens.createTimeline();    
 
+        // Mensaje de juego terminado 
         var style = {
             fontSize: '16px',
             fontFamily: 'Arial',
@@ -57,6 +113,7 @@ class Scene3 extends Phaser.Scene {
         titleOutTable.setText(gameOver);
         titleOutTable.visible = false; 
         
+        // Mensaje de juego completado 
         var style = {
             fontSize: '16px',
             fontFamily: 'Arial',
@@ -67,8 +124,7 @@ class Scene3 extends Phaser.Scene {
         var paddingGameComplete = 16;
         titleGameComplete = this.add.text(465, 300, '', style).setPadding(paddingGameComplete);
         titleGameComplete.setText(gameComplete);
-        titleGameComplete.visible = false;  
-        
+        titleGameComplete.visible = false;          
 
         this.anims.create({
             key: 'left',
@@ -90,7 +146,7 @@ class Scene3 extends Phaser.Scene {
             repeat: -1
         });
 
-        playButton.on('pointerdown', function(){                                                       
+        playButton.on('pointerdown', function(){                       
             playButton.visible = false;
             resetButton.visible = true; 
             runCode();                     
@@ -98,8 +154,8 @@ class Scene3 extends Phaser.Scene {
         menuButton.on('pointerdown', function(){                                              
             score = "menu";                                 
         });
-        resetButton.on('pointerdown', function(){                                  
-            this.scene.start('scene3');
+        resetButton.on('pointerdown', function(){                                                  
+                this.scene.start('scene2');
         },this);
     }
     
