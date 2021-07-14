@@ -6,6 +6,7 @@ body {
   height:425px; 
   width: 400px; 
   position: absolute;
+  margin-top: 2px;
 }
 
 .centergame{
@@ -15,8 +16,10 @@ body {
 }
 
 .blocklyText{
-  height: 195px; 
+  height: 192px; 
   width: 395px;             
   position: absolute;            
   margin-left: 400px;
+  resize: none;
+  margin-top: 2px;
 }

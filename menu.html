@@ -30,7 +30,7 @@
 <body>
     
     <div id="blocklyDiv" class="centerBlocklyDiv"></div>
-    <textarea id="blocklyTextId" class="blocklyText"></textarea>
+    <textarea id="blocklyTextId" class="blocklyText" readonly></textarea>
     <div id="gameRight" class="centergame"></div>
     <xml id='toolbox' style='display: none'> 
 
@@ -117,10 +117,6 @@ var menuButton;
 // Objetos del juego
 var tomarElemento = false;
 
-// Inicio / Fin del juego
-// var comenzarJuego = false;
-// var terminarJuego = false;
-
 // posicion variale del sprite
 var posX;
 var posY;
@@ -129,9 +125,8 @@ var timeline;
 
 // tiempo del sprite para moverse de "a" a "b"
 var tiempoSprite = 1000;
-// Título de juego terminado
-var title;
 
+// Titulo si se cae del tablero.
 var titleOutTable;
 // Título de juego teminado.
 var titleGameComplete;

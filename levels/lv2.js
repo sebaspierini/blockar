@@ -154,41 +154,19 @@ class Scene2 extends Phaser.Scene {
         menuButton.on('pointerdown', function(){                                              
             score = "menu";                                 
         });
-        resetButton.on('pointerdown', function(){                                                  
+        resetButton.on('pointerdown', function(){   
+                demoWorkspace.clear();                                               
                 this.scene.start('scene2');
         },this);
     }
     
     update(){ 
-        if(!timeline.isPlaying()){
-            sprite.anims.play('turn'); 
-        }
-        if(sprite.x > (initPosX + (moveX * 5))){
-            //console.log("se cayo a la derecha");
-            titleOutTable.visible = true;  
-            sprite.visible = false;        
-        }
-        if(sprite.x < initPosX){
-            //console.log("se cayo a la izq");
-            titleOutTable.visible = true;  
-            sprite.visible = false;        
-        }
-        if(sprite.y > initPosY){        
-            //console.log("se cayo abajo", sprite.y, initPosY);        
-            sprite.visible = false;
-            titleOutTable.visible = true;            
-        }
-        if(sprite.y < (initPosY - (moveY * 5)) ){
-            //console.log("se cayo arriba");   
-            titleOutTable.visible = true;     
-            sprite.visible = false;        
-        }   
+        setUpdateConfig();
         // Me traslado al menu
+        //comparto la variable score para compartir los diferentes escenarios.
         if(score==="menu"){                             
             this.scene.start('SceneMenu');        
-        }
-        //comparto la variable score para compartir los diferentes escenarios.
-        
+        } 
     }
 
     

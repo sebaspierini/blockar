@@ -13,6 +13,38 @@ function collectStar (sprite, star)
     }    
 }
 
+function setUpdateConfig(param){
+    /* if(!timeline.isPlaying()){
+        sprite.anims.play('turn'); 
+    } */
+    if((sprite.x - 1) > (initPosX + (moveX * 5))){
+        //console.log("se cayo a la derecha");
+        titleOutTable.visible = true;  
+        sprite.visible = false;        
+    }
+    if((sprite.x + 1) < initPosX){
+        //console.log("se cayo a la izq",sprite.x, initPosX);
+        titleOutTable.visible = true;          
+        sprite.visible = false;                
+    }
+    if((sprite.y - 0.5) > initPosY){        
+        //console.log("se cayo abajo");        
+        sprite.visible = false;
+        titleOutTable.visible = true;            
+    }
+    if((sprite.y - 0.5 ) < (initPosY - (moveY * 5)) ){
+        //console.log("se cayo arriba");   
+        titleOutTable.visible = true;     
+        sprite.visible = false;        
+    }
+    
+    // Si pierde el juego detengo la ejecución del interpreter.
+    if(sprite.visible == false){
+        resetInterpreter();        
+    }    
+    
+}
+
 function spriteGetElement(){
     tomarElemento = true;
 }

@@ -12,6 +12,7 @@ class Scene3 extends Phaser.Scene {
         this.load.image('reset', 'assets/reset.png');
         this.load.image('menu', 'assets/menu.png');
         this.load.image('star', 'assets/star.png');
+        this.load.image('bomb', 'assets/bomb.png');
         this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 }); 
     }
     
@@ -32,11 +33,71 @@ class Scene3 extends Phaser.Scene {
         sprite.setBounce(0.2);
         sprite.setCollideWorldBounds(true);
         
-        x_star = initPosX + (moveX * 1);
-        y_star = initPosY /* - (moveY * 2) */;
-        star = this.physics.add.image(x_star, y_star, 'star');        
+        var stars = this.physics.add.group({
+            key: 'star',
+            frameQuantity: cantStars,
+            maxSize: 12,
+            active: false,
+            visible: false,
+            enable: false,
+            collideWorldBounds: true,
+            bounceX: 0.5,
+            bounceY: 0.5,
+            dragX: 30,
+            dragY: 0            
+        });
 
-        this.physics.add.overlap(sprite, star, collectStar, null, this);
+        var bombs = this.physics.add.group({
+            key: 'bomb',
+            frameQuantity: cantStars,
+            maxSize: 12,
+            active: false,
+            visible: false,
+            enable: false,
+            collideWorldBounds: true,
+            bounceX: 0.5,
+            bounceY: 0.5,
+            dragX: 30,
+            dragY: 0            
+        });
+
+        let posiciones = [];
+
+        for (var i = 0; i < cantStars; i++)
+        {
+
+            x_star = initPosX + (moveX * Phaser.Math.RND.between(0,5));
+            y_star = initPosY - (moveY * Phaser.Math.RND.between(0,4));
+            
+            // Controlo que no aparezcan al inicio las estrellas
+            if(x_star == initPosX && y_star == initPosY){
+                x_star = initPosX + (moveX * Phaser.Math.RND.between(1,5));
+            }
+
+            // Controlo que no se repitan las estrellas en las posiciones que aparecieron. 
+            if(i>0){
+                posiciones.forEach(function(element) {                            
+                    while(x_star == element.x && y_star == element.y){                        
+                        x_star = initPosX + (moveX * Phaser.Math.RND.between(0,5));
+                        y_star = initPosY - (moveY * Phaser.Math.RND.between(0,4));
+                        if(x_star == initPosX && y_star == initPosY){
+                            x_star = initPosX + (moveX * Phaser.Math.RND.between(1,5));
+                        }    
+                    }
+                });
+                posiciones.push({x:x_star,y:y_star});
+            }else{
+                posiciones.push({x:x_star,y:y_star});
+            } 
+
+            star = stars.get();
+            //  This creates a new Phaser.Sprite instance within the group
+            //  It will be randomly placed within the world and use the 'baddie' image to display
+            
+            star.enableBody(true,x_star,y_star,true,true);
+        }    
+
+        this.physics.add.overlap(sprite, stars, collectStar, null, this);
 
         playButton = this.add.image(posXExecutables, posYExecutables, 'play').setInteractive().setDisplaySize(50,50);
         menuButton = this.add.image((widthGame / 2) - (cellWidth / 2), posYExecutables, 'menu').setInteractive().setDisplaySize(50,50);
@@ -98,41 +159,19 @@ class Scene3 extends Phaser.Scene {
         menuButton.on('pointerdown', function(){                                              
             score = "menu";                                 
         });
-        resetButton.on('pointerdown', function(){                                  
+        resetButton.on('pointerdown', function(){    
+            demoWorkspace.clear();                              
             this.scene.start('scene3');
         },this);
     }
     
     update(){ 
-        if(!timeline.isPlaying()){
-            sprite.anims.play('turn'); 
-        }
-        if(sprite.x > (initPosX + (moveX * 5))){
-            //console.log("se cayo a la derecha");
-            titleOutTable.visible = true;  
-            sprite.visible = false;        
-        }
-        if(sprite.x < initPosX){
-            //console.log("se cayo a la izq");
-            titleOutTable.visible = true;  
-            sprite.visible = false;        
-        }
-        if(sprite.y > initPosY){        
-            //console.log("se cayo abajo", sprite.y, initPosY);        
-            sprite.visible = false;
-            titleOutTable.visible = true;            
-        }
-        if(sprite.y < (initPosY - (moveY * 5)) ){
-            //console.log("se cayo arriba");   
-            titleOutTable.visible = true;     
-            sprite.visible = false;        
-        }   
+        setUpdateConfig();  
         // Me traslado al menu
+        // Comparto la variable score para compartir los diferentes escenarios.
         if(score==="menu"){                             
             this.scene.start('SceneMenu');        
-        }
-        //comparto la variable score para compartir los diferentes escenarios.
-        
+        }      
     }
 
     

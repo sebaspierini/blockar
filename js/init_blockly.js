@@ -15,10 +15,7 @@ function initApi(interpreter, scope) {
     initInterpreterGoLeft(interpreter, scope);
     initInterpreterGoUp(interpreter, scope);
     initInterpreterGoDown(interpreter, scope);
-    initInterpreterGetElement(interpreter, scope);
-    //initInterpreterBegin(interpreter, scope);
-    //initInterpreterEnd(interpreter, scope);
-    
+    initInterpreterGetElement(interpreter, scope);    
 }
 
 /* function highlightBlock(id) {
