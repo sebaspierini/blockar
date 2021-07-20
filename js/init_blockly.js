@@ -16,6 +16,7 @@ function initApi(interpreter, scope) {
     initInterpreterGoUp(interpreter, scope);
     initInterpreterGoDown(interpreter, scope);
     initInterpreterGetElement(interpreter, scope);    
+    initInterpreterDefuseBomb(interpreter, scope); 
 }
 
 /* function highlightBlock(id) {
@@ -29,8 +30,9 @@ function initApi(interpreter, scope) {
 function generateCodeAndLoadIntoInterpreter() {
     
     // Probar de meter el resultado en un array separado por ; y devolver todos los textos que no contienen highlightblock pueden ser los indices impares. Ver que pasa cuando hay un for. 
+    window.LoopTrap = 1000;
     //Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
-    //Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
+    Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
     //Blockly.JavaScript.addReservedWords('highlightBlock');
 
     // Genera codigo JavaScript y lo parsea.
@@ -45,7 +47,7 @@ function generateCodeAndLoadIntoInterpreter() {
 //Detiene la ejecución delos bloques
 function resetInterpreter() {
     myInterpreter = null;
-    if (runner) {
+    if (runner) {        
         clearTimeout(runner);
         runner = null;
     }
