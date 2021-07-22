@@ -24,7 +24,11 @@
     <script src="node_modules/jquery/dist/jquery.min.js"></script>   
     <!-- Declaro funciones de manera ordenada -->
     <script src="js/operation.js"></script>
-    <script src="js/collision.js"></script>  
+    <script src="js/collision.js"></script> 
+    <script src="js/messages.js"></script>  
+    <script src="js/messages_es.js"></script>  
+    <script src="js/interface.js"></script>
+    <script src="js/animations.js"></script>
     <!-- Declaro los archivos de los niveles del juego -->
     <script src="levels/menu.js"></script>  
     <script src="levels/lv1.js"></script>  
@@ -127,7 +131,7 @@ var resetButton;
 var menuButton;
 
 // Objetos del juego
-var tomarElemento = false;
+var takeElement = false;
 
 // posicion variale del sprite
 var posX;
@@ -136,14 +140,12 @@ var posY;
 var timeline;
 
 // tiempo del sprite para moverse de "a" a "b" defaul is 1000
-var tiempoSprite = 1000;
+var timeSprite = 1000;
 
-// Titulo si se cae del tablero.
-var titleOutTable;
-// Título de juego teminado.
-var titleGameComplete;
-
-var title;
+// Titulo acumulativo si pierde el juego
+var titleGameOver = GAME_OVER_TEXT;
+// Flag para controlar si el juego termino por perdido.
+var gameOver = false;
 
 var cantStars;
 var cantBombs;

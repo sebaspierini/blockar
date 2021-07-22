@@ -8,7 +8,7 @@ function initInterpreterGoRight(interpreter, scope) {
         timeline.destroy();
         timeline = yo.tweens.createTimeline();
         callback(); 
-      },  tiempoSprite);            
+      },  timeSprite);            
     });   
   interpreter.setProperty(scope, 'ir_a_derecha', wrapper);
 }
@@ -23,7 +23,7 @@ function initInterpreterGoLeft(interpreter, scope) {
         timeline.destroy();
         timeline = yo.tweens.createTimeline();
         callback(); 
-      },  tiempoSprite);            
+      },  timeSprite);            
     }); 
   interpreter.setProperty(scope, 'ir_a_izquierda', wrapper);
 }
@@ -38,7 +38,7 @@ function initInterpreterGoUp(interpreter, scope) {
         timeline.destroy();
         timeline = yo.tweens.createTimeline();
         callback(); 
-      },  tiempoSprite);            
+      },  timeSprite);            
     }); 
   interpreter.setProperty(scope, 'subir', wrapper);
 }
@@ -53,7 +53,7 @@ function initInterpreterGoDown(interpreter, scope) {
         timeline.destroy();
         timeline = yo.tweens.createTimeline();
         callback(); 
-      },  tiempoSprite);            
+      },  timeSprite);            
     }); 
   interpreter.setProperty(scope, 'bajar', wrapper);
 }

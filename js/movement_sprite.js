@@ -14,7 +14,7 @@ function spriteRight(){
             }
         },
         ease: 'Power1',
-        duration: tiempoSprite
+        duration: timeSprite
     });
 }
 
@@ -35,7 +35,7 @@ function spriteLeft(){
             }
         },
         ease: 'Power1',
-        duration: tiempoSprite
+        duration: timeSprite
     });
 }
 
@@ -51,12 +51,12 @@ function spriteUp(){
             },
             getStart: function (sprite, key, value)
             {          
-                sprite.anims.play('turn');                      
+                sprite.anims.play('up');                      
                 return posY;
             }
         },
         ease: 'Power1',
-        duration: tiempoSprite
+        duration: timeSprite
     });
 }
 
@@ -72,11 +72,11 @@ function spriteDown(){
             },
             getStart: function (sprite, key, value)
             {          
-                sprite.anims.play('turn');                      
+                sprite.anims.play('down');                      
                 return posY;
             }
         },        
         ease: 'Power1',
-        duration: tiempoSprite
+        duration: timeSprite
     });
 }
