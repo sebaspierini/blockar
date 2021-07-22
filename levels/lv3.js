@@ -13,12 +13,13 @@ class Scene3 extends Phaser.Scene {
         this.load.image('menu', 'assets/menu.png');
         this.load.image('star', 'assets/star.png');
         this.load.image('bomb', 'assets/bomb.png');
+        this.load.spritesheet('explosive', 'assets/explosion.png', { frameWidth: 128, frameHeight: 128 });
         this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 }); 
     }
     
     create ()
-    {     
-        cantStars = 2;
+    {                             
+        cantBombs = 4;
         yo = this;
         posX = initPosX;
         posY = initPosY;      
@@ -26,30 +27,24 @@ class Scene3 extends Phaser.Scene {
         this.add.image(400, 300, 'sky');
         
         this.add.grid(horizontal, vertical, width, height, cellWidth, cellHeight, 0xDADADA).setAltFillStyle(0xA5A5A5).setOutlineStyle();
-
-        sprite = this.physics.add.sprite(initPosX, initPosY, 'dude');
+        
+        sprite = this.physics.add.sprite(initPosX, initPosY, 'dude');       
+        
+        this.anims.create({
+            key: 'activate',
+            frames: this.anims.generateFrameNumbers('explosive', { start: 0, end: 15 }),
+            frameRate: 10,
+            repeat: 0,
+            hideOnComplete: true
+        });         
 
         //colision con el mundo
         sprite.setBounce(0.2);
         sprite.setCollideWorldBounds(true);
-        
-        var stars = this.physics.add.group({
-            key: 'star',
-            frameQuantity: cantStars,
-            maxSize: 12,
-            active: false,
-            visible: false,
-            enable: false,
-            collideWorldBounds: true,
-            bounceX: 0.5,
-            bounceY: 0.5,
-            dragX: 30,
-            dragY: 0            
-        });
 
         var bombs = this.physics.add.group({
             key: 'bomb',
-            frameQuantity: cantStars,
+            frameQuantity: cantBombs,
             maxSize: 12,
             active: false,
             visible: false,
@@ -60,44 +55,44 @@ class Scene3 extends Phaser.Scene {
             dragX: 30,
             dragY: 0            
         });
-
+        
         let posiciones = [];
 
-        for (var i = 0; i < cantStars; i++)
+        for (var i = 0; i < cantBombs; i++)
         {
 
-            x_star = initPosX + (moveX * Phaser.Math.RND.between(0,5));
-            y_star = initPosY - (moveY * Phaser.Math.RND.between(0,4));
+            x_bomb = initPosX + (moveX * Phaser.Math.RND.between(0,5));
+            y_bomb = initPosY - (moveY * Phaser.Math.RND.between(0,4));
             
             // Controlo que no aparezcan al inicio las estrellas
-            if(x_star == initPosX && y_star == initPosY){
-                x_star = initPosX + (moveX * Phaser.Math.RND.between(1,5));
+            if(x_bomb == initPosX && y_bomb == initPosY){
+                x_bomb = initPosX + (moveX * Phaser.Math.RND.between(1,5));
             }
 
             // Controlo que no se repitan las estrellas en las posiciones que aparecieron. 
             if(i>0){
                 posiciones.forEach(function(element) {                            
-                    while(x_star == element.x && y_star == element.y){                        
-                        x_star = initPosX + (moveX * Phaser.Math.RND.between(0,5));
-                        y_star = initPosY - (moveY * Phaser.Math.RND.between(0,4));
-                        if(x_star == initPosX && y_star == initPosY){
-                            x_star = initPosX + (moveX * Phaser.Math.RND.between(1,5));
+                    while(x_bomb == element.x && y_bomb == element.y){                        
+                        x_bomb = initPosX + (moveX * Phaser.Math.RND.between(0,5));
+                        y_bomb = initPosY - (moveY * Phaser.Math.RND.between(0,4));
+                        if(x_bomb == initPosX && y_bomb == initPosY){
+                            x_bomb = initPosX + (moveX * Phaser.Math.RND.between(1,5));
                         }    
                     }
                 });
-                posiciones.push({x:x_star,y:y_star});
+                posiciones.push({x:x_bomb,y:y_bomb});
             }else{
-                posiciones.push({x:x_star,y:y_star});
+                posiciones.push({x:x_bomb,y:y_bomb});
             } 
 
-            star = stars.get();
+            bomb = bombs.get();
             //  This creates a new Phaser.Sprite instance within the group
             //  It will be randomly placed within the world and use the 'baddie' image to display
             
-            star.enableBody(true,x_star,y_star,true,true);
-        }    
-
-        this.physics.add.overlap(sprite, stars, collectStar, null, this);
+            bomb.enableBody(true,x_bomb,y_bomb,true,true);
+        }
+                
+        this.physics.add.overlap(sprite, bombs, collectBombs, null, this);
 
         playButton = this.add.image(posXExecutables, posYExecutables, 'play').setInteractive().setDisplaySize(50,50);
         menuButton = this.add.image((widthGame / 2) - (cellWidth / 2), posYExecutables, 'menu').setInteractive().setDisplaySize(50,50);
@@ -128,8 +123,7 @@ class Scene3 extends Phaser.Scene {
         var paddingGameComplete = 16;
         titleGameComplete = this.add.text(465, 300, '', style).setPadding(paddingGameComplete);
         titleGameComplete.setText(gameComplete);
-        titleGameComplete.visible = false;  
-        
+        titleGameComplete.visible = false;     
 
         this.anims.create({
             key: 'left',
@@ -160,18 +154,18 @@ class Scene3 extends Phaser.Scene {
             score = "menu";                                 
         });
         resetButton.on('pointerdown', function(){    
-            demoWorkspace.clear();                              
+            resetConfig();                               
             this.scene.start('scene3');
         },this);
     }
     
     update(){ 
-        setUpdateConfig();  
-        // Me traslado al menu
-        // Comparto la variable score para compartir los diferentes escenarios.
-        if(score==="menu"){                             
-            this.scene.start('SceneMenu');        
-        }      
+        setUpdateConfig(this); 
+
+        // Con embedded se puede ver si el sprite se encuentra dentro de un objeto con el que puede colisionar. 
+        if(!sprite.body.embedded){
+            thereIsBomb = false;            
+        }                              
     }
 
     

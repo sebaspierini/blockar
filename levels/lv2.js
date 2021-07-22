@@ -155,18 +155,27 @@ class Scene2 extends Phaser.Scene {
             score = "menu";                                 
         });
         resetButton.on('pointerdown', function(){   
-                demoWorkspace.clear();                                               
-                this.scene.start('scene2');
+            resetConfig();                                            
+            this.scene.start('scene2');
         },this);
     }
     
     update(){ 
-        setUpdateConfig();
-        // Me traslado al menu
-        //comparto la variable score para compartir los diferentes escenarios.
-        if(score==="menu"){                             
-            this.scene.start('SceneMenu');        
-        } 
+        setUpdateConfig(this);   
+        if(endExcecution && cantStars > 0){            
+            var style = {
+                fontSize: '14px',
+                fontFamily: 'Arial',
+                color: 'white',
+                backgroundColor: '#000000'
+            };
+            var gameOver = "Juego terminado. No logró cumplir el objetivo.";
+            var paddingGameOver = 16;
+            titleOutTable = this.add.text(400, 300, '', style).setPadding(paddingGameOver);
+            titleOutTable.setText(gameOver);
+            titleOutTable.visible = true;
+            endExcecution = false;
+        }     
     }
 
     

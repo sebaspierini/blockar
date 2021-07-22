@@ -1,39 +1,35 @@
-var myInterpreter = null;
-var runner;
-var demoWorkspace;
-var latestCode = '';
-
 function initApi(interpreter, scope) {
-    // var wrapper = function(id) {
-    //     id = id ? id.toString() : '';
-    //     return interpreter.createPrimitive(highlightBlock(id));
-    //   };
-    //   interpreter.setProperty(scope, 'highlightBlock',
-    //       interpreter.createNativeFunction(wrapper));
+    var wrapper = function(id) {
+        id = id ? id.toString() : '';
+        return interpreter.createPrimitive(highlightBlock(id));
+      };
+      interpreter.setProperty(scope, 'highlightBlock',
+          interpreter.createNativeFunction(wrapper));
 
     initInterpreterGoRight(interpreter, scope);
     initInterpreterGoLeft(interpreter, scope);
     initInterpreterGoUp(interpreter, scope);
     initInterpreterGoDown(interpreter, scope);
-    initInterpreterGetElement(interpreter, scope);    
+    initInterpreterGetElement(interpreter, scope);        
     initInterpreterDefuseBomb(interpreter, scope); 
+    initInterpreterThereIsBomb(interpreter, scope);     
 }
 
-/* function highlightBlock(id) {
+function highlightBlock(id) {
     demoWorkspace.highlightBlock(id);    
-  } */
+  }
 
-/* function resetStepUi() {
+function resetStepUi() {
     demoWorkspace.highlightBlock(null);  
-} */
+}
 
 function generateCodeAndLoadIntoInterpreter() {
     
     // Probar de meter el resultado en un array separado por ; y devolver todos los textos que no contienen highlightblock pueden ser los indices impares. Ver que pasa cuando hay un for. 
     window.LoopTrap = 1000;
-    //Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
+    Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
     Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
-    //Blockly.JavaScript.addReservedWords('highlightBlock');
+    Blockly.JavaScript.addReservedWords('highlightBlock');
 
     // Genera codigo JavaScript y lo parsea.
     latestCode = Blockly.JavaScript.workspaceToCode(demoWorkspace);
@@ -41,7 +37,7 @@ function generateCodeAndLoadIntoInterpreter() {
     
     document.getElementById("blocklyTextId").value = latestCode;     
          
-    //resetStepUi();
+    resetStepUi();
 }
 
 //Detiene la ejecución delos bloques
@@ -50,6 +46,7 @@ function resetInterpreter() {
     if (runner) {        
         clearTimeout(runner);
         runner = null;
+        endExcecution = true;
     }
 }
 
@@ -57,7 +54,7 @@ function runCode() {
     
     if (!myInterpreter) {
     
-        //resetStepUi();        
+        resetStepUi();        
 
         // And then show generated code in an alert.
         // In a timeout to allow the outputArea.value to reset first.
@@ -79,7 +76,7 @@ function runCode() {
                 } else {
                     // Program is complete.                    
                     resetInterpreter();
-                    //resetStepUi();
+                    resetStepUi();
                 }
             }
             };
@@ -131,4 +128,46 @@ function inject_blockly(){
             
         }
     });
+}
+
+function hideBlocks(){
+    $("#blocklyDiv").hide();
+    $("#blocklyTextId").hide();
+}
+
+function showBlocks(){    
+    $("#blocklyDiv").show();
+    $("#blocklyTextId").show();
+}
+
+function hideCategories(){
+    demoWorkspace.getToolbox().getToolboxItemById('movement_sprite').hide();
+    demoWorkspace.getToolbox().getToolboxItemById('function_sprite').hide();    
+    demoWorkspace.getToolbox().getToolboxItemById('function_sprite_lv3').hide(); 
+    demoWorkspace.getToolbox().getToolboxItemById('loop_for').hide();
+    demoWorkspace.getToolbox().getToolboxItemById('logic').hide();
+    demoWorkspace.getToolbox().getToolboxItemById('condition').hide();
+    demoWorkspace.getToolbox().getToolboxItemById('math').hide();      
+}
+
+function showCategoriesLv1(){
+    hideCategories();
+    demoWorkspace.getToolbox().getToolboxItemById('movement_sprite').show();
+    demoWorkspace.getToolbox().getToolboxItemById('function_sprite').show(); 
+}
+
+function showCategoriesLv2(){
+    hideCategories();
+    demoWorkspace.getToolbox().getToolboxItemById('movement_sprite').show();
+    demoWorkspace.getToolbox().getToolboxItemById('function_sprite').show(); 
+    demoWorkspace.getToolbox().getToolboxItemById('loop_for').show();
+}
+
+function showCategoriesLv3(){
+    hideCategories();
+    demoWorkspace.getToolbox().getToolboxItemById('movement_sprite').show();
+    demoWorkspace.getToolbox().getToolboxItemById('function_sprite_lv3').show(); 
+    demoWorkspace.getToolbox().getToolboxItemById('loop_for').show();
+    demoWorkspace.getToolbox().getToolboxItemById('logic').show();
+    demoWorkspace.getToolbox().getToolboxItemById('condition').show();
 }

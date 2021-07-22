@@ -1,22 +1,7 @@
-function collectStar (sprite, star)
-{
-    if (tomarElemento){
-        star.disableBody(true, true); 
-        cantStars--; 
-        tomarElemento = false;          
-    }
-    
-    if(cantStars === 0){        
-        titleGameComplete.visible = true;
-        //Detengo la ejecución de los bloques
-        resetInterpreter();    
-    }    
-}
-
 function setUpdateConfig(param){
-    /* if(!timeline.isPlaying()){
+    if(!timeline.isPlaying()){
         sprite.anims.play('turn'); 
-    } */
+    }
     if((sprite.x - 1) > (initPosX + (moveX * 5))){
         //console.log("se cayo a la derecha");
         titleOutTable.visible = true;  
@@ -42,13 +27,21 @@ function setUpdateConfig(param){
     if(sprite.visible == false){
         resetInterpreter();        
     }    
+
+    // Me traslado al menu
+    //comparto la variable score para compartir los diferentes escenarios.
+    if(score==="menu"){                             
+        param.scene.start('SceneMenu');        
+    }
     
 }
 
-function spriteGetElement(){
-    tomarElemento = true;
+function resetConfig(){
+    demoWorkspace.clear();
+    endExcecution = false;   
 }
 
+// En localStorage me debo guardar los datos del juego para habilitar niveles.
 class SceneMenu extends Phaser.Scene {
 
     constructor ()
@@ -64,44 +57,37 @@ class SceneMenu extends Phaser.Scene {
     }
     
     create ()
-    {
+    {        
         // Oculto las opciones de bloques y el textarea
-        ocultarBloques();
+        hideBlocks();
         // Limpio el area de bloques
         demoWorkspace.clear();
+        // Reseteo score a un valor distinto de 'menu' con score = 'menu' indico que vengo a esta clase.
+        score = '1';
+
+        endExcecution = false;
         
         var lv1Click = this.add.image(200, 200, 'lv1').setInteractive().setDisplaySize(50,50);
         var lv2Click = this.add.image(400, 200, 'lv2').setInteractive().setDisplaySize(50,50);
         var lv3Click = this.add.image(600, 200, 'lv3').setInteractive().setDisplaySize(50,50);       
         
-        lv1Click.on('pointerdown', function(){  
-            mostrarBloques();            
-            ocultarCategorias();
-            score = '1';            
+        lv1Click.on('pointerdown', function(){                         
+            showBlocks();            
+            showCategoriesLv1();                                    
             this.scene.start('scene1');    
         }, this);
     
         lv2Click.on('pointerdown', function(){   
-            mostrarBloques();
-            demoWorkspace.getToolbox().getToolboxItemById('loop_for').show(); 
-            demoWorkspace.getToolbox().getToolboxItemById('logic').hide();     
-            demoWorkspace.getToolbox().getToolboxItemById('condition').hide(); 
-            demoWorkspace.getToolbox().getToolboxItemById('math').hide();     
-            score = '1';                                     
+            showBlocks();
+            showCategoriesLv2();                                                     
             this.scene.start('scene2');    
         }, this);
         
-        lv3Click.on('pointerdown', function(){                       
-            mostrarBloques();
-            demoWorkspace.getToolbox().getToolboxItemById('loop_for').show();            
-            demoWorkspace.getToolbox().getToolboxItemById('logic').show();
-            demoWorkspace.getToolbox().getToolboxItemById('condition').show();
-            demoWorkspace.getToolbox().getToolboxItemById('math').show();
-            score = '1';                                     
+        lv3Click.on('pointerdown', function(){
+            showBlocks();
+            showCategoriesLv3();             
             this.scene.start('scene3');   
         }, this);
-    
-        
     }
     
     }

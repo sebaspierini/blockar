@@ -1,8 +1,3 @@
-Blockly.JavaScript['move_right'] = function(block) {
-  var code = 'ir_a_derecha();\n';
-  return code;
-};
-
 function initInterpreterGoRight(interpreter, scope) {
   Blockly.JavaScript.addReservedWords('ir_a_derecha');
    var wrapper = interpreter.createAsyncFunction(    
@@ -17,11 +12,6 @@ function initInterpreterGoRight(interpreter, scope) {
     });   
   interpreter.setProperty(scope, 'ir_a_derecha', wrapper);
 }
-
-Blockly.JavaScript['move_left'] = function(block) {
-  var code = 'ir_a_izquierda();\n'; 
-  return code;
-};
 
 function initInterpreterGoLeft(interpreter, scope) {
   Blockly.JavaScript.addReservedWords('ir_a_izquierda');
@@ -38,11 +28,6 @@ function initInterpreterGoLeft(interpreter, scope) {
   interpreter.setProperty(scope, 'ir_a_izquierda', wrapper);
 }
 
-Blockly.JavaScript['move_up'] = function(block) {
-  var code = 'subir();\n'; 
-  return code;
-};
-
 function initInterpreterGoUp(interpreter, scope) {
   Blockly.JavaScript.addReservedWords('subir');
   var wrapper = interpreter.createAsyncFunction(
@@ -57,11 +42,6 @@ function initInterpreterGoUp(interpreter, scope) {
     }); 
   interpreter.setProperty(scope, 'subir', wrapper);
 }
-
-Blockly.JavaScript['move_down'] = function(block) {
-  var code = 'bajar();\n'; 
-  return code;
-};
 
 function initInterpreterGoDown(interpreter, scope) {
   Blockly.JavaScript.addReservedWords('bajar');
@@ -78,13 +58,8 @@ function initInterpreterGoDown(interpreter, scope) {
   interpreter.setProperty(scope, 'bajar', wrapper);
 }
 
-Blockly.JavaScript['get_element'] = function(block) {  
-  var code = 'tomar_elemento();\n';
-  return code;
-};
-
 function initInterpreterGetElement(interpreter, scope) {
-  Blockly.JavaScript.addReservedWords('tomar_elemento');
+  Blockly.JavaScript.addReservedWords('tomar_estrella');
   var wrapper = interpreter.createAsyncFunction(
     function(callback) {
       spriteGetElement(); 
@@ -94,19 +69,28 @@ function initInterpreterGetElement(interpreter, scope) {
       },  0);  // lo pongo en 0 para que corte rápido.
                 
     }); 
-  interpreter.setProperty(scope, 'tomar_elemento', wrapper);
+  interpreter.setProperty(scope, 'tomar_estrella', wrapper);
 }
 
-Blockly.JavaScript['block_cant_stars'] = function(block) {
-  // TODO: Assemble JavaScript into code variable.
-  var code = cantStars;
-  // TODO: Change ORDER_NONE to the correct strength. ORDER_ATOMIC devuelve el valor tal cual está.
-  return [code, Blockly.JavaScript.ORDER_ATOMIC];
-};
+function initInterpreterDefuseBomb(interpreter, scope) {
+  Blockly.JavaScript.addReservedWords('desactivar_bomba');
+  var wrapper = interpreter.createAsyncFunction(
+    function(callback) {
+      spriteDefuseBomb(); 
+      // necesito definir el tiempo para cortar la ejecucion del bloque actual para pasar al siguiente bloque y resetear el interpreter para avanzar.
+      setTimeout(function(){         
+        callback(); 
+      },  0);  // lo pongo en 0 para que corte rápido.
+                
+    }); 
+  interpreter.setProperty(scope, 'desactivar_bomba', wrapper);
+}
 
-/* Blockly.JavaScript['there_is_element'] = function(block) {
-  // TODO: Assemble JavaScript into code variable.
-  var code = 'true';
-  // TODO: Change ORDER_NONE to the correct strength.
-  return [code, Blockly.JavaScript.ORDER_NONE];
-}; */
+function initInterpreterThereIsBomb(interpreter, scope) {
+  Blockly.JavaScript.addReservedWords('hay_bomba');
+    var wrapper = interpreter.createAsyncFunction(function() 
+    {        
+        return interpreter.createPrimitive(thereIsBomb);
+      }); 
+    interpreter.setProperty(scope, 'hay_bomba', wrapper);
+}

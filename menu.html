@@ -17,11 +17,15 @@
     <script src="js/movement_block.js"></script>
     <script src="js/movement_stub.js"></script>
     <script src="js/movement_sprite.js"></script>
-
-    <script src="node_modules/phaser/dist/phaser.js"></script>    
+  
+    <script src="node_modules/phaser/dist/phaser.js"></script> 
     <!-- Declaro el javascript que contiene la inicialización de blockly -->
     <script src="js/init_blockly.js"></script> 
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>     
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>   
+    <!-- Declaro funciones de manera ordenada -->
+    <script src="js/operation.js"></script>
+    <script src="js/collision.js"></script>  
+    <!-- Declaro los archivos de los niveles del juego -->
     <script src="levels/menu.js"></script>  
     <script src="levels/lv1.js"></script>  
     <script src="levels/lv2.js"></script> 
@@ -42,9 +46,11 @@
         </category>
 
         <category name='Operaciones' toolboxitemid="function_sprite" colour='20'>
-            <block type='get_element'></block>
-            <!-- <block type='begin'></block>
-            <block type='end'></block> -->
+            <block type='get_element'></block>            
+        </category>
+
+        <category name='Operaciones' toolboxitemid="function_sprite_lv3" colour='20'>            
+            <block type='defuse_bomb'></block>
         </category>
 
         <category name="Iterador" toolboxitemid="loop_for" colour="#5CA65C">
@@ -60,24 +66,23 @@
         <category name="Condicional" toolboxitemid="condition" colour="%{BKY_LOGIC_HUE}">
             <block type="controls_if"></block>
             <block type="controls_if">
-            <mutation else="1"></mutation>
+                <mutation else="1"></mutation>
             </block>
             <block type="controls_if">
-            <mutation elseif="1" else="1"></mutation>
+                <mutation elseif="1" else="1"></mutation>
             </block>
         </category>
 
         <category name="Lógico" toolboxitemid="logic" colour="%{BKY_LOGIC_HUE}">
             <block type="logic_compare"></block>
-            <block type="logic_operation"></block>                
+            <block type="logic_operation"></block> 
+            <block type="there_is_bomb"> </block>                               
         </category>
 
         <category name="Matemáticas" toolboxitemid="math" colour="300">
             <block type="math_number">
                 <field name="NUM">0</field>
-              </block> 
-              <block type="block_cant_stars">                
-              </block>                       
+            </block>             
         </category>
 
       </xml> 
@@ -85,6 +90,13 @@
       <xml id='startBlocks' style='display: none'></xml>
     
 <script type="text/javascript">
+
+var myInterpreter = null;
+var runner;
+var demoWorkspace;
+var latestCode = '';
+// flag para controlar si termina la ejecución luego de darle play al game.
+var endExcecution;
 
 var score = "menu";
 var widthGame = 800;
@@ -123,7 +135,7 @@ var posY;
 // linea de movimientos animados y avance
 var timeline;
 
-// tiempo del sprite para moverse de "a" a "b"
+// tiempo del sprite para moverse de "a" a "b" defaul is 1000
 var tiempoSprite = 1000;
 
 // Titulo si se cae del tablero.
@@ -131,35 +143,21 @@ var titleOutTable;
 // Título de juego teminado.
 var titleGameComplete;
 
+var title;
+
 var cantStars;
+var cantBombs;
 var star;
+var bomb;
 var x_star;
 var y_star;
+var x_bomb;
+var y_bomb;
+var disableBomb = false;
+var explosive;
+
 var yo;
-
-inject_blockly();
-// Menú principal
-
-function ocultarBloques(){
-    $("#blocklyDiv").hide();
-    $("#blocklyTextId").hide();
-}
-
-function mostrarBloques(){    
-    $("#blocklyDiv").show();
-    $("#blocklyTextId").show();
-}
-
-function ocultarCategorias(){
-    demoWorkspace.getToolbox().getToolboxItemById('loop_for').hide();
-    demoWorkspace.getToolbox().getToolboxItemById('logic').hide();
-    demoWorkspace.getToolbox().getToolboxItemById('condition').hide();
-    demoWorkspace.getToolbox().getToolboxItemById('math').hide();
-}
-
-ocultarCategorias();
-
-ocultarBloques();
+var thereIsBomb = false;
 
 var config = {
     type: Phaser.AUTO,    
@@ -174,12 +172,18 @@ var config = {
         default: 'arcade',
         arcade: {            
             debug: false
-        }
+        },
     },  
     scene: [ SceneMenu, Scene1, Scene2, Scene3 ]
 };
 // declaro la creacion del juego
 var game = new Phaser.Game(config);
+
+inject_blockly();
+
+hideCategories();
+
+hideBlocks();
 
 </script>
 </body>
