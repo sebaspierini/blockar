@@ -120,9 +120,7 @@ Blockly.Blocks['move_left'] = {
     }
   };
 
-  Blockly.JavaScript['there_is_bomb'] = function(block) {
-    // TODO: Assemble JavaScript into code variable.    
-    var code = 'hay_bomba';
-    // TODO: Change ORDER_NONE to the correct strength. ORDER_ATOMIC devuelve el valor tal cual está.
+  Blockly.JavaScript['there_is_bomb'] = function(block) {    
+    var code = 'hay_bomba()';    
     return [code, Blockly.JavaScript.ORDER_ATOMIC];
   };

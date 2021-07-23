@@ -15,6 +15,7 @@ function collectStar (sprite, star)
 function collectBombs (sprite, bomb)
 {
     thereIsBomb = true;
+    
     if (disableBomb){   
         disableBomb = false;      
         cantBombs--;                

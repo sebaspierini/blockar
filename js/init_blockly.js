@@ -26,9 +26,9 @@ function resetStepUi() {
 function generateCodeAndLoadIntoInterpreter() {
     
     // Probar de meter el resultado en un array separado por ; y devolver todos los textos que no contienen highlightblock pueden ser los indices impares. Ver que pasa cuando hay un for. 
-    window.LoopTrap = 1000;
+    //window.LoopTrap = 1000;
     Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
-    Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
+    //Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
     Blockly.JavaScript.addReservedWords('highlightBlock');
 
     // Genera codigo JavaScript y lo parsea.

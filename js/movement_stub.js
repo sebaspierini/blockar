@@ -1,6 +1,6 @@
 function initInterpreterGoRight(interpreter, scope) {
   Blockly.JavaScript.addReservedWords('ir_a_derecha');
-   var wrapper = interpreter.createAsyncFunction(    
+   var wrapper = interpreter.createAsyncFunction(  
     function(callback) {
       spriteRight();
       timeline.play();      
@@ -88,9 +88,8 @@ function initInterpreterDefuseBomb(interpreter, scope) {
 
 function initInterpreterThereIsBomb(interpreter, scope) {
   Blockly.JavaScript.addReservedWords('hay_bomba');
-    var wrapper = interpreter.createAsyncFunction(function() 
-    {        
-        return interpreter.createPrimitive(thereIsBomb);
-      }); 
-    interpreter.setProperty(scope, 'hay_bomba', wrapper);
+  var wrapper = function(){
+    return interpreter.createPrimitive(thereIsBomb);
+  }
+  interpreter.setProperty(scope,'hay_bomba',interpreter.createNativeFunction(wrapper));
 }
