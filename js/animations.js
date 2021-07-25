@@ -43,3 +43,16 @@ function createAnimationExplosive(){
         hideOnComplete: true
     });  
 }
+
+function createAnimationOn2x(){
+    yo.anims.create({
+        key: 'on',
+        frames: [ { key: 'switch', frame: 1 } ],
+        frameRate: 20
+    });
+    yo.anims.create({
+        key: 'off',
+        frames: [ { key: 'switch', frame: 0 } ],
+        frameRate: 20
+    });
+}

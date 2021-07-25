@@ -1,5 +1,7 @@
 function collectStar (sprite, star)
 {    
+    thereIsStar = true;
+
     if (takeElement){
         star.disableBody(true, true); 
         cantStars--; 

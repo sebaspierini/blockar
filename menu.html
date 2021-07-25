@@ -33,6 +33,7 @@
     <script src="levels/lv1.js"></script>  
     <script src="levels/lv2.js"></script> 
     <script src="levels/lv3.js"></script> 
+    <script src="levels/lv4.js"></script> 
 </head>
 <body>
     
@@ -156,9 +157,13 @@ var x_bomb;
 var y_bomb;
 var disableBomb = false;
 var explosive;
+// Flag de boton de 2x;
+var on_2x;
+var on_off = false;
 
 var yo;
-var thereIsBomb = false;
+var thereIsBomb;
+var thereIsStar;
 
 var config = {
     type: Phaser.AUTO,    
@@ -175,7 +180,7 @@ var config = {
             debug: false
         },
     },  
-    scene: [ SceneMenu, Scene1, Scene2, Scene3 ]
+    scene: [ SceneMenu, Scene1, Scene2, Scene3, Scene4 ]
 };
 // declaro la creacion del juego
 var game = new Phaser.Game(config);

@@ -17,8 +17,8 @@ function addTextGameOver(text){
 }
 
 function resetTextGameOver(){
-    titleGameOver = GAME_OVER_TEXT;
-    gameOver = false;
+    titleGameOver = GAME_OVER_TEXT;    
+    gameOver = false;    
 }
 
 function messageGameOver(){
@@ -32,22 +32,27 @@ function messageGameOver(){
     let paddingGameOver = 16;
     let message = yo.add.text(465, 300, '', style).setPadding(paddingGameOver);
     message.setText(titleGameOver);        
-    message.visible = true;
+    message.visible = true;    
 }
 
 function messageSprite(text){
-    let style = {
+    /* let style = {
         fontSize: '10px',
         fontFamily: 'Arial',
         color: 'black',
         backgroundColor: 'white'
     };    
-    let paddingGameComplete = 10;
+    let paddingGameComplete = 10; */
     let posXD = posX;
     if(sprite.x > (initPosX + (moveX * 4))){
         posXD = posX - (moveX * 2);
+        createSpeechBubble(posXD, posY-(moveY/2), 140, 30, text, 'right');
+    }else{
+        createSpeechBubble(posXD, posY-(moveY/2), 140, 30, text, 'left');
     }
-    let message = yo.add.text(posXD, posY-(moveY/2), '', style).setPadding(paddingGameComplete);
+    /* let message = yo.add.text(posXD, posY-(moveY/2), '', style).setPadding(paddingGameComplete);
     message.setText(text);
-    message.visible = true;
+    message.visible = true; */
+
+    
 }

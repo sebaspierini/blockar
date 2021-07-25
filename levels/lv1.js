@@ -12,7 +12,8 @@ class Scene1 extends Phaser.Scene {
         this.load.image('play', 'assets/play.png');
         this.load.image('reset', 'assets/reset.png');
         this.load.image('menu', 'assets/menu.png');
-        this.load.image('star', 'assets/star.png');         
+        this.load.image('star', 'assets/star.png');      
+        this.load.spritesheet('switch', 'assets/switch.png', { frameWidth: 256, frameHeight: 136 });   
     }
     
     create ()
@@ -34,7 +35,7 @@ class Scene1 extends Phaser.Scene {
         
         setStarsRandom();                 
 
-        createAnimationDude();
+        createAnimationDude();        
 
         createButtonsGame();
         
@@ -50,6 +51,10 @@ class Scene1 extends Phaser.Scene {
     
     update(){ 
         setUpdateConfig();   
+
+        if(!sprite.body.embedded){
+            thereIsStar = false;            
+        }  
         
         if(endExcecution && cantStars > 0){            
             addTextGameOver(INCOMPLETE_GAME_TEXT);            

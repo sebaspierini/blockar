@@ -3,4 +3,7 @@ const GAME_OVER_TEXT = "Juego terminado.";
 const SPRITE_OUT_GAME_TEXT = "Se fue del tablero.";
 const GAME_COMPLETED_TEXT = "Juego completado.";
 const NO_BOMB_TEXT = 'Aquí no hay bomba.';
+const NO_STAR_TEXT = 'Aquí no hay estrella.';
 const BOMB_EXPLODED_TEXT = "La bomba ha explotado. No la desactivó.";
+const BTN_ACELERATION_TEXT = "Acelerar";
+const TITLE_MENU_TEXT = "Seleccionar nivel...";

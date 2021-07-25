@@ -2,7 +2,26 @@ function createButtonsGame(){
     playButton = yo.add.image(posXExecutables, posYExecutables, 'play').setInteractive().setDisplaySize(50,50);
     menuButton = yo.add.image((widthGame / 2) - (cellWidth / 2), posYExecutables, 'menu').setInteractive().setDisplaySize(50,50);
     resetButton = yo.add.image(posXExecutables + cellWidth, posYExecutables, 'reset').setInteractive().setDisplaySize(50,50);
-    resetButton.visible = false;                         
+    resetButton.visible = false;  
+
+    var posXtextOn_2x = (widthGame / 2) - (cellWidth / 2) - cellWidth;
+    on_2x = yo.physics.add.sprite(posXtextOn_2x , posYExecutables, 'switch').setInteractive().setDisplaySize(50,30); 
+               
+    yo.add.text(posXtextOn_2x - 60, posYExecutables, BTN_ACELERATION_TEXT, {fontFamily: 'Arial', color: '#000000',fontSize: '14px'}).setOrigin(0.5);
+
+    on_2x.on('pointerdown', function(){                                              
+        if(on_off){
+            on_2x.anims.play('off');     
+            timeSprite = 1000;            
+            on_off = false;
+        }else{
+            on_2x.anims.play('on');  
+            timeSprite = 100;              
+            on_off = true;
+        }
+    }); 
+
+    createAnimationOn2x();
 
     menuButton.on('pointerdown', function(){                                              
         score = "menu";                                 
@@ -17,9 +36,12 @@ function playConfig(){
 }
 
 function resetConfig(){
+    resetInterpreter();  
     demoWorkspace.clear();
-    endExcecution = false;
-    resetTextGameOver();  
+    endExcecution = false;    
+    timeSprite = 1000;
+    on_off = false;
+    resetTextGameOver();      
 }
 
 function setUpdateConfig(){
@@ -32,10 +54,10 @@ function setUpdateConfig(){
     if(score==="menu"){                             
         yo.scene.start('SceneMenu');        
     }
-
-    if (gameOver){
-        resetInterpreter();
-        messageGameOver();        
+    
+    if (gameOver){               
+        resetInterpreter();        
+        messageGameOver();                
     }else{
         if((sprite.x - 1) > (initPosX + (moveX * 5))){
             //console.log("se cayo a la derecha");
@@ -107,7 +129,7 @@ function setBombsRandom(){
         } 
 
         bomb = bombs.get();
-        //  This creates a new Phaser.Sprite instance within the group
+        //  yo creates a new Phaser.Sprite instance within the group
         //  It will be randomly placed within the world and use the 'baddie' image to display
         
         bomb.enableBody(true,x_bomb,y_bomb,true,true);
@@ -117,7 +139,7 @@ function setBombsRandom(){
 }
 
 function setStarsRandom(){
-    //star = this.add.group();
+    //star = yo.add.group();
     let stars = yo.physics.add.group({
         key: 'star',
         frameQuantity: cantStars,
@@ -162,17 +184,77 @@ function setStarsRandom(){
         } 
 
         star = stars.get();
-        //  This creates a new Phaser.Sprite instance within the group
+        //  yo creates a new Phaser.Sprite instance within the group
         //  It will be randomly placed within the world and use the 'baddie' image to display
         
         star.enableBody(true,x_star,y_star,true,true);
     }
 
-    //var group = this.add.group({ key: 'star', frame: 0, repeat: 0 });
+    //var group = yo.add.group({ key: 'star', frame: 0, repeat: 0 });
 
     //Phaser.Actions.GridAlign(group.getChildren(), { width: width, height: height, cellWidth: cellWidth, cellHeight: cellHeight, position: Phaser.Display.Align.CENTER, x:  initPosX + (moveX * Phaser.Math.RND.between(1,5)), y: initPosY - (moveY * Phaser.Math.RND.between(0,4)) });        
     
-    //star = this.physics.add.image(x_star, y_star, 'star');
+    //star = yo.physics.add.image(x_star, y_star, 'star');
 
     yo.physics.add.overlap(sprite, stars, collectStar, null, yo);
+}
+
+
+// position debe ser left o right
+function createSpeechBubble (x, y, width, height, quote, position)
+{
+    var bubbleWidth = width;
+    var bubbleHeight = height;
+    var bubblePadding = 10;
+    var arrowHeight = bubbleHeight / 4;
+
+    var bubble = yo.add.graphics({ x: x, y: y });
+
+    //  Bubble shadow
+    // bubble.fillStyle(0x222222, 0.5);
+    // bubble.fillRoundedRect(6, 6, bubbleWidth, bubbleHeight, 16);
+
+    //  Bubble color
+    bubble.fillStyle(0xffffff, 1);
+
+    //  Bubble outline line style
+    bubble.lineStyle(4, 0x565656, 1);
+
+    //  Bubble shape and outline
+    bubble.strokeRoundedRect(0, 0, bubbleWidth, bubbleHeight, 16);
+    bubble.fillRoundedRect(0, 0, bubbleWidth, bubbleHeight, 16);
+
+    var point1X;
+    var point2X;
+    var point3X;
+        
+    //  Calculate arrow coordinates
+    if (position == 'right'){
+        point1X = Math.floor((bubbleWidth / 7 )) * 5;        
+        point2X = Math.floor((bubbleWidth / 7) * 2) * 3;        
+        point3X = Math.floor(bubbleWidth /3.5) * 3;               
+    }else{
+        point1X = Math.floor(bubbleWidth / 7);        
+        point2X = Math.floor((bubbleWidth / 7) * 2);        
+        point3X = Math.floor(bubbleWidth / 7);         
+    }
+    var point1Y = bubbleHeight;
+    var point2Y = bubbleHeight;
+    var point3Y = Math.floor(bubbleHeight + arrowHeight);
+
+    //  Bubble arrow shadow (sombra de la flecha de la burbuja)
+    // bubble.lineStyle(4, 0x222222, 0.5);
+    // bubble.lineBetween(point2X - 1, point2Y + 6, point3X + 2, point3Y);
+
+    //  Bubble arrow fill
+    bubble.fillTriangle(point1X, point1Y, point2X, point2Y, point3X, point3Y);
+    bubble.lineStyle(2, 0x565656, 1);
+    bubble.lineBetween(point2X, point2Y, point3X, point3Y);
+    bubble.lineBetween(point1X, point1Y, point3X, point3Y);    
+
+    var content = yo.add.text(0, 0, quote, { fontFamily: 'Arial', fontSize: 12, color: '#000000', align: 'center', wordWrap: { width: bubbleWidth - (bubblePadding * 2) } });
+
+    var b = content.getBounds();
+
+    content.setPosition(bubble.x + (bubbleWidth / 2) - (b.width / 2), bubble.y + (bubbleHeight / 2) - (b.height / 2));
 }

@@ -1,8 +1,8 @@
-class Scene3 extends Phaser.Scene { 
+class Scene4 extends Phaser.Scene { 
 
     constructor ()
     {
-        super({ key: 'scene3' });
+        super({ key: 'scene4' });
     }
     
     preload ()
@@ -19,8 +19,8 @@ class Scene3 extends Phaser.Scene {
     
     create ()
     {                             
-        cantBombs = 4;
-        yo = this;
+        cantBombs = 4;        
+        yo = this;        
         posX = initPosX;
         posY = initPosY;      
         
@@ -28,7 +28,7 @@ class Scene3 extends Phaser.Scene {
         
         this.add.grid(horizontal, vertical, width, height, cellWidth, cellHeight, 0xDADADA).setAltFillStyle(0xA5A5A5).setOutlineStyle();
         
-        sprite = this.physics.add.sprite(initPosX, initPosY, 'dude');                     
+        sprite = this.physics.add.sprite(initPosX, initPosY, 'dude');                                    
 
         //colision con el mundo
         sprite.setBounce(0.2);
@@ -38,7 +38,7 @@ class Scene3 extends Phaser.Scene {
 
         createAnimationDude();
 
-        createButtonsGame();
+        createButtonsGame();        
 
         playButton.on('pointerdown', function(){ 
             setBombsRandom();
@@ -47,7 +47,7 @@ class Scene3 extends Phaser.Scene {
 
         resetButton.on('pointerdown', function(){    
             resetConfig();                               
-            this.scene.start('scene3');
+            this.scene.start('scene4');
         },this);
     }
     
@@ -59,9 +59,9 @@ class Scene3 extends Phaser.Scene {
             thereIsBomb = false;            
         }         
         
-        if(endExcecution && cantBombs > 0){
+        if(endExcecution && cantBombs > 0){            
             addTextGameOver(INCOMPLETE_GAME_TEXT);                   
-            endExcecution = false;
+            endExcecution = false;                        
         }        
     }
 

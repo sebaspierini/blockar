@@ -8,5 +8,10 @@ function spriteDefuseBomb(){
 }
 
 function spriteGetElement(){
-    takeElement = true;
+    if(!thereIsStar){                   
+        messageSprite(NO_STAR_TEXT); 
+        resetInterpreter();    
+    }else{
+        takeElement = true;
+    }
 }
