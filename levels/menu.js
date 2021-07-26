@@ -60,6 +60,8 @@ class SceneMenu extends Phaser.Scene {
         hideBlocks();
 
         resetConfig();
+
+        demoWorkspace.clear();
         
         // Reseteo score a un valor distinto de 'menu' con score = 'menu' indico que vengo a esta clase.
         score = '1';                  
@@ -84,7 +86,7 @@ class SceneMenu extends Phaser.Scene {
 
         lv4Click.on('pointerdown', function(){
             showBlocks();
-            showCategoriesLv3();             
+            showCategoriesLv4();             
             this.scene.start('scene4');   
         }, this);
     }

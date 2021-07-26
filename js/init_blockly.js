@@ -108,7 +108,7 @@ function inject_blockly(){
     
     // Decodifica un DOM XML y crea bloques en el espacio de trabajo
     Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
-        demoWorkspace);   
+        demoWorkspace);           
         
     // Indica que los bloques deben estar conectados para funcionar.    
     
@@ -147,7 +147,8 @@ function hideCategories(){
     demoWorkspace.getToolbox().getToolboxItemById('loop_for').hide();
     demoWorkspace.getToolbox().getToolboxItemById('logic').hide();
     demoWorkspace.getToolbox().getToolboxItemById('condition').hide();
-    demoWorkspace.getToolbox().getToolboxItemById('math').hide();      
+    demoWorkspace.getToolbox().getToolboxItemById('math').hide();   
+    demoWorkspace.getToolbox().getToolboxItemById('function').hide();    
 }
 
 function showCategoriesLv1(){
@@ -166,8 +167,17 @@ function showCategoriesLv2(){
 function showCategoriesLv3(){
     hideCategories();
     demoWorkspace.getToolbox().getToolboxItemById('movement_sprite').show();
+    
+    demoWorkspace.getToolbox().getToolboxItemById('loop_for').show();
+    demoWorkspace.getToolbox().getToolboxItemById('function').show(); 
+}
+
+function showCategoriesLv4(){
+    hideCategories();
+    demoWorkspace.getToolbox().getToolboxItemById('movement_sprite').show();
     demoWorkspace.getToolbox().getToolboxItemById('function_sprite_lv3').show(); 
     demoWorkspace.getToolbox().getToolboxItemById('loop_for').show();
     demoWorkspace.getToolbox().getToolboxItemById('logic').show();
     demoWorkspace.getToolbox().getToolboxItemById('condition').show();
+    demoWorkspace.getToolbox().getToolboxItemById('function').show(); 
 }

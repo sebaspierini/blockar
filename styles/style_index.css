@@ -16,7 +16,8 @@ body {
 }
 
 .blocklyText{
-  height: 192px; 
+  /* height: 192px;  */
+  height: 142px;
   width: 395px;             
   position: absolute;            
   margin-left: 400px;

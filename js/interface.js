@@ -1,7 +1,7 @@
 function createButtonsGame(){
     playButton = yo.add.image(posXExecutables, posYExecutables, 'play').setInteractive().setDisplaySize(50,50);
     menuButton = yo.add.image((widthGame / 2) - (cellWidth / 2), posYExecutables, 'menu').setInteractive().setDisplaySize(50,50);
-    resetButton = yo.add.image(posXExecutables + cellWidth, posYExecutables, 'reset').setInteractive().setDisplaySize(50,50);
+    resetButton = yo.add.image(posXExecutables, posYExecutables, 'reset').setInteractive().setDisplaySize(50,50);
     resetButton.visible = false;  
 
     var posXtextOn_2x = (widthGame / 2) - (cellWidth / 2) - cellWidth;
@@ -36,8 +36,7 @@ function playConfig(){
 }
 
 function resetConfig(){
-    resetInterpreter();  
-    demoWorkspace.clear();
+    resetInterpreter();      
     endExcecution = false;    
     timeSprite = 1000;
     on_off = false;

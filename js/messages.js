@@ -35,7 +35,7 @@ function messageGameOver(){
     message.visible = true;    
 }
 
-function messageSprite(text){
+function messageSprite(text, width_a = 140, height_a = 30){
     /* let style = {
         fontSize: '10px',
         fontFamily: 'Arial',
@@ -44,11 +44,11 @@ function messageSprite(text){
     };    
     let paddingGameComplete = 10; */
     let posXD = posX;
-    if(sprite.x > (initPosX + (moveX * 4))){
+    if(sprite.x > (initPosX + (moveX * 3))){
         posXD = posX - (moveX * 2);
-        createSpeechBubble(posXD, posY-(moveY/2), 140, 30, text, 'right');
+        createSpeechBubble(posXD, posY-(moveY), width_a, height_a, text, 'right');
     }else{
-        createSpeechBubble(posXD, posY-(moveY/2), 140, 30, text, 'left');
+        createSpeechBubble(posXD, posY-(moveY), width_a, height_a, text, 'left');
     }
     /* let message = yo.add.text(posXD, posY-(moveY/2), '', style).setPadding(paddingGameComplete);
     message.setText(text);

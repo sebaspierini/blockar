@@ -11,8 +11,9 @@ class Scene3 extends Phaser.Scene {
         this.load.image('play', 'assets/play.png');
         this.load.image('reset', 'assets/reset.png');
         this.load.image('menu', 'assets/menu.png');        
-        this.load.image('bomb', 'assets/bomb.png');
-        this.load.spritesheet('explosive', 'assets/explosion.png', { frameWidth: 128, frameHeight: 128 });
+        this.load.image('pc', 'assets/pc.png');        
+        this.load.image('memory', 'assets/ram-memory.png');  
+        this.load.image('disk', 'assets/hard-disk.png');  
         this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 }); 
         this.load.spritesheet('switch', 'assets/switch.png', { frameWidth: 256, frameHeight: 136 });
     }
@@ -27,6 +28,12 @@ class Scene3 extends Phaser.Scene {
         this.add.image(400, 300, 'sky');
         
         this.add.grid(horizontal, vertical, width, height, cellWidth, cellHeight, 0xDADADA).setAltFillStyle(0xA5A5A5).setOutlineStyle();
+
+        this.physics.add.image(initPosX - 10, initPosY - 10, 'pc').setDisplaySize(40,40);
+
+        this.physics.add.image(initPosX + (moveX * 4), initPosY, 'memory').setDisplaySize(40,40);
+
+        this.physics.add.image(initPosX + (moveX * 4), initPosY - (moveY * 4), 'disk').setDisplaySize(40,40);        
         
         sprite = this.physics.add.sprite(initPosX, initPosY, 'dude');                     
 
@@ -34,14 +41,13 @@ class Scene3 extends Phaser.Scene {
         sprite.setBounce(0.2);
         sprite.setCollideWorldBounds(true);
 
-        createAnimationExplosive(); 
+        
 
         createAnimationDude();
 
         createButtonsGame();
 
-        playButton.on('pointerdown', function(){ 
-            setBombsRandom();
+        playButton.on('pointerdown', function(){             
             playConfig();                     
         });
 
