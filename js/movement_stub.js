@@ -93,3 +93,39 @@ function initInterpreterThereIsBomb(interpreter, scope) {
   }
   interpreter.setProperty(scope,'hay_bomba',interpreter.createNativeFunction(wrapper));
 }
+
+function initInterpreterGetMemory(interpreter, scope) {
+  Blockly.JavaScript.addReservedWords('tomar_memoria');
+  var wrapper = interpreter.createAsyncFunction(
+    function(callback) {
+      getMemory();
+      setTimeout(function(){         
+        callback(); 
+      },  0);            
+    }); 
+  interpreter.setProperty(scope, 'tomar_memoria', wrapper);
+}
+
+function initInterpreterGetDisk(interpreter, scope) {
+  Blockly.JavaScript.addReservedWords('tomar_disco');
+  var wrapper = interpreter.createAsyncFunction(
+    function(callback) {
+      getDisk();
+      setTimeout(function(){         
+        callback(); 
+      },  0);            
+    }); 
+  interpreter.setProperty(scope, 'tomar_disco', wrapper);
+}
+
+function initInterpreterPutInPc(interpreter, scope) {
+  Blockly.JavaScript.addReservedWords('colocar_hardware_en_pc');
+  var wrapper = interpreter.createAsyncFunction(
+    function(callback) {
+      putInPc();
+      setTimeout(function(){         
+        callback(); 
+      },  0);            
+    }); 
+  interpreter.setProperty(scope, 'colocar_hardware_en_pc', wrapper);
+}

@@ -54,8 +54,15 @@
         </category>
 
         <category name='Operaciones' toolboxitemid="function_sprite_lv3" colour='20'>            
+            <block type='get_memory'></block>
+            <block type='get_disk'></block>
+            <block type='put_element_lv3'></block>
+        </category>
+
+        <category name='Operaciones' toolboxitemid="function_sprite_lv4" colour='20'>            
             <block type='defuse_bomb'></block>
         </category>
+        
 
         <category name="Iterador" toolboxitemid="loop_for" colour="#5CA65C">
             <block type="controls_repeat_ext">
@@ -134,6 +141,9 @@ var menuButton;
 
 // Objetos del juego
 var takeElement = false;
+var takePc = false;
+var takeMemory = false;
+var takeDisk = false;
 
 // posicion variale del sprite
 var posX;
@@ -151,6 +161,10 @@ var gameOver = false;
 
 var cantStars;
 var cantBombs;
+var cantMemory;
+var cantDisk;
+var cantPc;
+
 var star;
 var bomb;
 var x_star;
@@ -166,6 +180,11 @@ var on_off = false;
 var yo;
 var thereIsBomb;
 var thereIsStar;
+var thereIsMemory;
+var thereIsPc;
+var thereIsDisk;
+
+var stack;
 
 var config = {
     type: Phaser.AUTO,    

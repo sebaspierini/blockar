@@ -15,3 +15,32 @@ function spriteGetElement(){
         takeElement = true;
     }
 }
+
+function getMemory(){
+    if(!thereIsMemory){                   
+        messageSprite(NO_MEMORY_TEXT); 
+        resetInterpreter();    
+    }else{
+        takeMemory = true;
+        stack++;
+    }
+}
+
+function putInPc(){
+    if(!thereIsPc){                   
+        messageSprite(NO_PC_TEXT); 
+        resetInterpreter();    
+    }else{
+        takePc = true;        
+    }
+}
+
+function getDisk(){
+    if(!thereIsDisk){                   
+        messageSprite(NO_DISK_TEXT); 
+        resetInterpreter();    
+    }else{
+        takeDisk = true;
+        stack++;
+    }
+}

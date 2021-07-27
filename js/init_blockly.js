@@ -13,6 +13,9 @@ function initApi(interpreter, scope) {
     initInterpreterGetElement(interpreter, scope);        
     initInterpreterDefuseBomb(interpreter, scope); 
     initInterpreterThereIsBomb(interpreter, scope);     
+    initInterpreterGetMemory(interpreter, scope);
+    initInterpreterGetDisk(interpreter, scope);
+    initInterpreterPutInPc(interpreter, scope);
 }
 
 function highlightBlock(id) {
@@ -144,6 +147,7 @@ function hideCategories(){
     demoWorkspace.getToolbox().getToolboxItemById('movement_sprite').hide();
     demoWorkspace.getToolbox().getToolboxItemById('function_sprite').hide();    
     demoWorkspace.getToolbox().getToolboxItemById('function_sprite_lv3').hide(); 
+    demoWorkspace.getToolbox().getToolboxItemById('function_sprite_lv4').hide(); 
     demoWorkspace.getToolbox().getToolboxItemById('loop_for').hide();
     demoWorkspace.getToolbox().getToolboxItemById('logic').hide();
     demoWorkspace.getToolbox().getToolboxItemById('condition').hide();
@@ -167,7 +171,7 @@ function showCategoriesLv2(){
 function showCategoriesLv3(){
     hideCategories();
     demoWorkspace.getToolbox().getToolboxItemById('movement_sprite').show();
-    
+    demoWorkspace.getToolbox().getToolboxItemById('function_sprite_lv3').show(); 
     demoWorkspace.getToolbox().getToolboxItemById('loop_for').show();
     demoWorkspace.getToolbox().getToolboxItemById('function').show(); 
 }
@@ -175,7 +179,7 @@ function showCategoriesLv3(){
 function showCategoriesLv4(){
     hideCategories();
     demoWorkspace.getToolbox().getToolboxItemById('movement_sprite').show();
-    demoWorkspace.getToolbox().getToolboxItemById('function_sprite_lv3').show(); 
+    demoWorkspace.getToolbox().getToolboxItemById('function_sprite_lv4').show(); 
     demoWorkspace.getToolbox().getToolboxItemById('loop_for').show();
     demoWorkspace.getToolbox().getToolboxItemById('logic').show();
     demoWorkspace.getToolbox().getToolboxItemById('condition').show();

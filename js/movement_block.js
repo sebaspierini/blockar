@@ -124,3 +124,57 @@ Blockly.Blocks['move_left'] = {
     var code = 'hay_bomba()';    
     return [code, Blockly.JavaScript.ORDER_ATOMIC];
   };
+
+  Blockly.Blocks['get_memory'] = {
+    init: function() {
+      this.appendDummyInput()
+          .appendField("Tomar memoria");
+      this.setInputsInline(false);
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(20);
+   this.setTooltip("");
+   this.setHelpUrl("");
+    }
+  };
+  
+  Blockly.JavaScript['get_memory'] = function(block) {  
+    var code = 'tomar_memoria();\n';
+    return code;
+  };
+  
+  Blockly.Blocks['get_disk'] = {
+    init: function() {
+      this.appendDummyInput()
+          .appendField("Tomar disco");
+      this.setInputsInline(false);
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(20);
+   this.setTooltip("");
+   this.setHelpUrl("");
+    }
+  };
+  
+  Blockly.JavaScript['get_disk'] = function(block) {  
+    var code = 'tomar_disco();\n';
+    return code;
+  };
+
+  Blockly.Blocks['put_element_lv3'] = {
+    init: function() {
+      this.appendDummyInput()
+          .appendField("Colocar hardware en PC");
+      this.setInputsInline(false);
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(20);
+   this.setTooltip("");
+   this.setHelpUrl("");
+    }
+  };
+  
+  Blockly.JavaScript['put_element_lv3'] = function(block) {  
+    var code = 'colocar_hardware_en_pc();\n';
+    return code;
+  };

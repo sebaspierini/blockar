@@ -11,6 +11,18 @@ function messageGameCompleted(){
     message.visible = true; 
 }
 
+function messageForVariables(text,x,y){
+    let style = {
+        fontSize: '16px',
+        fontFamily: 'Arial',
+        color: 'black',    
+        backgroundColor: 'white'        
+    };        
+    var message = yo.add.text(x, y, '',style);    
+    message.setText(' = '+ text);
+    message.visible = true;    
+}
+
 function addTextGameOver(text){
     titleGameOver = titleGameOver + "\n" +text;
     gameOver = true;

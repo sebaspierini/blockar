@@ -7,3 +7,7 @@ const NO_STAR_TEXT = 'Aquí no hay estrella.';
 const BOMB_EXPLODED_TEXT = "La bomba ha explotado. No la desactivó.";
 const BTN_ACELERATION_TEXT = "Acelerar";
 const TITLE_MENU_TEXT = "Seleccionar nivel...";
+const NO_MEMORY_TEXT = 'Aquí no hay memoria.';
+const NO_DISK_TEXT = 'Aquí no hay disco.';
+const NO_PC_TEXT = 'Aquí no hay Pc.';
+const NO_GET_MORE_TEXT = 'No puedo llevar mas de uno.';

@@ -40,3 +40,47 @@ function collectBombs (sprite, bomb)
         }    
     } 
 }
+
+function collectDisk(sprite,disk){
+    thereIsDisk = true;
+    if(stack>1){
+        messageSprite(NO_GET_MORE_TEXT); 
+        resetInterpreter();     
+    }else{
+        if (takeDisk){                
+            cantDisk--;
+            messageForVariables(cantDisk,initPosX + (moveX * 2) + 14,initPosY - (moveY * 5));
+            if(cantDisk === 0){
+                disk.disableBody(true,true);
+            }    
+            takeDisk = false;     
+        } 
+    }
+    
+}
+
+function collectMemory(sprite,memory){
+    thereIsMemory = true;    
+    if(stack>1){
+        messageSprite(NO_GET_MORE_TEXT); 
+        resetInterpreter();     
+    }else{
+        if (takeMemory){           
+            cantMemory--;               
+            messageForVariables(cantMemory,initPosX + 14,initPosY - (moveY * 5));
+            if(cantMemory === 0){
+                memory.disableBody(true,true);
+            }  
+            takeMemory = false;     
+        }
+    }
+}
+
+function putPc(sprite,pc){
+    thereIsPc = true;
+    if (takePc){        
+        cantPc++;    
+        stack--;
+        takePc = false;     
+    }
+}
