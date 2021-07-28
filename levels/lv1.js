@@ -12,7 +12,9 @@ class Scene1 extends Phaser.Scene {
         this.load.image('play', 'assets/play.png');
         this.load.image('reset', 'assets/reset.png');
         this.load.image('menu', 'assets/menu.png');
-        this.load.image('star', 'assets/star.png');      
+        this.load.image('star', 'assets/smartphone.png');      
+        this.load.image('info', 'assets/info.png');
+        this.load.image('code', 'assets/code.png');   
         this.load.spritesheet('switch', 'assets/switch.png', { frameWidth: 256, frameHeight: 136 });   
     }
     
@@ -21,7 +23,9 @@ class Scene1 extends Phaser.Scene {
         cantStars = 1;
         yo = this;
         posX = initPosX;
-        posY = initPosY;      
+        posY = initPosY;    
+        infoText = OBJETIVE_LV1_TEXT;
+        document.getElementById("blocklyTextId").value = infoText;  
         
         this.add.image(400, 300, 'sky');
         
@@ -56,9 +60,11 @@ class Scene1 extends Phaser.Scene {
             thereIsStar = false;            
         }  
         
-        if(endExcecution && cantStars > 0){            
-            addTextGameOver(INCOMPLETE_GAME_TEXT);            
-            endExcecution = false;
+        if(endExcecution && cantStars > 0){                                
+            endExcecution = false;               
+            if(!gameOver){
+                messageSprite(INCOMPLETE_GAME_TEXT);
+            } 
         }            
     }
 

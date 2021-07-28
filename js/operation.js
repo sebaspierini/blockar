@@ -9,7 +9,7 @@ function spriteDefuseBomb(){
 
 function spriteGetElement(){
     if(!thereIsStar){                   
-        messageSprite(NO_STAR_TEXT); 
+        messageSprite(NO_PC_TEXT); 
         resetInterpreter();    
     }else{
         takeElement = true;
@@ -28,7 +28,7 @@ function getMemory(){
 
 function putInPc(){
     if(!thereIsPc){                   
-        messageSprite(NO_PC_TEXT); 
+        messageSprite(NO_MOTHERBOARD_TEXT); 
         resetInterpreter();    
     }else{
         takePc = true;        

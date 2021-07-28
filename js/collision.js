@@ -32,8 +32,7 @@ function collectBombs (sprite, bomb)
     
     if(!gameOver){
         if((keyAnimSprite == 'right' && sprite.x > bomb.x) || (keyAnimSprite == 'left' && sprite.x < bomb.x) || (keyAnimSprite == 'up' && sprite.y < bomb.y) || (keyAnimSprite == 'down' && sprite.y > bomb.y)){                           
-            resetInterpreter();
-            addTextGameOver(BOMB_EXPLODED_TEXT);                                         
+            messageSprite(BOMB_EXPLODED_TEXT, 130, 40, 0, 10);             
             explosive = this.physics.add.sprite(bomb.x, bomb.y, 'explosive');
             explosive.setInteractive().setDisplaySize(50,50);
             explosive.play('activate');
@@ -81,6 +80,15 @@ function putPc(sprite,pc){
     if (takePc){        
         cantPc++;    
         stack--;
+        takePc = false;     
+    }
+}
+
+function collectPc(sprite,pc){
+    thereIsPc = true;
+    if (takePc){        
+        cantPc--;    
+        stack++;
         takePc = false;     
     }
 }

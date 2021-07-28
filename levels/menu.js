@@ -59,7 +59,7 @@ class SceneMenu extends Phaser.Scene {
         // Oculto las opciones de bloques y el textarea
         hideBlocks();
 
-        resetConfig();
+        resetConfig();        
 
         demoWorkspace.clear();
         
@@ -68,25 +68,29 @@ class SceneMenu extends Phaser.Scene {
 
         lv1Click.on('pointerdown', function(){                         
             showBlocks();            
-            showCategoriesLv1();                                    
+            showCategoriesLv1();   
+            $("#blocklyTextId").attr('style','height:192px');                                   
             this.scene.start('scene1');    
         }, this);
     
         lv2Click.on('pointerdown', function(){   
             showBlocks();
-            showCategoriesLv2();                                                     
+            showCategoriesLv2();     
+            $("#blocklyTextId").attr('style','height:142px');                                                  
             this.scene.start('scene2');    
         }, this);
         
         lv3Click.on('pointerdown', function(){
             showBlocks();
-            showCategoriesLv3();             
+            showCategoriesLv3();       
+            $("#blocklyTextId").attr('style','height:142px');      
             this.scene.start('scene3');   
         }, this);
 
         lv4Click.on('pointerdown', function(){
             showBlocks();
-            showCategoriesLv4();             
+            showCategoriesLv4();     
+            $("#blocklyTextId").attr('style','height:192px');          
             this.scene.start('scene4');   
         }, this);
     }

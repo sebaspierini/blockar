@@ -59,7 +59,7 @@ function initInterpreterGoDown(interpreter, scope) {
 }
 
 function initInterpreterGetElement(interpreter, scope) {
-  Blockly.JavaScript.addReservedWords('tomar_estrella');
+  Blockly.JavaScript.addReservedWords('tomar_celular');
   var wrapper = interpreter.createAsyncFunction(
     function(callback) {
       spriteGetElement(); 
@@ -69,7 +69,7 @@ function initInterpreterGetElement(interpreter, scope) {
       },  0);  // lo pongo en 0 para que corte rápido.
                 
     }); 
-  interpreter.setProperty(scope, 'tomar_estrella', wrapper);
+  interpreter.setProperty(scope, 'tomar_celular', wrapper);
 }
 
 function initInterpreterDefuseBomb(interpreter, scope) {
@@ -119,7 +119,7 @@ function initInterpreterGetDisk(interpreter, scope) {
 }
 
 function initInterpreterPutInPc(interpreter, scope) {
-  Blockly.JavaScript.addReservedWords('colocar_hardware_en_pc');
+  Blockly.JavaScript.addReservedWords('colocar_hardware_en_placa_madre');
   var wrapper = interpreter.createAsyncFunction(
     function(callback) {
       putInPc();
@@ -127,5 +127,5 @@ function initInterpreterPutInPc(interpreter, scope) {
         callback(); 
       },  0);            
     }); 
-  interpreter.setProperty(scope, 'colocar_hardware_en_pc', wrapper);
+  interpreter.setProperty(scope, 'colocar_hardware_en_placa_madre', wrapper);
 }

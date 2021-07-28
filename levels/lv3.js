@@ -10,8 +10,10 @@ class Scene3 extends Phaser.Scene {
         this.load.image('sky', 'assets/sky.png');
         this.load.image('play', 'assets/play.png');
         this.load.image('reset', 'assets/reset.png');
-        this.load.image('menu', 'assets/menu.png');        
-        this.load.image('pc', 'assets/pc.png');        
+        this.load.image('menu', 'assets/menu.png');  
+        this.load.image('info', 'assets/info.png');
+        this.load.image('code', 'assets/code.png');      
+        this.load.image('motherboard', 'assets/motherboard.png');        
         this.load.image('memory', 'assets/ram-memory.png');  
         this.load.image('disk', 'assets/hard-disk.png');  
         this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 }); 
@@ -27,16 +29,19 @@ class Scene3 extends Phaser.Scene {
         cantMemory = 4;
         cantPc = 0;
         stack = 0;
-        
+        infoText = OBJETIVE_LV3_TEXT;
+        document.getElementById("blocklyTextId").value = infoText;
+
         this.add.image(400, 300, 'sky');
+
+/*         var rect = new Phaser.Geom.Rectangle(posXExecutables - (cellWidth / 2) + (cellWidth * 3), posYExecutables - (cellHeight / 2) + 10, cellWidth * 2, cellHeight - 20);
+
+        var graphics2 = this.add.graphics({ fillStyle: { color: 0xDADADA } });
+        
+        graphics2.fillRectShape(rect); */
+        
         
         this.add.grid(horizontal, vertical, width, height, cellWidth, cellHeight, 0xDADADA).setAltFillStyle(0xA5A5A5).setOutlineStyle();
-
-        var rect = new Phaser.Geom.Rectangle(width, heightGame - cellHeight * 6, cellWidth * 6, cellHeight);
-
-        var graphics = this.add.graphics({ fillStyle: { color: 0xffffff } });
-
-        graphics.fillRectShape(rect);
 
         messageForVariables(cantMemory,initPosX + 14,initPosY - (moveY * 5));
         messageForVariables(cantDisk,initPosX + (moveX * 2) + 14,initPosY - (moveY * 5));
@@ -44,8 +49,8 @@ class Scene3 extends Phaser.Scene {
         this.add.image(initPosX, initPosY - (moveY * 5), 'memory').setDisplaySize(30,30);
         this.add.image(initPosX + (moveX * 2), initPosY - (moveY * 5), 'disk').setDisplaySize(30,30);        
 
-        var pc = this.physics.add.image(initPosX - 10, initPosY - 10, 'pc').setDisplaySize(40,40);
-        pc.enableBody(true,initPosX - 10,initPosY - 10,true,true);
+        var pc = this.physics.add.image(initPosX - 10, initPosY - 10, 'motherboard').setDisplaySize(40,40);
+        pc.enableBody(true,initPosX - 10,initPosY - 5,true,true);
 
         var memory = this.physics.add.image(initPosX + (moveX * 4), initPosY, 'memory').setDisplaySize(40,40);
         memory.enableBody(true,initPosX + (moveX * 4),initPosY,true,true);
@@ -94,8 +99,10 @@ class Scene3 extends Phaser.Scene {
         }
         
         if(endExcecution && cantPc < 6){
-            addTextGameOver(INCOMPLETE_GAME_TEXT);                   
-            endExcecution = false;
+            endExcecution = false;               
+            if(!gameOver){
+                messageSprite(INCOMPLETE_GAME_TEXT);
+            } 
         }        
     }
 

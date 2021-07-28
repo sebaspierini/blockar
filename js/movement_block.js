@@ -76,7 +76,7 @@ Blockly.Blocks['move_left'] = {
   Blockly.Blocks['get_element'] = {
     init: function() {
       this.appendDummyInput()
-          .appendField("Tomar estrella");
+          .appendField("Tomar celular");
       this.setInputsInline(false);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
@@ -87,7 +87,7 @@ Blockly.Blocks['move_left'] = {
   };
   
   Blockly.JavaScript['get_element'] = function(block) {  
-    var code = 'tomar_estrella();\n';
+    var code = 'tomar_celular();\n';
     return code;
   };
 
@@ -164,7 +164,7 @@ Blockly.Blocks['move_left'] = {
   Blockly.Blocks['put_element_lv3'] = {
     init: function() {
       this.appendDummyInput()
-          .appendField("Colocar hardware en PC");
+          .appendField("Colocar hardware en placa madre");
       this.setInputsInline(false);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
@@ -175,6 +175,6 @@ Blockly.Blocks['move_left'] = {
   };
   
   Blockly.JavaScript['put_element_lv3'] = function(block) {  
-    var code = 'colocar_hardware_en_pc();\n';
+    var code = 'colocar_hardware_en_placa_madre();\n';
     return code;
   };

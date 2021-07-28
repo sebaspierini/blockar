@@ -36,9 +36,8 @@ function generateCodeAndLoadIntoInterpreter() {
 
     // Genera codigo JavaScript y lo parsea.
     latestCode = Blockly.JavaScript.workspaceToCode(demoWorkspace);
-    
-    
-    document.getElementById("blocklyTextId").value = latestCode;     
+        
+    //document.getElementById("blocklyTextId").value = latestCode;         
          
     resetStepUi();
 }

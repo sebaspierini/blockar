@@ -3,6 +3,8 @@ function createButtonsGame(){
     menuButton = yo.add.image((widthGame / 2) - (cellWidth / 2), posYExecutables, 'menu').setInteractive().setDisplaySize(50,50);
     resetButton = yo.add.image(posXExecutables, posYExecutables, 'reset').setInteractive().setDisplaySize(50,50);
     resetButton.visible = false;  
+    infoButton = yo.add.image(posXExecutables + cellWidth, posYExecutables, 'info').setInteractive().setDisplaySize(40,40);
+    codeButton = yo.add.image(posXExecutables + (cellWidth * 2), posYExecutables, 'code').setInteractive().setDisplaySize(40,40);    
 
     var posXtextOn_2x = (widthGame / 2) - (cellWidth / 2) - cellWidth;
     on_2x = yo.physics.add.sprite(posXtextOn_2x , posYExecutables, 'switch').setInteractive().setDisplaySize(50,30); 
@@ -25,6 +27,14 @@ function createButtonsGame(){
 
     menuButton.on('pointerdown', function(){                                              
         score = "menu";                                 
+    });
+
+    infoButton.on('pointerdown', function(){                                                  
+        document.getElementById("blocklyTextId").value = infoText;
+    });
+
+    codeButton.on('pointerdown', function(){                                              
+        document.getElementById("blocklyTextId").value = latestCode;                             
     });
     
 }
@@ -55,28 +65,31 @@ function setUpdateConfig(){
     }
     
     if (gameOver){               
-        resetInterpreter();        
-        messageGameOver();                
+        resetInterpreter();                       
     }else{
         if((sprite.x - 1) > (initPosX + (moveX * 5))){
             //console.log("se cayo a la derecha");
             addTextGameOver(SPRITE_OUT_GAME_TEXT);          
-            sprite.visible = false;        
+            sprite.visible = false; 
+            messageGameOver();        
         }
         if((sprite.x + 1) < initPosX){
             //console.log("se cayo a la izq",sprite.x, initPosX);
             addTextGameOver(SPRITE_OUT_GAME_TEXT);            
-            sprite.visible = false;                
+            sprite.visible = false;  
+            messageGameOver();               
         }
         if((sprite.y - 0.5) > initPosY){        
             //console.log("se cayo abajo");        
             sprite.visible = false;
-            addTextGameOver(SPRITE_OUT_GAME_TEXT);             
+            addTextGameOver(SPRITE_OUT_GAME_TEXT);  
+            messageGameOver();            
         }
         if((sprite.y - 0.5 ) < (initPosY - (moveY * 5)) ){
             //console.log("se cayo arriba");   
             addTextGameOver(SPRITE_OUT_GAME_TEXT);         
-            sprite.visible = false;        
+            sprite.visible = false;   
+            messageGameOver();      
         }
     }
     
@@ -183,6 +196,7 @@ function setStarsRandom(){
         } 
 
         star = stars.get();
+        star.setDisplaySize(40,40);
         //  yo creates a new Phaser.Sprite instance within the group
         //  It will be randomly placed within the world and use the 'baddie' image to display
         
@@ -256,4 +270,12 @@ function createSpeechBubble (x, y, width, height, quote, position)
     var b = content.getBounds();
 
     content.setPosition(bubble.x + (bubbleWidth / 2) - (b.width / 2), bubble.y + (bubbleHeight / 2) - (b.height / 2));
+}
+
+function addBackground(){
+    var rect = new Phaser.Geom.Rectangle(0, 0, widthGame, heightGame);
+
+    var graphics = yo.add.graphics({ fillStyle: { color: 0x01AACE } });
+
+    graphics.fillRectShape(rect); 
 }

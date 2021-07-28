@@ -12,21 +12,28 @@ class Scene2 extends Phaser.Scene {
         this.load.image('play', 'assets/play.png');
         this.load.image('reset', 'assets/reset.png');
         this.load.image('menu', 'assets/menu.png');
-        this.load.image('star', 'assets/star.png');
+        this.load.image('pc', 'assets/pc.png');
+        this.load.image('info', 'assets/info.png');
+        this.load.image('code', 'assets/code.png');   
         this.load.spritesheet('switch', 'assets/switch.png', { frameWidth: 256, frameHeight: 136 });
          
     }
     
     create ()
     {
-        cantStars = 2;
+        cantPc = 5;
         yo = this;
         posX = initPosX;
         posY = initPosY;      
+        infoText = OBJETIVE_LV2_TEXT;
+        document.getElementById("blocklyTextId").value = infoText;
         
         this.add.image(400, 300, 'sky');
         
         this.add.grid(horizontal, vertical, width, height, cellWidth, cellHeight, 0xDADADA).setAltFillStyle(0xA5A5A5).setOutlineStyle();
+
+        messageForVariables(cantPc,initPosX + 14,initPosY - (moveY * 5));
+        this.add.image(initPosX - 10, initPosY - (moveY * 5), 'pc').setDisplaySize(30,30);
 
         sprite = this.physics.add.sprite(initPosX, initPosY, 'dude');
 
@@ -35,8 +42,10 @@ class Scene2 extends Phaser.Scene {
         sprite.setCollideWorldBounds(true);
         //sprite.depth = 100; con depth pongo delante al sprite para que la estrella no lo tape.
 
-        setStarsRandom();
-
+        pcLv2 = this.physics.add.image(initPosX + (cellWidth * 5), initPosY, 'pc').setDisplaySize(40,40);
+        pcLv2.enableBody(true,initPosX + (cellWidth * 5),initPosY,true,true);
+        this.physics.add.overlap(sprite, pcLv2, collectPc, null, this);
+        // arreglar el bloque para que tome el de pc
         createAnimationDude();        
 
         createButtonsGame();
@@ -55,12 +64,19 @@ class Scene2 extends Phaser.Scene {
         setUpdateConfig(); 
 
         if(!sprite.body.embedded){
-            thereIsStar = false;            
+            thereIsPc = false;            
         }  
+
+        if(cantPc === 6){
+            messageGameCompleted();            
+            resetInterpreter();  
+        }
           
-        if(endExcecution && cantStars > 0){            
-            addTextGameOver(INCOMPLETE_GAME_TEXT);                        
-            endExcecution = false;
+        if(endExcecution && cantPc > 0){ 
+            endExcecution = false;               
+            if(!gameOver){
+                messageSprite(INCOMPLETE_GAME_TEXT);
+            } 
         }     
     }
 
