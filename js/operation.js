@@ -44,3 +44,22 @@ function getDisk(){
         stack++;
     }
 }
+
+function getPc(){
+    if(!thereIsPc){                   
+        messageSprite(NO_PC_TEXT); 
+        resetInterpreter();    
+    }else{
+        takePc = true; 
+        stack++;       
+    }
+}
+
+function putInShop(){
+    if(!thereIsShop){                   
+        messageSprite(NO_SHOP_TEXT); 
+        resetInterpreter();    
+    }else{
+        takeShop = true;        
+    }
+}

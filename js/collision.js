@@ -84,11 +84,29 @@ function putPc(sprite,pc){
     }
 }
 
-function collectPc(sprite,pc){
+function collectPc(sprite,pcLv2){
     thereIsPc = true;
-    if (takePc){        
-        cantPc--;    
-        stack++;
-        takePc = false;     
+    if(stack>1){
+        messageSprite(NO_GET_MORE_TEXT); 
+        resetInterpreter();     
+    }else{
+        if (takePc){        
+            cantPc--;    
+            messageForVariables(cantPc,initPosX + 14,initPosY - (moveY * 5));        
+            if(cantPc === 0){
+                pcLv2.disableBody(true,true);
+            }     
+            takePc = false;     
+        }
     }
+    
+}
+
+function putShop(sprite,shop){
+    thereIsShop = true;    
+    if (takeShop){        
+        cantShop++; 
+        stack--;                     
+        takeShop = false;     
+    }        
 }

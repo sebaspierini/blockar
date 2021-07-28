@@ -178,3 +178,39 @@ Blockly.Blocks['move_left'] = {
     var code = 'colocar_hardware_en_placa_madre();\n';
     return code;
   };
+
+  Blockly.Blocks['get_pc'] = {
+    init: function() {
+      this.appendDummyInput()
+          .appendField("Tomar Pc");
+      this.setInputsInline(false);
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(20);
+   this.setTooltip("");
+   this.setHelpUrl("");
+    }
+  };
+  
+  Blockly.JavaScript['get_pc'] = function(block) {  
+    var code = 'tomar_pc();\n';
+    return code;
+  };
+
+  Blockly.Blocks['put_element_lv2'] = {
+    init: function() {
+      this.appendDummyInput()
+          .appendField("Colocar pc en la tienda");
+      this.setInputsInline(false);
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(20);
+   this.setTooltip("");
+   this.setHelpUrl("");
+    }
+  };
+  
+  Blockly.JavaScript['put_element_lv2'] = function(block) {  
+    var code = 'colocar_pc_en_tienda();\n';
+    return code;
+  };

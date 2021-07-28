@@ -129,3 +129,27 @@ function initInterpreterPutInPc(interpreter, scope) {
     }); 
   interpreter.setProperty(scope, 'colocar_hardware_en_placa_madre', wrapper);
 }
+
+function initInterpreterGetPc(interpreter, scope) {
+  Blockly.JavaScript.addReservedWords('tomar_pc');
+  var wrapper = interpreter.createAsyncFunction(
+    function(callback) {
+      getPc();
+      setTimeout(function(){         
+        callback(); 
+      },  0);            
+    }); 
+  interpreter.setProperty(scope, 'tomar_pc', wrapper);
+}
+
+function initInterpreterPutInShop(interpreter, scope) {
+  Blockly.JavaScript.addReservedWords('colocar_pc_en_tienda');
+  var wrapper = interpreter.createAsyncFunction(
+    function(callback) {
+      putInShop();
+      setTimeout(function(){         
+        callback(); 
+      },  0);            
+    }); 
+  interpreter.setProperty(scope, 'colocar_pc_en_tienda', wrapper);
+}

@@ -15,3 +15,4 @@ const OBJETIVE_LV1_TEXT = "Debe ir a buscar el celular y tomarlo.";
 const OBJETIVE_LV2_TEXT = "Debe tomar cinco pc y llevarlos de a uno a la tienda";
 const OBJETIVE_LV3_TEXT = "Debe recolectar cuatro memorias ram y dos discos duro, no puede tomar mas de un hardware a la vez, luego debe llevarlo a la placa madre.";
 const OBJETIVE_LV4_TEXT = "Debe recorrer el mapa en busca de minas y desactivarlas antes que exploten.";
+const NO_SHOP_TEXT = 'Aquí no hay tienda.';

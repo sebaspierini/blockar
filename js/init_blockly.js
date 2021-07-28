@@ -16,6 +16,8 @@ function initApi(interpreter, scope) {
     initInterpreterGetMemory(interpreter, scope);
     initInterpreterGetDisk(interpreter, scope);
     initInterpreterPutInPc(interpreter, scope);
+    initInterpreterGetPc(interpreter, scope);
+    initInterpreterPutInShop(interpreter, scope);
 }
 
 function highlightBlock(id) {
@@ -145,6 +147,7 @@ function showBlocks(){
 function hideCategories(){
     demoWorkspace.getToolbox().getToolboxItemById('movement_sprite').hide();
     demoWorkspace.getToolbox().getToolboxItemById('function_sprite').hide();    
+    demoWorkspace.getToolbox().getToolboxItemById('function_sprite_lv2').hide(); 
     demoWorkspace.getToolbox().getToolboxItemById('function_sprite_lv3').hide(); 
     demoWorkspace.getToolbox().getToolboxItemById('function_sprite_lv4').hide(); 
     demoWorkspace.getToolbox().getToolboxItemById('loop_for').hide();
@@ -163,7 +166,7 @@ function showCategoriesLv1(){
 function showCategoriesLv2(){
     hideCategories();
     demoWorkspace.getToolbox().getToolboxItemById('movement_sprite').show();
-    demoWorkspace.getToolbox().getToolboxItemById('function_sprite').show(); 
+    demoWorkspace.getToolbox().getToolboxItemById('function_sprite_lv2').show(); 
     demoWorkspace.getToolbox().getToolboxItemById('loop_for').show();
 }
 

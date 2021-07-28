@@ -53,6 +53,11 @@
             <block type='get_element'></block>            
         </category>
 
+        <category name='Operaciones' toolboxitemid="function_sprite_lv2" colour='20'>            
+            <block type='get_pc'></block>            
+            <block type='put_element_lv2'></block>
+        </category>
+
         <category name='Operaciones' toolboxitemid="function_sprite_lv3" colour='20'>            
             <block type='get_memory'></block>
             <block type='get_disk'></block>
@@ -75,18 +80,10 @@
         </category>                 
         
         <category name="Condicional" toolboxitemid="condition" colour="%{BKY_LOGIC_HUE}">
-            <block type="controls_if"></block>
-            <block type="controls_if">
-                <mutation else="1"></mutation>
-            </block>
-            <block type="controls_if">
-                <mutation elseif="1" else="1"></mutation>
-            </block>
+            <block type="controls_if"></block>            
         </category>
 
-        <category name="Lógico" toolboxitemid="logic" colour="%{BKY_LOGIC_HUE}">
-            <block type="logic_compare"></block>
-            <block type="logic_operation"></block> 
+        <category name="Lógico" toolboxitemid="logic" colour="%{BKY_LOGIC_HUE}">            
             <block type="there_is_bomb"> </block>                               
         </category>
 
@@ -148,6 +145,7 @@ var takeElement = false;
 var takePc = false;
 var takeMemory = false;
 var takeDisk = false;
+var takeShop = false;
 
 // posicion variale del sprite
 var posX;
@@ -168,10 +166,12 @@ var cantBombs;
 var cantMemory;
 var cantDisk;
 var cantPc;
+var cantShop;
 
 var star;
 var bomb;
 var pcLv2;
+var shopLv2;
 var x_star;
 var y_star;
 var x_bomb;
@@ -188,6 +188,7 @@ var thereIsStar;
 var thereIsMemory;
 var thereIsPc;
 var thereIsDisk;
+var thereIsShop;
 
 var stack;
 
