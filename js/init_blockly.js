@@ -38,9 +38,22 @@ function generateCodeAndLoadIntoInterpreter() {
 
     // Genera codigo JavaScript y lo parsea.
     latestCode = Blockly.JavaScript.workspaceToCode(demoWorkspace);
-        
-    //document.getElementById("blocklyTextId").value = latestCode;         
-         
+    
+    codeBlockly = latestCode;
+
+    let arrayCode = codeBlockly.split("\n");    
+    arrayCode.splice(-1, 1);
+    arrayCode.forEach(function(element,index){
+        if(element.includes("highlightBlock(")){
+            arrayCode.splice(index, 1);
+        }
+    });
+    codeBlockly = arrayCode.join("\n");
+
+    if(buttonSelect === 2){
+        document.getElementById("blocklyTextId").value = codeBlockly; 
+    }
+                     
     resetStepUi();
 }
 

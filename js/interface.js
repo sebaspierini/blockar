@@ -31,10 +31,12 @@ function createButtonsGame(){
 
     infoButton.on('pointerdown', function(){                                                  
         document.getElementById("blocklyTextId").value = infoText;
+        buttonSelect = 1;
     });
 
     codeButton.on('pointerdown', function(){                                              
-        document.getElementById("blocklyTextId").value = latestCode;                             
+        document.getElementById("blocklyTextId").value = codeBlockly;       
+        buttonSelect = 2;                      
     });
     
 }
