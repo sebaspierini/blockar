@@ -30,10 +30,8 @@ function resetStepUi() {
 
 function generateCodeAndLoadIntoInterpreter() {
     
-    // Probar de meter el resultado en un array separado por ; y devolver todos los textos que no contienen highlightblock pueden ser los indices impares. Ver que pasa cuando hay un for. 
-    //window.LoopTrap = 1000;
-    Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
-    //Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
+    // Probar de meter el resultado en un array separado por ; y devolver todos los textos que no contienen highlightblock pueden ser los indices impares. Ver que pasa cuando hay un for.     
+    Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';    
     Blockly.JavaScript.addReservedWords('highlightBlock');
 
     // Genera codigo JavaScript y lo parsea.
@@ -103,46 +101,56 @@ function runCode() {
     }
 }
 
-function inject_blockly(){
-    // Inyecta un editor Blockly en el elemento contenedor especificado
-    demoWorkspace = Blockly.inject('blocklyDiv',
-    {        
-    toolbox: document.getElementById('toolbox'), 
-    grid:
-        {spacing: 20,
-        length: 3,
-        colour: '#ccc',
-        snap: true},            
-    zoom:
-        {controls: true,
-            wheel: true,
-            startScale: 1.0,
-            maxScale: 2,
-            minScale: 0.6,
-            scaleSpeed: 1.2},
-    trashcan: true
-    });    
+function inject_blockly(maxBlocks = 0){
+    if(maxBlocks === 0){
+        // Inyecta un editor Blockly en el elemento contenedor especificado
+        demoWorkspace = Blockly.inject('blocklyDiv',
+        {           
+        toolbox: document.getElementById('toolbox'), 
+        grid:
+            {spacing: 20,
+            length: 3,
+            colour: '#ccc',
+            snap: true},            
+        zoom:
+            {controls: true,
+                wheel: true,
+                startScale: 1.0,
+                maxScale: 2,
+                minScale: 0.6,
+                scaleSpeed: 1.2},
+        trashcan: true
+        });    
+    }else{
+        // Inyecta un editor Blockly en el elemento contenedor especificado
+        demoWorkspace = Blockly.inject('blocklyDiv',
+        {   
+        maxBlocks: maxBlocks,   // define la cantidad de bloques que se pueden usar
+        toolbox: document.getElementById('toolbox'), 
+        grid:
+            {spacing: 20,
+            length: 3,
+            colour: '#ccc',
+            snap: true},            
+        zoom:
+            {controls: true,
+                wheel: true,
+                startScale: 1.0,
+                maxScale: 2,
+                minScale: 0.6,
+                scaleSpeed: 1.2},
+        trashcan: true
+        }); 
+    }
     
     // Decodifica un DOM XML y crea bloques en el espacio de trabajo
     Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
         demoWorkspace);           
-        
-    // Indica que los bloques deben estar conectados para funcionar.    
-    
-    Blockly.JavaScript.addReservedWords('exit');
-    
-    // Load the interpreter now, and upon future changes.
-    //generateCodeAndLoadIntoInterpreter();
+
     demoWorkspace.addChangeListener(function (event) {
         if (!(event instanceof Blockly.Events.Ui)) {
-            
-            // el siguiente metodo se utiliza para utilizar bloques conectados pero no logro comprender porque no ejecuta los bloques al tener esta opcion.
-            //demoWorkspace.addChangeListener(Blockly.Events.disableOrphans(event));
-            // Something changed. Parser needs to be reloaded.
-
             resetInterpreter();
-            generateCodeAndLoadIntoInterpreter();
-            
+            generateCodeAndLoadIntoInterpreter();            
         }
     });
 }

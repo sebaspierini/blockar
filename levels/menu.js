@@ -55,42 +55,42 @@ class SceneMenu extends Phaser.Scene {
         config1.text = '4';
     
         let lv4Click = this.make.text(config1).setInteractive();
-
-        // Oculto las opciones de bloques y el textarea
-        hideBlocks();
-
-        resetConfig();        
-
-        demoWorkspace.clear();
         
         // Reseteo score a un valor distinto de 'menu' con score = 'menu' indico que vengo a esta clase.
-        score = '1';                  
+        score = '1';  
+        $("#blocklyTextId").hide();
 
-        lv1Click.on('pointerdown', function(){                         
+        resetConfig(); 
+
+        lv1Click.on('pointerdown', function(){   
+            inject_blockly();                            
             showBlocks();            
             showCategoriesLv1();   
-            $("#blocklyTextId").attr('style','height:192px');                                   
+            $("#blocklyTextId").attr('style','height:194px');                                   
             this.scene.start('scene1');    
         }, this);
     
         lv2Click.on('pointerdown', function(){   
+            inject_blockly(9);    
             showBlocks();
             showCategoriesLv2();     
-            $("#blocklyTextId").attr('style','height:142px');                                                  
+            $("#blocklyTextId").attr('style','height:144px');                                                  
             this.scene.start('scene2');    
         }, this);
         
         lv3Click.on('pointerdown', function(){
+            inject_blockly();
             showBlocks();
             showCategoriesLv3();       
-            $("#blocklyTextId").attr('style','height:142px');      
+            $("#blocklyTextId").attr('style','height:144px');      
             this.scene.start('scene3');   
         }, this);
 
         lv4Click.on('pointerdown', function(){
+            inject_blockly();
             showBlocks();
             showCategoriesLv4();     
-            $("#blocklyTextId").attr('style','height:192px');          
+            $("#blocklyTextId").attr('style','height:194px');          
             this.scene.start('scene4');   
         }, this);
     }

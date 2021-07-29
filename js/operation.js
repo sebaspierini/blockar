@@ -9,7 +9,7 @@ function spriteDefuseBomb(){
 
 function spriteGetElement(){
     if(!thereIsStar){                   
-        messageSprite(NO_PC_TEXT); 
+        messageSprite(NO_CELLPHONE_TEXT); 
         resetInterpreter();    
     }else{
         takeElement = true;

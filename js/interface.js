@@ -25,8 +25,10 @@ function createButtonsGame(){
 
     createAnimationOn2x();
 
-    menuButton.on('pointerdown', function(){                                              
-        score = "menu";                                 
+    menuButton.on('pointerdown', function(){   
+        demoWorkspace.dispose();
+        score = "menu";         
+
     });
 
     infoButton.on('pointerdown', function(){                                                  
