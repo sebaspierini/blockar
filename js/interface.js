@@ -33,7 +33,7 @@ function createButtonsGame(){
 
     infoButton.on('pointerdown', function(){                                                  
         document.getElementById("blocklyTextId").value = infoText;
-        buttonSelect = 1;
+        buttonSelect = 1;        
     });
 
     codeButton.on('pointerdown', function(){                                              
