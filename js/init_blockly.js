@@ -28,28 +28,35 @@ function resetStepUi() {
     demoWorkspace.highlightBlock(null);  
 }
 
-function generateCodeAndLoadIntoInterpreter() {
+function generateCodeAndLoadIntoInterpreter(event) {
     
     // Probar de meter el resultado en un array separado por ; y devolver todos los textos que no contienen highlightblock pueden ser los indices impares. Ver que pasa cuando hay un for.     
     Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';    
     Blockly.JavaScript.addReservedWords('highlightBlock');
 
     // Genera codigo JavaScript y lo parsea.
-    latestCode = Blockly.JavaScript.workspaceToCode(demoWorkspace);
+    latestCode = Blockly.JavaScript.workspaceToCode(demoWorkspace);    
     
     codeBlockly = latestCode;
 
-    let arrayCode = codeBlockly.split("\n");    
-    arrayCode.splice(-1, 1);
+    let arrayCode = codeBlockly.split("\n");
+       
+    arrayCode.splice(-1, 1); 
+    arrayCode.splice(0, 1);   
+
     arrayCode.forEach(function(element,index){
+         
         if(element.includes("highlightBlock(")){
+            
             arrayCode.splice(index, 1);
+            
         }
     });
+    
     codeBlockly = arrayCode.join("\n");
 
     if(buttonSelect === 2){
-        document.getElementById("blocklyTextId").value = codeBlockly; 
+        document.getElementById("blocklyTextId").value = BEGIN_CODE_TEXT+codeBlockly+END_CODE_TEXT; 
     }
                      
     resetStepUi();
@@ -102,13 +109,16 @@ function runCode() {
 }
 
 function inject_blockly(maxBlocks = 0){
+
+    showBlocks(); 
+
     if(maxBlocks === 0){
         // Inyecta un editor Blockly en el elemento contenedor especificado
         demoWorkspace = Blockly.inject('blocklyDiv',
         {           
         toolbox: document.getElementById('toolbox'), 
         grid:
-            {spacing: 20,
+            {spacing: 0,
             length: 3,
             colour: '#ccc',
             snap: true},            
@@ -128,7 +138,7 @@ function inject_blockly(maxBlocks = 0){
         maxBlocks: maxBlocks,   // define la cantidad de bloques que se pueden usar
         toolbox: document.getElementById('toolbox'), 
         grid:
-            {spacing: 20,
+            {spacing: 0,
             length: 3,
             colour: '#ccc',
             snap: true},            
@@ -144,13 +154,18 @@ function inject_blockly(maxBlocks = 0){
     }
     
     // Decodifica un DOM XML y crea bloques en el espacio de trabajo
-    Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
-        demoWorkspace);           
+    Blockly.Xml.domToWorkspace(document.getElementById('toolbox'),
+        demoWorkspace);             
 
+    demoWorkspace.setTheme(theme);      
+    
+    //console.log(Blockly.Events.BlockCreate(demoWorkspace.newBlock('start')).initSvg());
+    
     demoWorkspace.addChangeListener(function (event) {
         if (!(event instanceof Blockly.Events.Ui)) {
+            demoWorkspace.addChangeListener(Blockly.Events.disableOrphans);
             resetInterpreter();
-            generateCodeAndLoadIntoInterpreter();            
+            generateCodeAndLoadIntoInterpreter(event);        
         }
     });
 }
@@ -166,6 +181,7 @@ function showBlocks(){
 }
 
 function hideCategories(){
+    //demoWorkspace.getToolbox().getToolboxItemById('start_blocks').hide();
     demoWorkspace.getToolbox().getToolboxItemById('movement_sprite').hide();
     demoWorkspace.getToolbox().getToolboxItemById('function_sprite').hide();    
     demoWorkspace.getToolbox().getToolboxItemById('function_sprite_lv2').hide(); 
@@ -179,7 +195,7 @@ function hideCategories(){
 }
 
 function showCategoriesLv1(){
-    hideCategories();
+    hideCategories();    
     demoWorkspace.getToolbox().getToolboxItemById('movement_sprite').show();
     demoWorkspace.getToolbox().getToolboxItemById('function_sprite').show(); 
 }

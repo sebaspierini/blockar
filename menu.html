@@ -40,9 +40,14 @@
     <div id="blocklyDiv" class="centerBlocklyDiv"></div>
     <textarea id="blocklyTextId" class="blocklyText" readonly></textarea>
     <div id="gameRight" class="centergame"></div>
+    
     <xml id='toolbox' style='display: none'> 
+        <block type='start' deletable="false" movable="false"></block>  
+        <!-- <category name='Inicializar' toolboxitemid="start_blocks" colour='20'>            
+            <block type='start' deletable="false" movable="false"></block>  
+        </category> -->
 
-        <category name='Movimientos' toolboxitemid="movement_sprite" colour='#a55b6d'>
+        <category name='Movimientos' toolboxitemid="movement_sprite" colour='#a55b6d'>                        
             <block type='move_right'></block>
             <block type='move_left'></block>
             <block type='move_down'></block>
@@ -95,9 +100,7 @@
 
         <category name="Funciones" colour="290" toolboxitemid="function" custom="PROCEDURE"></category>
 
-      </xml> 
-
-      <xml id='startBlocks' style='display: none'></xml>
+      </xml>       
     
 <script type="text/javascript">
 
@@ -107,7 +110,6 @@ var demoWorkspace;
 var latestCode = '';
 // flag para controlar si termina la ejecución luego de darle play al game.
 var endExcecution;
-
 
 var score = "menu";
 var widthGame = 800;
@@ -195,6 +197,27 @@ var codeBlockly = '';
 
 var stack;
 
+Blockly.registry.unregister('theme', 'dark');
+
+var theme = Blockly.Theme.defineTheme('dark', {
+  'base': Blockly.Themes.Classic,
+  'componentStyles': {
+    'workspaceBackgroundColour': '#1e1e1e',
+    'toolboxBackgroundColour': 'blackBackground',
+    'toolboxForegroundColour': '#fff',
+    'flyoutBackgroundColour': '#252526',
+    'flyoutForegroundColour': '#ccc',
+    'flyoutOpacity': 1,
+    'scrollbarColour': '#797979',
+    'insertionMarkerColour': '#fff',
+    'insertionMarkerOpacity': 0.3,
+    'scrollbarOpacity': 0.4,
+    'cursorColour': '#d0d0d0',
+    'blackBackground': '#333',    
+  },
+  'startHats': true
+});
+
 var config = {
     type: Phaser.AUTO,    
     scale: {
@@ -214,8 +237,6 @@ var config = {
 };
 // declaro la creacion del juego
 var game = new Phaser.Game(config);
-
-
 
 </script>
 </body>

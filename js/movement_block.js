@@ -1,5 +1,23 @@
 /* Generate blocks with https://blockly-demo.appspot.com/static/demos/blockfactory/index.html */
 
+Blockly.Blocks['start'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Comenzar");
+    this.appendStatementInput("start")
+        .setCheck(null);
+    this.setColour(240);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.JavaScript['start'] = function(block) {  
+  var statements_start = Blockly.JavaScript.statementToCode(block, 'start');  
+  var code = statements_start;
+  return code;
+};
+
 Blockly.Blocks['move_right'] = {
   init: function() {
     this.appendDummyInput()
@@ -114,7 +132,7 @@ Blockly.Blocks['move_left'] = {
       this.appendDummyInput()
           .appendField(new Blockly.FieldLabelSerializable("¿Hay bomba?"), "thereIsBomb");          
       this.setOutput(true, "Boolean");
-      this.setColour(20);
+      this.setColour(210);
    this.setTooltip("");
    this.setHelpUrl("");
     }

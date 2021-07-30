@@ -37,7 +37,7 @@ function createButtonsGame(){
     });
 
     codeButton.on('pointerdown', function(){                                              
-        document.getElementById("blocklyTextId").value = codeBlockly;       
+        document.getElementById("blocklyTextId").value = BEGIN_CODE_TEXT+codeBlockly+END_CODE_TEXT;     
         buttonSelect = 2;                      
     });
     

@@ -58,37 +58,34 @@ class SceneMenu extends Phaser.Scene {
         
         // Reseteo score a un valor distinto de 'menu' con score = 'menu' indico que vengo a esta clase.
         score = '1';  
-        $("#blocklyTextId").hide();
 
+        hideBlocks();
+        
         resetConfig(); 
 
-        lv1Click.on('pointerdown', function(){   
-            inject_blockly();                            
-            showBlocks();            
+        lv1Click.on('pointerdown', function(){                           
+            inject_blockly();                                                  
             showCategoriesLv1();   
             $("#blocklyTextId").attr('style','height:194px');                                   
             this.scene.start('scene1');    
         }, this);
     
         lv2Click.on('pointerdown', function(){   
-            inject_blockly(9);    
-            showBlocks();
+            inject_blockly(9);                
             showCategoriesLv2();     
             $("#blocklyTextId").attr('style','height:144px');                                                  
             this.scene.start('scene2');    
         }, this);
         
         lv3Click.on('pointerdown', function(){
-            inject_blockly();
-            showBlocks();
+            inject_blockly();            
             showCategoriesLv3();       
             $("#blocklyTextId").attr('style','height:144px');      
             this.scene.start('scene3');   
         }, this);
 
         lv4Click.on('pointerdown', function(){
-            inject_blockly();
-            showBlocks();
+            inject_blockly();            
             showCategoriesLv4();     
             $("#blocklyTextId").attr('style','height:194px');          
             this.scene.start('scene4');   
