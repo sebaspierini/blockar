@@ -232,3 +232,6 @@ Blockly.Blocks['move_left'] = {
     var code = 'colocar_pc_en_tienda();\n';
     return code;
   };
+
+  // Creao la definición para el tema dark
+  Blockly.registry.unregister('theme', 'dark');

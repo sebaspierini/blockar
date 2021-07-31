@@ -6,21 +6,26 @@
     <link rel="stylesheet" href="styles/style_index.css">       
     <script src="js/acorn_interpreter.js"></script>    
     <!-- Se carga el espacio de trabajo de tamaño fijo -->
-    <script src="node_modules/blockly/blockly_compressed.js"></script>
-    <script src="node_modules/blockly/blocks_compressed.js"></script>
+    <script src="blockly/blockly_compressed.js"></script>
+    <script src="blockly/blocks_compressed.js"></script>
     <!-- Se carga generador de código para javascript-->
-    <script src="node_modules/blockly/javascript_compressed.js"></script>
+    <script src="blockly/javascript_compressed.js"></script>
     <!-- Se carga el idioma de los bloques -->
-    <script src="node_modules/blockly/msg/es.js"></script>   
-    <!-- Seteo los movimientos a traves de los bloques --> 
-    <script src="js/movement_block.js"></script>
+    <script src="blockly/msg/js/es.js"></script>   
+    <!-- Se declara instancia de juego -->
+    <script src="js/phaser.min.js"></script> 
+    <script src="js/jquery.min.js"></script>   
+
+     <!-- Creo los bloques y sus codigos correspondientes -->
+    <script src="js/define_block.js"></script>
+
+    <!-- Seteo los movimientos a traves de los bloques -->
     <script src="js/movement_stub.js"></script>
     <script src="js/movement_sprite.js"></script>
-  
-    <script src="node_modules/phaser/dist/phaser.js"></script> 
+    
     <!-- Declaro el javascript que contiene la inicialización de blockly -->
     <script src="js/init_blockly.js"></script> 
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>   
+    
     <!-- Declaro funciones de manera ordenada -->
     <script src="js/operation.js"></script>
     <script src="js/collision.js"></script> 
@@ -43,9 +48,6 @@
     
     <xml id='toolbox' style='display: none'> 
         <block type='start' deletable="false" movable="false"></block>  
-        <!-- <category name='Inicializar' toolboxitemid="start_blocks" colour='20'>            
-            <block type='start' deletable="false" movable="false"></block>  
-        </category> -->
 
         <category name='Movimientos' toolboxitemid="movement_sprite" colour='#a55b6d'>                        
             <block type='move_right'></block>
@@ -197,26 +199,24 @@ var codeBlockly = '';
 
 var stack;
 
-Blockly.registry.unregister('theme', 'dark');
-
 var theme = Blockly.Theme.defineTheme('dark', {
-  'base': Blockly.Themes.Classic,
-  'componentStyles': {
-    'workspaceBackgroundColour': '#1e1e1e',
-    'toolboxBackgroundColour': 'blackBackground',
-    'toolboxForegroundColour': '#fff',
-    'flyoutBackgroundColour': '#252526',
-    'flyoutForegroundColour': '#ccc',
-    'flyoutOpacity': 1,
-    'scrollbarColour': '#797979',
-    'insertionMarkerColour': '#fff',
-    'insertionMarkerOpacity': 0.3,
-    'scrollbarOpacity': 0.4,
-    'cursorColour': '#d0d0d0',
-    'blackBackground': '#333',    
-  },
-  'startHats': true
-});
+        'base': Blockly.Themes.Classic,
+        'componentStyles': {
+          'workspaceBackgroundColour': '#1e1e1e',
+          'toolboxBackgroundColour': 'blackBackground',
+          'toolboxForegroundColour': '#fff',
+          'flyoutBackgroundColour': '#252526',
+          'flyoutForegroundColour': '#ccc',
+          'flyoutOpacity': 1,
+          'scrollbarColour': '#797979',
+          'insertionMarkerColour': '#fff',
+          'insertionMarkerOpacity': 0.3,
+          'scrollbarOpacity': 0.4,
+          'cursorColour': '#d0d0d0',
+          'blackBackground': '#333',    
+        },
+        'startHats': true
+      });
 
 var config = {
     type: Phaser.AUTO,    

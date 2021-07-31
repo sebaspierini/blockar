@@ -158,9 +158,7 @@ function inject_blockly(maxBlocks = 0){
         demoWorkspace);             
 
     demoWorkspace.setTheme(theme);      
-    
-    //console.log(Blockly.Events.BlockCreate(demoWorkspace.newBlock('start')).initSvg());
-    
+        
     demoWorkspace.addChangeListener(function (event) {
         if (!(event instanceof Blockly.Events.Ui)) {
             demoWorkspace.addChangeListener(Blockly.Events.disableOrphans);
