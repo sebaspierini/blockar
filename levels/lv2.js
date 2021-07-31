@@ -51,7 +51,7 @@ class Scene2 extends Phaser.Scene {
         sprite.body.setBoundsRectangle(new Phaser.Geom.Rectangle(width, 200 - 2, width, height + 4));
         
         this.add.graphics()
-        .lineStyle(5, 0x00ffff, 0.5)
+        .lineStyle(0.1, 0xA5A5A5, 0)
         .strokeRectShape(sprite.body.customBoundsRectangle);
         //sprite.depth = 100; con depth pongo delante al sprite para que la estrella no lo tape.        
 
