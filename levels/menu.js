@@ -65,29 +65,25 @@ class SceneMenu extends Phaser.Scene {
 
         lv1Click.on('pointerdown', function(){                           
             inject_blockly();                                                  
-            showCategoriesLv1();   
-            $("#blocklyTextId").attr('style','height:194px');                                   
+            showCategoriesLv1();                                                
             this.scene.start('scene1');    
         }, this);
     
         lv2Click.on('pointerdown', function(){   
             inject_blockly(11);                
-            showCategoriesLv2();     
-            $("#blocklyTextId").attr('style','height:144px');                                                  
+            showCategoriesLv2();                                                             
             this.scene.start('scene2');    
         }, this);
         
         lv3Click.on('pointerdown', function(){
             inject_blockly();            
-            showCategoriesLv3();       
-            $("#blocklyTextId").attr('style','height:144px');      
+            showCategoriesLv3();                   
             this.scene.start('scene3');   
         }, this);
 
         lv4Click.on('pointerdown', function(){
             inject_blockly();            
-            showCategoriesLv4();     
-            $("#blocklyTextId").attr('style','height:194px');          
+            showCategoriesLv4();                 
             this.scene.start('scene4');   
         }, this);
     }

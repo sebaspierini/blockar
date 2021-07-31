@@ -14,9 +14,8 @@ body {
   float: left;
 }
 
-.blocklyText{
-  height: 194px; 
-  /* height: 144px; */
+.blocklyText{  
+  height: 144px;
   width: 395px;             
   position: absolute;            
   margin-left: 400px;

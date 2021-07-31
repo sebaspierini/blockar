@@ -33,3 +33,15 @@ function messageSprite(text, width_a = 140, height_a = 30, x_a = 0, y_a = 0){
 
     
 }
+
+function messageSpriteOut(text, x, y, width_a = 140, height_a = 30){
+    let posXD = x;
+    if(x > (initPosX + (moveX * 3))){
+        posXD = x - (moveX * 2);
+        createSpeechBubble(posXD, y-(moveY) , width_a, height_a, text, 'right');
+    }else{
+        createSpeechBubble(posXD, y-(moveY) , width_a, height_a, text, 'left');
+    }
+    gameOver = true;    
+    resetInterpreter();
+}

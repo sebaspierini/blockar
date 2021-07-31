@@ -68,22 +68,23 @@ function setUpdateConfig(){
     if(score==="menu"){                             
         yo.scene.start('SceneMenu');        
     }
-                     
-    if((sprite.x - 1) > (initPosX + (moveX * 5))){
-        //console.log("se cayo a la derecha");
-        messageSprite(SPRITE_OUT_GAME_TEXT, 140, 30, -cellWidth, 0);     
+    
+    // A todos los casos les dejo un margen de 10
+    if( sprite.x  > (initPosX + (moveX * 5)) + 10 ){        
+        //console.log("se cayo a la derecha");        
+        messageSpriteOut(SPRITE_OUT_GAME_TEXT,(initPosX + (moveX * 5)), posY);     
     }
-    if((sprite.x + 1) < initPosX){
-        //console.log("se cayo a la izq",sprite.x, initPosX);
-        messageSprite(SPRITE_OUT_GAME_TEXT, 140, 30, cellWidth, 0);                        
+    if( sprite.x < initPosX - 10 ){
+        //console.log("se cayo a la izq",sprite.x, initPosX);    
+        messageSpriteOut(SPRITE_OUT_GAME_TEXT,initPosX, posY);                        
     }
-    if((sprite.y - 0.5) > initPosY){        
-        //console.log("se cayo abajo");     
-        messageSprite(SPRITE_OUT_GAME_TEXT, 140, 30, 0, cellHeight);           
+    if( sprite.y > initPosY + 10 ){
+        //console.log("se cayo abajo");        
+        messageSpriteOut(SPRITE_OUT_GAME_TEXT,posX, initPosY);           
     }
-    if((sprite.y - 0.5 ) < (initPosY - (moveY * 5)) ){
-        //console.log("se cayo arriba");   
-        messageSprite(SPRITE_OUT_GAME_TEXT, 140, 30, 0, -cellHeight);  
+    if( sprite.y < (initPosY - (cellHeight * 4) - 10) ){
+        //console.log("se cayo arriba");                            
+        messageSpriteOut(SPRITE_OUT_GAME_TEXT,posX, (initPosY - (cellHeight * 4)));  
     }    
     
 }
