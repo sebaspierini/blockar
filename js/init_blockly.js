@@ -154,14 +154,37 @@ function inject_blockly(maxBlocks = 0){
     }
     
     // Decodifica un DOM XML y crea bloques en el espacio de trabajo
-    Blockly.Xml.domToWorkspace(document.getElementById('toolbox'),
-        demoWorkspace);             
+    Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom('<xml><block type="start" deletable="false" movable="false"></block></xml> '),
+        demoWorkspace);    
+        
+    demoWorkspace.addChangeListener(Blockly.Events.disableOrphans);
 
-    demoWorkspace.setTheme(theme);      
+    // Creao la definición para el tema dark
+    Blockly.registry.unregister('theme', 'dark');
+    var theme = Blockly.Theme.defineTheme('dark', {
+        'base': Blockly.Themes.Classic,
+        'componentStyles': {
+        'workspaceBackgroundColour': '#1e1e1e',
+        'toolboxBackgroundColour': 'blackBackground',
+        'toolboxForegroundColour': '#fff',
+        'flyoutBackgroundColour': '#252526',
+        'flyoutForegroundColour': '#ccc',
+        'flyoutOpacity': 1,
+        'scrollbarColour': '#797979',
+        'insertionMarkerColour': '#fff',
+        'insertionMarkerOpacity': 0.3,
+        'scrollbarOpacity': 0.4,
+        'cursorColour': '#d0d0d0',
+        'blackBackground': '#333',    
+        },
+        'startHats': true
+    });
+
+    demoWorkspace.setTheme(theme);     
         
     demoWorkspace.addChangeListener(function (event) {
         if (!(event instanceof Blockly.Events.Ui)) {
-            demoWorkspace.addChangeListener(Blockly.Events.disableOrphans);
+            
             resetInterpreter();
             generateCodeAndLoadIntoInterpreter(event);        
         }

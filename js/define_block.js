@@ -233,5 +233,3 @@ Blockly.Blocks['move_left'] = {
     return code;
   };
 
-  // Creao la definición para el tema dark
-  Blockly.registry.unregister('theme', 'dark');

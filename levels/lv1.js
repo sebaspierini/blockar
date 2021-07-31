@@ -24,7 +24,7 @@ class Scene1 extends Phaser.Scene {
         yo = this;
         posX = initPosX;
         posY = initPosY;    
-        infoText = OBJETIVE_LV1_TEXT;
+        infoText = OBJETIVE_LV1_TEXT;        
         document.getElementById("blocklyTextId").value = infoText;  
         
         this.add.image(400, 300, 'sky');
@@ -59,7 +59,7 @@ class Scene1 extends Phaser.Scene {
         if(!sprite.body.embedded){
             thereIsStar = false;            
         }  
-        
+
         if(endExcecution && cantStars > 0){                                
             endExcecution = false;               
             if(!gameOver){

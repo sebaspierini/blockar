@@ -31,14 +31,14 @@ function createButtonsGame(){
 
     });
 
-    infoButton.on('pointerdown', function(){                                                  
+    infoButton.on('pointerdown', function(){                                                          
         document.getElementById("blocklyTextId").value = infoText;
-        buttonSelect = 1;        
+        buttonSelect = 1;                
     });
 
     codeButton.on('pointerdown', function(){                                              
         document.getElementById("blocklyTextId").value = BEGIN_CODE_TEXT+codeBlockly+END_CODE_TEXT;     
-        buttonSelect = 2;                      
+        buttonSelect = 2;                             
     });
     
 }
@@ -54,6 +54,7 @@ function resetConfig(){
     endExcecution = false;    
     timeSprite = 1000;
     on_off = false;
+    buttonSelect = 1;
     resetTextGameOver();      
 }
 
