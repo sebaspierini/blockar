@@ -51,11 +51,11 @@ function playConfig(){
 
 function resetConfig(){
     resetInterpreter();      
-    endExcecution = false;    
+    endExcecution = false;
+    gameOver = false;    
     timeSprite = 1000;
     on_off = false;
-    buttonSelect = 1;
-    resetTextGameOver();      
+    buttonSelect = 1;         
 }
 
 function setUpdateConfig(){
@@ -68,35 +68,23 @@ function setUpdateConfig(){
     if(score==="menu"){                             
         yo.scene.start('SceneMenu');        
     }
-    
-    if (gameOver){               
-        resetInterpreter();                       
-    }else{
-        if((sprite.x - 1) > (initPosX + (moveX * 5))){
-            //console.log("se cayo a la derecha");
-            addTextGameOver(SPRITE_OUT_GAME_TEXT);          
-            sprite.visible = false; 
-            messageGameOver();        
-        }
-        if((sprite.x + 1) < initPosX){
-            //console.log("se cayo a la izq",sprite.x, initPosX);
-            addTextGameOver(SPRITE_OUT_GAME_TEXT);            
-            sprite.visible = false;  
-            messageGameOver();               
-        }
-        if((sprite.y - 0.5) > initPosY){        
-            //console.log("se cayo abajo");        
-            sprite.visible = false;
-            addTextGameOver(SPRITE_OUT_GAME_TEXT);  
-            messageGameOver();            
-        }
-        if((sprite.y - 0.5 ) < (initPosY - (moveY * 5)) ){
-            //console.log("se cayo arriba");   
-            addTextGameOver(SPRITE_OUT_GAME_TEXT);         
-            sprite.visible = false;   
-            messageGameOver();      
-        }
+                     
+    if((sprite.x - 1) > (initPosX + (moveX * 5))){
+        //console.log("se cayo a la derecha");
+        messageSprite(SPRITE_OUT_GAME_TEXT, 140, 30, -cellWidth, 0);     
     }
+    if((sprite.x + 1) < initPosX){
+        //console.log("se cayo a la izq",sprite.x, initPosX);
+        messageSprite(SPRITE_OUT_GAME_TEXT, 140, 30, cellWidth, 0);                        
+    }
+    if((sprite.y - 0.5) > initPosY){        
+        //console.log("se cayo abajo");     
+        messageSprite(SPRITE_OUT_GAME_TEXT, 140, 30, 0, cellHeight);           
+    }
+    if((sprite.y - 0.5 ) < (initPosY - (moveY * 5)) ){
+        //console.log("se cayo arriba");   
+        messageSprite(SPRITE_OUT_GAME_TEXT, 140, 30, 0, -cellHeight);  
+    }    
     
 }
 

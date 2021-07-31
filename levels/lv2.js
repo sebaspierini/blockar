@@ -45,8 +45,14 @@ class Scene2 extends Phaser.Scene {
         sprite = this.physics.add.sprite(initPosX, initPosY, 'dude');
 
         //colision con el mundo
-        sprite.setBounce(0.2);
-        sprite.setCollideWorldBounds(true);
+        sprite.setBounce(1,1);
+        sprite.setCollideWorldBounds(true);    
+        
+        sprite.body.setBoundsRectangle(new Phaser.Geom.Rectangle(width, 200 - 2, width, height + 4));
+        
+        this.add.graphics()
+        .lineStyle(5, 0x00ffff, 0.5)
+        .strokeRectShape(sprite.body.customBoundsRectangle);
         //sprite.depth = 100; con depth pongo delante al sprite para que la estrella no lo tape.        
 
         pcLv2.enableBody(true,initPosX + (cellWidth * 5),initPosY,true,true);
@@ -78,8 +84,7 @@ class Scene2 extends Phaser.Scene {
         }  
 
         if(cantShop === 5){
-            messageGameCompleted();            
-            resetInterpreter();  
+            messageSprite(GAME_COMPLETED_TEXT);                
         }
           
         if(endExcecution && cantShop < 5){ 

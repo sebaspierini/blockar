@@ -7,9 +7,7 @@ function collectStar (sprite, star)
         cantStars--; 
         takeElement = false;  
         if(cantStars === 0){        
-            messageGameCompleted();
-            //Detengo la ejecución de los bloques
-            resetInterpreter();    
+            messageSprite(GAME_COMPLETED_TEXT);                       
         }        
     }    
 }
@@ -23,8 +21,7 @@ function collectBombs (sprite, bomb)
         cantBombs--;                
         bomb.disableBody(true, true);  
         if(cantBombs === 0){        
-            messageGameCompleted();            
-            resetInterpreter();    
+            messageSprite(GAME_COMPLETED_TEXT);                    
         }                                
     }    
 
@@ -43,8 +40,7 @@ function collectBombs (sprite, bomb)
 function collectDisk(sprite,disk){
     thereIsDisk = true;
     if(stack>1){
-        messageSprite(NO_GET_MORE_TEXT); 
-        resetInterpreter();     
+        messageSprite(NO_GET_MORE_TEXT);            
     }else{
         if (takeDisk){                
             cantDisk--;
@@ -61,8 +57,7 @@ function collectDisk(sprite,disk){
 function collectMemory(sprite,memory){
     thereIsMemory = true;    
     if(stack>1){
-        messageSprite(NO_GET_MORE_TEXT); 
-        resetInterpreter();     
+        messageSprite(NO_GET_MORE_TEXT);             
     }else{
         if (takeMemory){           
             cantMemory--;               
@@ -87,8 +82,7 @@ function putPc(sprite,pc){
 function collectPc(sprite,pcLv2){
     thereIsPc = true;
     if(stack>1){
-        messageSprite(NO_GET_MORE_TEXT); 
-        resetInterpreter();     
+        messageSprite(NO_GET_MORE_TEXT);            
     }else{
         if (takePc){        
             cantPc--;    

@@ -162,8 +162,6 @@ var timeline;
 // tiempo del sprite para moverse de "a" a "b" defaul is 1000
 var timeSprite = 1000;
 
-// Titulo acumulativo si pierde el juego
-var titleGameOver = GAME_OVER_TEXT;
 // Flag para controlar si el juego termino por perdido.
 var gameOver = false;
 
@@ -211,7 +209,7 @@ var config = {
     physics: {
         default: 'arcade',
         arcade: {            
-            debug: false
+            debug: true
         },
     },  
     scene: [ SceneMenu, Scene1, Scene2, Scene3, Scene4 ]

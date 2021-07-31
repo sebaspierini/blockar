@@ -1,6 +1,6 @@
 const INCOMPLETE_GAME_TEXT = "No logró cumplir el objetivo.";
 const GAME_OVER_TEXT = "Juego terminado.";
-const SPRITE_OUT_GAME_TEXT = "Se fue del tablero.";
+const SPRITE_OUT_GAME_TEXT = "No se puede ir ahí.";
 const GAME_COMPLETED_TEXT = "Juego completado.";
 const NO_BOMB_TEXT = "Aquí no hay bomba.";
 const NO_PC_TEXT = "Aquí no hay pc.";

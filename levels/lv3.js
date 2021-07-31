@@ -61,8 +61,14 @@ class Scene3 extends Phaser.Scene {
         sprite = this.physics.add.sprite(initPosX, initPosY, 'dude');          
 
         //colision con el mundo
-        sprite.setBounce(0.2);
-        sprite.setCollideWorldBounds(true);
+        sprite.setBounce(1,1);
+        sprite.setCollideWorldBounds(true);    
+        
+        sprite.body.setBoundsRectangle(new Phaser.Geom.Rectangle(width, 200 - 2, width, height + 4));
+        
+        this.add.graphics()
+        .lineStyle(5, 0x00ffff, 0.5)
+        .strokeRectShape(sprite.body.customBoundsRectangle);
 
         yo.physics.add.overlap(sprite, memory, collectMemory, null, yo);
         yo.physics.add.overlap(sprite, pc, putPc, null, yo);
@@ -94,8 +100,7 @@ class Scene3 extends Phaser.Scene {
         }
         
         if(cantPc === 6){
-            messageGameCompleted();            
-            resetInterpreter();  
+            messageSprite(GAME_COMPLETED_TEXT);                       
         }
         
         if(endExcecution && cantPc < 6){

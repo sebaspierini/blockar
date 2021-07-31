@@ -34,9 +34,15 @@ class Scene1 extends Phaser.Scene {
         sprite = this.physics.add.sprite(initPosX, initPosY, 'dude');
 
         //colision con el mundo
-        sprite.setBounce(0.2);
-        sprite.setCollideWorldBounds(true);        
+        sprite.setBounce(1,1);
+        sprite.setCollideWorldBounds(true);    
         
+        sprite.body.setBoundsRectangle(new Phaser.Geom.Rectangle(width, 200 - 2, width, height + 4));
+        
+        this.add.graphics()
+        .lineStyle(5, 0x00ffff, 0.5)
+        .strokeRectShape(sprite.body.customBoundsRectangle);
+
         setStarsRandom();                 
 
         createAnimationDude();        
@@ -60,9 +66,10 @@ class Scene1 extends Phaser.Scene {
             thereIsStar = false;            
         }  
 
-        if(endExcecution && cantStars > 0){                                
+        if(endExcecution && cantStars > 0){                                            
             endExcecution = false;               
             if(!gameOver){
+                console.log("incompleto");
                 messageSprite(INCOMPLETE_GAME_TEXT);
             } 
         }            
