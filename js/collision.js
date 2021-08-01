@@ -27,12 +27,12 @@ function collectBombs (sprite, bomb)
 
     let keyAnimSprite = sprite.anims.currentAnim.key;
     
-    if(!gameOver){
-        if((keyAnimSprite == 'right' && sprite.x > bomb.x) || (keyAnimSprite == 'left' && sprite.x < bomb.x) || (keyAnimSprite == 'up' && sprite.y < bomb.y) || (keyAnimSprite == 'down' && sprite.y > bomb.y)){                           
-            messageSprite(BOMB_EXPLODED_TEXT, 130, 40, 0, 10);             
+    if(!gameOver && !spriteOut()){        
+        if((keyAnimSprite == 'right' && sprite.x > bomb.x + 10) || (keyAnimSprite == 'left' && sprite.x < bomb.x - 10) || (keyAnimSprite == 'up' && sprite.y < bomb.y - 10) || (keyAnimSprite == 'down' && sprite.y > bomb.y + 10)){                                       
+            messageSprite(BOMB_EXPLODED_TEXT, 130, 50, 0, 10);             
             explosive = this.physics.add.sprite(bomb.x, bomb.y, 'explosive');
             explosive.setInteractive().setDisplaySize(50,50);
-            explosive.play('activate');
+            explosive.play('activate');                        
         }    
     } 
 }

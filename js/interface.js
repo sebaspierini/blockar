@@ -49,7 +49,7 @@ function playConfig(){
     runCode();
 }
 
-function resetConfig(){
+function resetConfig(){    
     resetInterpreter();      
     endExcecution = false;
     gameOver = false;    
@@ -272,4 +272,8 @@ function addBackground(){
     var graphics = yo.add.graphics({ fillStyle: { color: 0x01AACE } });
 
     graphics.fillRectShape(rect); 
+}
+
+function spriteOut(){
+    return sprite.x  > (initPosX + (moveX * 5)) + 10 || sprite.x < initPosX - 10 || sprite.y > initPosY + 10 || sprite.y < (initPosY - (cellHeight * 4) - 10);
 }
