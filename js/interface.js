@@ -135,6 +135,7 @@ function setBombsRandom(){
         } 
 
         bomb = bombs.get();
+        bomb.setDisplaySize(40,40);
         //  yo creates a new Phaser.Sprite instance within the group
         //  It will be randomly placed within the world and use the 'baddie' image to display
         

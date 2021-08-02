@@ -112,7 +112,7 @@ Blockly.Blocks['move_left'] = {
   Blockly.Blocks['defuse_bomb'] = {
     init: function() {
       this.appendDummyInput()
-          .appendField("Desactivar bomba");
+          .appendField("Desactivar servidor");
       this.setInputsInline(false);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
@@ -123,14 +123,14 @@ Blockly.Blocks['move_left'] = {
   };
   
   Blockly.JavaScript['defuse_bomb'] = function(block) {  
-    var code = 'desactivar_bomba();\n';
+    var code = 'desactivar_servidor();\n';
     return code;
   };
 
   Blockly.Blocks['there_is_bomb'] = {
     init: function() {
       this.appendDummyInput()
-          .appendField(new Blockly.FieldLabelSerializable("¿Hay bomba?"), "thereIsBomb");          
+          .appendField(new Blockly.FieldLabelSerializable("¿Hay servidor?"), "thereIsBomb");          
       this.setOutput(true, "Boolean");
       this.setColour(210);
    this.setTooltip("");
@@ -139,7 +139,7 @@ Blockly.Blocks['move_left'] = {
   };
 
   Blockly.JavaScript['there_is_bomb'] = function(block) {    
-    var code = 'hay_bomba()';    
+    var code = 'hay_servidor()';    
     return [code, Blockly.JavaScript.ORDER_ATOMIC];
   };
 

@@ -11,7 +11,7 @@ class Scene4 extends Phaser.Scene {
         this.load.image('play', 'assets/play.png');
         this.load.image('reset', 'assets/reset.png');
         this.load.image('menu', 'assets/menu.png');        
-        this.load.image('bomb', 'assets/bomb.png');
+        this.load.image('bomb', 'assets/server.png');
         this.load.image('info', 'assets/info.png');
         this.load.image('code', 'assets/code.png');   
         this.load.spritesheet('explosive', 'assets/explosion.png', { frameWidth: 128, frameHeight: 128 });

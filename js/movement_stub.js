@@ -73,7 +73,7 @@ function initInterpreterGetElement(interpreter, scope) {
 }
 
 function initInterpreterDefuseBomb(interpreter, scope) {
-  Blockly.JavaScript.addReservedWords('desactivar_bomba');
+  Blockly.JavaScript.addReservedWords('desactivar_servidor');
   var wrapper = interpreter.createAsyncFunction(
     function(callback) {
       spriteDefuseBomb(); 
@@ -83,15 +83,15 @@ function initInterpreterDefuseBomb(interpreter, scope) {
       },  0);  // lo pongo en 0 para que corte rápido.
                 
     }); 
-  interpreter.setProperty(scope, 'desactivar_bomba', wrapper);
+  interpreter.setProperty(scope, 'desactivar_servidor', wrapper);
 }
 
 function initInterpreterThereIsBomb(interpreter, scope) {
-  Blockly.JavaScript.addReservedWords('hay_bomba');
+  Blockly.JavaScript.addReservedWords('hay_servidor');
   var wrapper = function(){
     return interpreter.createPrimitive(thereIsBomb);
   }
-  interpreter.setProperty(scope,'hay_bomba',interpreter.createNativeFunction(wrapper));
+  interpreter.setProperty(scope,'hay_servidor',interpreter.createNativeFunction(wrapper));
 }
 
 function initInterpreterGetMemory(interpreter, scope) {
