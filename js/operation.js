@@ -1,6 +1,6 @@
 function spriteDefuseBomb(){            
     if(!thereIsBomb){                   
-        messageSprite(NO_BOMB_TEXT);          
+        messageSprite(NO_SERVER_TEXT);          
     }else{
         disableBomb = true; 
     }    
