@@ -1,8 +1,8 @@
-class Scene3 extends Phaser.Scene { 
+class Scene5_1 extends Phaser.Scene { 
     
     constructor ()
     {
-        super({ key: 'scene3' });
+        super({ key: 'scene5_1' });
     }
     
     preload ()
@@ -14,8 +14,7 @@ class Scene3 extends Phaser.Scene {
         this.load.image('info', 'assets/info.png');
         this.load.image('code', 'assets/code.png');      
         this.load.image('motherboard', 'assets/motherboard.png');        
-        this.load.image('memory', 'assets/ram-memory.png');  
-        this.load.image('disk', 'assets/hard-disk.png');  
+        this.load.image('videoCard', 'assets/videoCard.png');      
         this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 }); 
         this.load.spritesheet('switch', 'assets/switch.png', { frameWidth: 256, frameHeight: 136 });
     }
@@ -25,11 +24,9 @@ class Scene3 extends Phaser.Scene {
         yo = this;
         posX = initPosX;
         posY = initPosY;    
-        cantDisk = 2;
-        cantMemory = 4;
-        cantPc = 0;
+        cantVideoCard = 2;                
         stack = 0;
-        infoText = OBJETIVE_LV3_TEXT;
+        infoText = OBJETIVE_LV5_1_TEXT;
         document.getElementById("blocklyTextId").value = infoText;
 
         this.add.image(400, 300, 'sky');
@@ -43,20 +40,15 @@ class Scene3 extends Phaser.Scene {
         
         this.add.grid(horizontal, vertical, width, height, cellWidth, cellHeight, 0xDADADA).setAltFillStyle(0xA5A5A5).setOutlineStyle();
 
-        messageForVariables(cantMemory,posXExecutables + (cellWidth * 3) + 10,posYExecutables);
-        messageForVariables(cantDisk,posXExecutables + (cellWidth * 4) + 10,posYExecutables);
+        messageForVariables(cantVideoCard,posXExecutables + (cellWidth * 3) + 10,posYExecutables);        
 
-        this.add.image(posXExecutables + (cellWidth * 3) - 10, posYExecutables, 'memory').setDisplaySize(30,30);
-        this.add.image(posXExecutables + (cellWidth * 4) - 10, posYExecutables, 'disk').setDisplaySize(30,30);        
+        this.add.image(posXExecutables + (cellWidth * 3) - 10, posYExecutables, 'videoCard').setDisplaySize(30,30);            
 
         var pc = this.physics.add.image(initPosX - 10, initPosY - 10, 'motherboard').setDisplaySize(40,40);
         pc.enableBody(true,initPosX - 10,initPosY - 5,true,true);
 
-        var memory = this.physics.add.image(initPosX + (moveX * 4), initPosY, 'memory').setDisplaySize(40,40);
-        memory.enableBody(true,initPosX + (moveX * 4),initPosY,true,true);
-
-        var disk = this.physics.add.image(initPosX + (moveX * 4), initPosY - (moveY * 4), 'disk').setDisplaySize(40,40);
-        disk.enableBody(true,initPosX + (moveX * 4),initPosY - (moveY * 4),true,true);        
+        var videoCard = this.physics.add.image(initPosX + (moveX * 4), initPosY, 'videoCard').setDisplaySize(40,40);
+        videoCard.enableBody(true,initPosX + (moveX * 4),initPosY,true,true);     
         
         sprite = this.physics.add.sprite(initPosX, initPosY, 'dude');          
 
@@ -70,9 +62,8 @@ class Scene3 extends Phaser.Scene {
         .lineStyle(0.1, 0xA5A5A5, 0)
         .strokeRectShape(sprite.body.customBoundsRectangle);
 
-        yo.physics.add.overlap(sprite, memory, collectMemory, null, yo);
-        yo.physics.add.overlap(sprite, pc, putPc, null, yo);
-        yo.physics.add.overlap(sprite, disk, collectDisk, null, yo);
+        yo.physics.add.overlap(sprite, videoCard, collectVideoCard, null, yo);
+        yo.physics.add.overlap(sprite, pc, putPc, null, yo);    
 
         createAnimationDude();
 
@@ -84,7 +75,7 @@ class Scene3 extends Phaser.Scene {
 
         resetButton.on('pointerdown', function(){    
             resetConfig();                               
-            this.scene.start('scene3');
+            this.scene.start('scene5_1');
         },this);
     }
     
@@ -94,16 +85,15 @@ class Scene3 extends Phaser.Scene {
         
         // Con embedded se puede ver si el sprite se encuentra dentro de un objeto con el que puede colisionar. 
         if(!sprite.body.embedded){
-            thereIsMemory = false;
-            thereIsPc = false;
-            thereIsDisk = false;
+            thereIsVideoCard = false;
+            thereIsPc = false;            
         }
         
-        if(cantPc === 6 && cantMemory === 0 && cantDisk === 0 && !stopMessage){
+        if(cantPc === 2 && cantVideoCard === 0 && !stopMessage){
             messageSprite(GAME_COMPLETED_TEXT);                       
         }
         
-        if(endExcecution && cantPc < 6){
+        if(endExcecution && cantPc < 1){
             endExcecution = false;               
             if(!gameOver){
                 messageSprite(INCOMPLETE_GAME_TEXT);

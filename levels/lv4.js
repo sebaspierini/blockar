@@ -34,7 +34,7 @@ class Scene4 extends Phaser.Scene {
         this.add.grid(horizontal, vertical, width, height, cellWidth, cellHeight, 0xDADADA).setAltFillStyle(0xA5A5A5).setOutlineStyle();
         
         sprite = this.physics.add.sprite(initPosX, initPosY, 'dude');                                    
-
+        sprite.depth = 104;
         //colision con el mundo
         sprite.setBounce(1,1);
         sprite.setCollideWorldBounds(true);    

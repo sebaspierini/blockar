@@ -1,8 +1,8 @@
-class Scene2 extends Phaser.Scene { 
+class Scene2_1 extends Phaser.Scene { 
 
     constructor ()
     {
-        super({ key: 'scene2' });
+        super({ key: 'scene2_1' });
     }
     
     preload ()
@@ -25,10 +25,10 @@ class Scene2 extends Phaser.Scene {
         yo = this;
         posX = initPosX;
         posY = initPosY;      
-        infoText = OBJETIVE_LV2_TEXT;
+        infoText = OBJETIVE_LV2_1_TEXT;
         document.getElementById("blocklyTextId").value = infoText;
         stack = 0;
-        cantPc = 5;
+        cantPc = 1;
         cantShop = 0;
         
         this.add.image(400, 300, 'sky');
@@ -39,7 +39,7 @@ class Scene2 extends Phaser.Scene {
         this.add.image(posXExecutables + (cellWidth * 3) - 10, posYExecutables, 'pc').setDisplaySize(30,30);
 
         pcLv2 = this.physics.add.image(initPosX + (cellWidth * 5), initPosY, 'pc').setDisplaySize(40,40);
-        shopLv2 = this.physics.add.image(initPosX, initPosY, 'shop').setDisplaySize(40,40);
+        //shopLv2 = this.physics.add.image(initPosX, initPosY, 'shop').setDisplaySize(40,40);
 
         sprite = this.physics.add.sprite(initPosX, initPosY, 'dude');
 
@@ -55,10 +55,10 @@ class Scene2 extends Phaser.Scene {
         //sprite.depth = 100; con depth pongo delante al sprite para que la estrella no lo tape.        
 
         pcLv2.enableBody(true,initPosX + (cellWidth * 5),initPosY,true,true);
-        shopLv2.enableBody(true,initPosX,initPosY,true,true);
+        //shopLv2.enableBody(true,initPosX,initPosY,true,true);
 
         this.physics.add.overlap(sprite, pcLv2, collectPc, null, this);
-        this.physics.add.overlap(sprite, shopLv2, putShop, null, this);
+        //this.physics.add.overlap(sprite, shopLv2, putShop, null, this);
         // arreglar el bloque para que tome el de pc
         createAnimationDude();        
 
@@ -70,7 +70,7 @@ class Scene2 extends Phaser.Scene {
 
         resetButton.on('pointerdown', function(){   
             resetConfig();                                            
-            yo.scene.start('scene2');
+            yo.scene.start('scene2_1');
         },this);
     }
     
@@ -79,14 +79,14 @@ class Scene2 extends Phaser.Scene {
 
         if(!sprite.body.embedded){
             thereIsPc = false;            
-            thereIsShop = false;    
+            //thereIsShop = false;    
         }  
 
-        if(cantShop === 5 && cantPc === 0 && !stopMessage){
+        if(cantPc === 0 && !stopMessage){
             messageSprite(GAME_COMPLETED_TEXT);                
         }
           
-        if(endExcecution && (cantShop < 5 || cantPc > 0)){ 
+        if(endExcecution && cantPc < 1){ 
             endExcecution = false;               
             if(!gameOver){
                 messageSprite(INCOMPLETE_GAME_TEXT);

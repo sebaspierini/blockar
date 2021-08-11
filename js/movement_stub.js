@@ -153,3 +153,15 @@ function initInterpreterPutInShop(interpreter, scope) {
     }); 
   interpreter.setProperty(scope, 'colocar_pc_en_tienda', wrapper);
 }
+
+function initInterpreterGetProcessor(interpreter, scope) {
+  Blockly.JavaScript.addReservedWords('tomar_placa_de_video');
+  var wrapper = interpreter.createAsyncFunction(
+    function(callback) {
+      getVideoCard();
+      setTimeout(function(){         
+        callback(); 
+      },  0);            
+    }); 
+  interpreter.setProperty(scope, 'tomar_placa_de_video', wrapper);
+}

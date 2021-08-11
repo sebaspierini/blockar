@@ -18,6 +18,7 @@ function initApi(interpreter, scope) {
     initInterpreterPutInPc(interpreter, scope);
     initInterpreterGetPc(interpreter, scope);
     initInterpreterPutInShop(interpreter, scope);
+    initInterpreterGetProcessor(interpreter, scope)
 }
 
 function highlightBlock(id) {
@@ -37,27 +38,27 @@ function generateCodeAndLoadIntoInterpreter(event) {
     // Genera codigo JavaScript y lo parsea.
     latestCode = Blockly.JavaScript.workspaceToCode(demoWorkspace);    
     
-    codeBlockly = latestCode;
+    // codeBlockly = latestCode;
 
-    let arrayCode = codeBlockly.split("\n");
+    // let arrayCode = codeBlockly.split("\n");
        
-    arrayCode.splice(-1, 1); 
-    arrayCode.splice(0, 1);   
+    // arrayCode.splice(-1, 1); 
+    // arrayCode.splice(0, 1);   
 
-    arrayCode.forEach(function(element,index){
+    // arrayCode.forEach(function(element,index){
          
-        if(element.includes("highlightBlock(")){
+    //     if(element.includes("highlightBlock(")){
             
-            arrayCode.splice(index, 1);
+    //         arrayCode.splice(index, 1);
             
-        }
-    });
+    //     }
+    // });
     
-    codeBlockly = arrayCode.join("\n");
+    // codeBlockly = arrayCode.join("\n");
 
-    if(buttonSelect === 2){
-        document.getElementById("blocklyTextId").value = BEGIN_CODE_TEXT+codeBlockly+END_CODE_TEXT; 
-    }
+    // if(buttonSelect === 2){
+    //     document.getElementById("blocklyTextId").value = codeBlockly; 
+    // }
                      
     resetStepUi();
 }
@@ -152,7 +153,7 @@ function inject_blockly(maxBlocks = 0){
         trashcan: true
         }); 
     }
-    
+        
     // Decodifica un DOM XML y crea bloques en el espacio de trabajo
     Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom('<xml><block type="start" deletable="false" movable="false"></block></xml> '),
         demoWorkspace);    
@@ -175,9 +176,10 @@ function inject_blockly(maxBlocks = 0){
         'insertionMarkerOpacity': 0.3,
         'scrollbarOpacity': 0.4,
         'cursorColour': '#d0d0d0',
-        'blackBackground': '#333',    
+        'blackBackground': '#333',                   
         },
-        'startHats': true
+        'startHats': true,        
+        
     });
 
     demoWorkspace.setTheme(theme);     
@@ -206,13 +208,15 @@ function hideCategories(){
     demoWorkspace.getToolbox().getToolboxItemById('movement_sprite').hide();
     demoWorkspace.getToolbox().getToolboxItemById('function_sprite').hide();    
     demoWorkspace.getToolbox().getToolboxItemById('function_sprite_lv2').hide(); 
+    demoWorkspace.getToolbox().getToolboxItemById('function_sprite_lv2_1').hide(); 
     demoWorkspace.getToolbox().getToolboxItemById('function_sprite_lv3').hide(); 
     demoWorkspace.getToolbox().getToolboxItemById('function_sprite_lv4').hide(); 
     demoWorkspace.getToolbox().getToolboxItemById('loop_for').hide();
     demoWorkspace.getToolbox().getToolboxItemById('logic').hide();
     demoWorkspace.getToolbox().getToolboxItemById('condition').hide();
     demoWorkspace.getToolbox().getToolboxItemById('math').hide();   
-    demoWorkspace.getToolbox().getToolboxItemById('function').hide();    
+    demoWorkspace.getToolbox().getToolboxItemById('function').hide();  
+    demoWorkspace.getToolbox().getToolboxItemById('function_sprite_lv5_1').hide();    
 }
 
 function showCategoriesLv1(){
@@ -228,11 +232,25 @@ function showCategoriesLv2(){
     demoWorkspace.getToolbox().getToolboxItemById('loop_for').show();
 }
 
+function showCategoriesLv2_1(){
+    hideCategories();
+    demoWorkspace.getToolbox().getToolboxItemById('movement_sprite').show();
+    demoWorkspace.getToolbox().getToolboxItemById('function_sprite_lv2_1').show(); 
+    demoWorkspace.getToolbox().getToolboxItemById('loop_for').show();
+}
+
 function showCategoriesLv3(){
     hideCategories();
     demoWorkspace.getToolbox().getToolboxItemById('movement_sprite').show();
     demoWorkspace.getToolbox().getToolboxItemById('function_sprite_lv3').show(); 
     demoWorkspace.getToolbox().getToolboxItemById('loop_for').show();
+    demoWorkspace.getToolbox().getToolboxItemById('function').show(); 
+}
+
+function showCategoriesLv5_1(){
+    hideCategories();
+    demoWorkspace.getToolbox().getToolboxItemById('movement_sprite').show();
+    demoWorkspace.getToolbox().getToolboxItemById('function_sprite_lv5_1').show();     
     demoWorkspace.getToolbox().getToolboxItemById('function').show(); 
 }
 

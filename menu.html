@@ -37,8 +37,11 @@
     <script src="levels/menu.js"></script>  
     <script src="levels/lv1.js"></script>  
     <script src="levels/lv2.js"></script> 
+    <script src="levels/lv2_1.js"></script>
+    <script src="levels/lv2_2.js"></script>
     <script src="levels/lv3.js"></script> 
     <script src="levels/lv4.js"></script> 
+    <script src="levels/lv5_1.js"></script> 
 </head>
 <body>
     
@@ -65,9 +68,18 @@
             <block type='put_element_lv2'></block>
         </category>
 
+        <category name='Operaciones' toolboxitemid="function_sprite_lv2_1" colour='20'>            
+            <block type='get_pc'></block>                        
+        </category>
+
         <category name='Operaciones' toolboxitemid="function_sprite_lv3" colour='20'>            
             <block type='get_memory'></block>
             <block type='get_disk'></block>
+            <block type='put_element_lv3'></block>
+        </category>
+
+        <category name='Operaciones' toolboxitemid="function_sprite_lv5_1" colour='20'>            
+            <block type='get_videocard'></block>            
             <block type='put_element_lv3'></block>
         </category>
 
@@ -111,7 +123,7 @@ var runner;
 var demoWorkspace;
 var latestCode = '';
 // flag para controlar si termina la ejecución luego de darle play al game.
-var endExcecution;
+var endExcecution = false;
 
 var score = "menu";
 var widthGame = 800;
@@ -152,6 +164,7 @@ var takePc = false;
 var takeMemory = false;
 var takeDisk = false;
 var takeShop = false;
+var takeVideoCard = false;
 
 // posicion variale del sprite
 var posX;
@@ -171,6 +184,7 @@ var cantMemory;
 var cantDisk;
 var cantPc;
 var cantShop;
+var cantVideoCard;
 
 var star;
 var bomb;
@@ -193,7 +207,9 @@ var thereIsMemory;
 var thereIsPc;
 var thereIsDisk;
 var thereIsShop;
+var thereIsVideoCard;
 var codeBlockly = '';
+var stopMesagge = false;
 
 var stack;
 
@@ -212,7 +228,7 @@ var config = {
             debug: false
         },
     },  
-    scene: [ SceneMenu, Scene1, Scene2, Scene3, Scene4 ]
+    scene: [ SceneMenu, Scene1, Scene2, Scene3, Scene4, Scene2_1, Scene2_2,Scene5_1]
 };
 // declaro la creacion del juego
 var game = new Phaser.Game(config);

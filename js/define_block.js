@@ -233,3 +233,20 @@ Blockly.Blocks['move_left'] = {
     return code;
   };
 
+  Blockly.Blocks['get_videocard'] = {
+    init: function() {
+      this.appendDummyInput()
+          .appendField("Tomar placa de video");
+      this.setInputsInline(false);
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(20);
+   this.setTooltip("");
+   this.setHelpUrl("");
+    }
+  };
+  
+  Blockly.JavaScript['get_videocard'] = function(block) {  
+    var code = 'tomar_placa_de_video();\n';
+    return code;
+  };

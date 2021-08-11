@@ -19,7 +19,7 @@ class SceneMenu extends Phaser.Scene {
             
         var distance = 120;
         var config1 = {
-            x: 160,
+            x: 50,
             y: 150,
             text: '',
             padding: {
@@ -36,7 +36,7 @@ class SceneMenu extends Phaser.Scene {
                 backgroundColor: '#ffffff',            
             }
         };
-    
+   
         config1.text = '1';
     
         let lv1Click = this.make.text(config1).setInteractive();
@@ -44,15 +44,31 @@ class SceneMenu extends Phaser.Scene {
         config1.x = config1.x + distance;        
         config1.text = '2';
     
-        let lv2Click = this.make.text(config1).setInteractive();
-    
+        let lv2_1Click = this.make.text(config1).setInteractive();
+
         config1.x = config1.x + distance;        
         config1.text = '3';
     
-        let lv3Click = this.make.text(config1).setInteractive();
-    
+        let lv2_2Click = this.make.text(config1).setInteractive();
+
         config1.x = config1.x + distance;        
         config1.text = '4';
+    
+        let lv2Click = this.make.text(config1).setInteractive();
+    
+        config1.x = config1.x + distance;        
+        config1.text = '5';
+    
+        let lv5_1Click = this.make.text(config1).setInteractive();
+    
+        config1.x = config1.x + distance;        
+        config1.text = '6';
+    
+        let lv3Click = this.make.text(config1).setInteractive();
+
+        config1.x = 50;        
+        config1.y = config1.y + 130;     
+        config1.text = '7';
     
         let lv4Click = this.make.text(config1).setInteractive();
         
@@ -74,6 +90,18 @@ class SceneMenu extends Phaser.Scene {
             showCategoriesLv2();                                                             
             this.scene.start('scene2');    
         }, this);
+
+        lv2_1Click.on('pointerdown', function(){   
+            inject_blockly(5);                
+            showCategoriesLv2_1();                                                             
+            this.scene.start('scene2_1');    
+        }, this);
+
+        lv2_2Click.on('pointerdown', function(){   
+            inject_blockly(9);                
+            showCategoriesLv2();                                                             
+            this.scene.start('scene2_2');    
+        }, this);
         
         lv3Click.on('pointerdown', function(){
             inject_blockly();            
@@ -85,6 +113,12 @@ class SceneMenu extends Phaser.Scene {
             inject_blockly();            
             showCategoriesLv4();                 
             this.scene.start('scene4');   
+        }, this);
+
+        lv5_1Click.on('pointerdown', function(){
+            inject_blockly();            
+            showCategoriesLv5_1();                 
+            this.scene.start('scene5_1');   
         }, this);
     }
     

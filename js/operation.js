@@ -56,3 +56,12 @@ function putInShop(){
         takeShop = true;        
     }
 }
+
+function getVideoCard(){
+    if(!thereIsVideoCard){                   
+        messageSprite(NO_VIDEOCARD_TEXT);         
+    }else{
+        takeVideoCard = true;
+        stack++;
+    }
+}

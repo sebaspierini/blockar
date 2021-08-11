@@ -1,8 +1,8 @@
-class Scene2 extends Phaser.Scene { 
+class Scene2_2 extends Phaser.Scene { 
 
     constructor ()
     {
-        super({ key: 'scene2' });
+        super({ key: 'scene2_2' });
     }
     
     preload ()
@@ -25,10 +25,10 @@ class Scene2 extends Phaser.Scene {
         yo = this;
         posX = initPosX;
         posY = initPosY;      
-        infoText = OBJETIVE_LV2_TEXT;
+        infoText = OBJETIVE_LV2_2_TEXT;
         document.getElementById("blocklyTextId").value = infoText;
         stack = 0;
-        cantPc = 5;
+        cantPc = 1;
         cantShop = 0;
         
         this.add.image(400, 300, 'sky');
@@ -70,7 +70,7 @@ class Scene2 extends Phaser.Scene {
 
         resetButton.on('pointerdown', function(){   
             resetConfig();                                            
-            yo.scene.start('scene2');
+            yo.scene.start('scene2_2');
         },this);
     }
     
@@ -82,11 +82,11 @@ class Scene2 extends Phaser.Scene {
             thereIsShop = false;    
         }  
 
-        if(cantShop === 5 && cantPc === 0 && !stopMessage){
+        if(cantShop === 1 && cantPc === 0 && !stopMessage){
             messageSprite(GAME_COMPLETED_TEXT);                
         }
-          
-        if(endExcecution && (cantShop < 5 || cantPc > 0)){ 
+                
+        if(endExcecution && (cantShop < 1 || cantPc > 0)){             
             endExcecution = false;               
             if(!gameOver){
                 messageSprite(INCOMPLETE_GAME_TEXT);
