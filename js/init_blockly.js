@@ -160,6 +160,9 @@ function inject_blockly(maxBlocks = 0){
         
     demoWorkspace.addChangeListener(Blockly.Events.disableOrphans);
 
+    demoWorkspace.registerToolboxCategoryCallback(
+        'CALL_PROCEDURES', Blockly.Procedures.procedureCallFlyoutCategory);
+
     // Creao la definición para el tema dark
     Blockly.registry.unregister('theme', 'dark');
     var theme = Blockly.Theme.defineTheme('dark', {

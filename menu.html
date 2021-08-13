@@ -8,10 +8,35 @@
     <!-- Se carga el espacio de trabajo de tamaño fijo -->
     <script src="blockly/blockly_compressed.js"></script>
     <script src="blockly/blocks_compressed.js"></script>
+    
     <!-- Se carga generador de código para javascript-->
     <script src="blockly/javascript_compressed.js"></script>
     <!-- Se carga el idioma de los bloques -->
-    <script src="blockly/msg/js/es.js"></script>   
+    <script src="blockly/msg/js/es.js"></script> 
+    <script>
+        var old = Blockly.Blocks.procedures_defnoreturn.init; 
+        Blockly.Blocks.procedures_defnoreturn.init = function(){
+            old.call(this);                           
+            this.setMutator(undefined);
+            this.setCommentText(undefined);       
+        };
+
+        Blockly.Procedures.procedureCallFlyoutCategory = function(workspace) {
+            var xmlList = [];
+            var proc = Blockly.Procedures.allProcedures(workspace)[0];
+                
+                for (var i = 0; i < proc.length; i++) {
+                    var name = proc[i][0];                                 
+                    
+                    var block = Blockly.Xml.textToDom('<block type="procedures_callnoreturn" gap="16"> <mutation name="'+name+'"></mutation></block>');                    
+                    
+                    xmlList.push(block);
+                }                        
+            
+            return xmlList;
+        };
+    </script>
+      
     <!-- Se declara instancia de juego -->
     <script src="js/phaser.min.js"></script> 
     <script src="js/jquery.min.js"></script>   
@@ -51,7 +76,7 @@
     
     <xml id='toolbox' style='display: none'> 
         <!-- <block type="start" deletable="false" movable="false"></block>  --> 
-
+        
         <category name='Movimientos' toolboxitemid="movement_sprite" colour='#a55b6d'>                        
             <block type='move_right'></block>
             <block type='move_left'></block>
@@ -110,10 +135,14 @@
             <block type="math_number">
                 <field name="NUM">0</field>
             </block>             
-        </category>
+        </category>        
 
-        <category name="Funciones" colour="290" toolboxitemid="function" custom="PROCEDURE"></category>
+        <category name='Procedimiento'  colour='290' toolboxitemid="function">    
+            <category name='Crear'  colour='290'>  <block type='procedures_defnoreturn'></block>  </category>                    
+              
+            <category name='Llamar' custom="CALL_PROCEDURES" colour='290'> </category>
 
+        </category> 
       </xml>       
     
 <script type="text/javascript">
