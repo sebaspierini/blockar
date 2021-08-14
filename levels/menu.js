@@ -74,10 +74,12 @@ class SceneMenu extends Phaser.Scene {
         
         // Reseteo score a un valor distinto de 'menu' con score = 'menu' indico que vengo a esta clase.
         score = '1';  
-
+        beginScene = true;
+        cantBlocks = 1;
+        resetConfig();
         hideBlocks();
         
-        resetConfig(); 
+         
 
         lv1Click.on('pointerdown', function(){                           
             inject_blockly();                                                  
@@ -87,7 +89,7 @@ class SceneMenu extends Phaser.Scene {
     
         lv2Click.on('pointerdown', function(){   
             inject_blockly(11);                
-            showCategoriesLv2();                                                             
+            showCategoriesLv2();                                                                         
             this.scene.start('scene2');    
         }, this);
 
@@ -116,7 +118,7 @@ class SceneMenu extends Phaser.Scene {
         }, this);
 
         lv5_1Click.on('pointerdown', function(){
-            inject_blockly();            
+            inject_blockly(17);            
             showCategoriesLv5_1();                 
             this.scene.start('scene5_1');   
         }, this);

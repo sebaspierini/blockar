@@ -19,7 +19,7 @@
             old.call(this);                           
             this.setMutator(undefined);
             this.setCommentText(undefined);       
-        };
+        };        
 
         Blockly.Procedures.procedureCallFlyoutCategory = function(workspace) {
             var xmlList = [];
@@ -35,6 +35,13 @@
             
             return xmlList;
         };
+
+        var old2 = Blockly.Blocks.controls_if.init; 
+        Blockly.Blocks.controls_if.init = function(){
+            old2.call(this);                           
+            this.setMutator(undefined);                
+        }; 
+        
     </script>
       
     <!-- Se declara instancia de juego -->
@@ -69,9 +76,9 @@
     <script src="levels/lv5_1.js"></script> 
 </head>
 <body>
-    
+    <div id="blocklyArea" class="centerBlocklyDiv"></div>
     <div id="blocklyDiv" class="centerBlocklyDiv"></div>
-    <textarea id="blocklyTextId" class="blocklyText" readonly></textarea>
+    <textarea id="blocklyTextId" class="blocklyTextMy" readonly></textarea>
     <div id="gameRight" class="centergame"></div>
     
     <xml id='toolbox' style='display: none'> 
@@ -147,6 +154,8 @@
     
 <script type="text/javascript">
 
+var onresize;
+
 var myInterpreter = null;
 var runner;
 var demoWorkspace;
@@ -169,8 +178,9 @@ var cantCellHorizontal = 5;
 var cellWidth = width / cantCellVertical;
 var cellHeight = height / cantCellHorizontal;
 // ubicacion sobre el eje Y de los botones que ejecutan las acciones
-var posYExecutables = heightGame - (cellHeight / 2);
-var posXExecutables = cellWidth / 2;
+var posYExecutables = 26;
+var posXExecutables = 426;
+var PosYVar = posYExecutables + (cellHeight * 3) - 26;
 // posicion de sprite de inicio
 const initPosX = width + (cellWidth / 2);
 const initPosY = heightGame - (cellHeight / 2);
@@ -183,8 +193,7 @@ var resetButton;
 var menuButton;
 var infoButton;
 var codeButton;
-// Sirve para saber si estoy parado en código (2) o en info (1)
-var buttonSelect = 0;
+
 var infoText="";
 
 // Objetos del juego
@@ -214,6 +223,7 @@ var cantDisk;
 var cantPc;
 var cantShop;
 var cantVideoCard;
+var cantBlocks = 1;
 
 var star;
 var bomb;
@@ -241,6 +251,8 @@ var codeBlockly = '';
 var stopMesagge = false;
 
 var stack;
+
+var beginScene = true;
 
 var config = {
     type: Phaser.AUTO,    

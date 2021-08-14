@@ -37,6 +37,9 @@ function generateCodeAndLoadIntoInterpreter(event) {
 
     // Genera codigo JavaScript y lo parsea.
     latestCode = Blockly.JavaScript.workspaceToCode(demoWorkspace);    
+    cantBlocks = demoWorkspace.getAllBlocks().length;
+    
+    messageForVariables(cantBlocks,posXExecutables + (cellWidth * 4) + 10, PosYVar);  
     
     // codeBlockly = latestCode;
 
@@ -112,6 +115,8 @@ function runCode() {
 function inject_blockly(maxBlocks = 0){
 
     showBlocks(); 
+    var blocklyArea = document.getElementById('blocklyArea');
+    var blocklyDiv = document.getElementById('blocklyDiv');
 
     if(maxBlocks === 0){
         // Inyecta un editor Blockly en el elemento contenedor especificado
@@ -153,6 +158,27 @@ function inject_blockly(maxBlocks = 0){
         trashcan: true
         }); 
     }
+
+    onresize = function(e) {
+        // Compute the absolute coordinates and dimensions of blocklyArea.
+        var element = blocklyArea;
+        var x = 0;
+        var y = 0;
+        do {
+          x += element.offsetLeft;
+          y += element.offsetTop;
+          element = element.offsetParent;
+        } while (element);
+        // Position blocklyDiv over blocklyArea.
+        blocklyDiv.style.left = x + 'px';
+        blocklyDiv.style.top = y + 'px';
+        blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
+        blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
+        Blockly.svgResize(demoWorkspace);
+      };
+      window.addEventListener('resize', onresize, false);
+      onresize();
+      Blockly.svgResize(demoWorkspace);
         
     // Decodifica un DOM XML y crea bloques en el espacio de trabajo
     Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom('<xml><block type="start" deletable="false" movable="false"></block></xml> '),
@@ -173,10 +199,10 @@ function inject_blockly(maxBlocks = 0){
         'toolboxForegroundColour': '#fff',
         'flyoutBackgroundColour': '#252526',
         'flyoutForegroundColour': '#ccc',
-        'flyoutOpacity': 1,
+        'flyoutOpacity': 0.4,
         'scrollbarColour': '#797979',
         'insertionMarkerColour': '#fff',
-        'insertionMarkerOpacity': 0.3,
+        'insertionMarkerOpacity': 0.4,
         'scrollbarOpacity': 0.4,
         'cursorColour': '#d0d0d0',
         'blackBackground': '#333',                   
@@ -198,12 +224,12 @@ function inject_blockly(maxBlocks = 0){
 
 function hideBlocks(){
     $("#blocklyDiv").hide();
-    $("#blocklyTextId").hide();
+    $(".blocklyTextMy").hide();
 }
 
-function showBlocks(){    
-    $("#blocklyDiv").show();
-    $("#blocklyTextId").show();
+function showBlocks(){ 
+    $("#blocklyDiv").show();   
+    $(".blocklyTextMy").show();    
 }
 
 function hideCategories(){

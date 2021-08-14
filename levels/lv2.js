@@ -7,16 +7,10 @@ class Scene2 extends Phaser.Scene {
     
     preload ()
     {    
+        interfaceDefine(this);
         this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
-        this.load.image('sky', 'assets/sky.png');
-        this.load.image('play', 'assets/play.png');
-        this.load.image('reset', 'assets/reset.png');
-        this.load.image('menu', 'assets/menu.png');
         this.load.image('pc', 'assets/pc.png');
         this.load.image('shop', 'assets/shop.png');
-        this.load.image('info', 'assets/info.png');
-        this.load.image('code', 'assets/code.png');   
-        this.load.spritesheet('switch', 'assets/switch.png', { frameWidth: 256, frameHeight: 136 });
          
     }
     
@@ -35,8 +29,8 @@ class Scene2 extends Phaser.Scene {
         
         this.add.grid(horizontal, vertical, width, height, cellWidth, cellHeight, 0xDADADA).setAltFillStyle(0xA5A5A5).setOutlineStyle();
 
-        messageForVariables(cantPc,posXExecutables + (cellWidth * 3) + 20,posYExecutables);
-        this.add.image(posXExecutables + (cellWidth * 3) - 10, posYExecutables, 'pc').setDisplaySize(30,30);
+        messageForVariables(cantPc,posXExecutables + 10,PosYVar);
+        this.add.image(posXExecutables - 5, PosYVar, 'pc').setDisplaySize(30,30);
 
         pcLv2 = this.physics.add.image(initPosX + (cellWidth * 5), initPosY, 'pc').setDisplaySize(40,40);
         shopLv2 = this.physics.add.image(initPosX, initPosY, 'shop').setDisplaySize(40,40);

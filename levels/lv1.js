@@ -7,15 +7,9 @@ class Scene1 extends Phaser.Scene {
     
     preload ()
     {    
-        this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
-        this.load.image('sky', 'assets/sky.png');
-        this.load.image('play', 'assets/play.png');
-        this.load.image('reset', 'assets/reset.png');
-        this.load.image('menu', 'assets/menu.png');
-        this.load.image('star', 'assets/smartphone.png');      
-        this.load.image('info', 'assets/info.png');
-        this.load.image('code', 'assets/code.png');   
-        this.load.spritesheet('switch', 'assets/switch.png', { frameWidth: 256, frameHeight: 136 });   
+        interfaceDefine(this);
+        this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });        
+        this.load.image('star', 'assets/smartphone.png');              
     }
     
     create ()
@@ -26,6 +20,7 @@ class Scene1 extends Phaser.Scene {
         posY = initPosY;    
         infoText = OBJETIVE_LV1_TEXT;        
         document.getElementById("blocklyTextId").value = infoText;  
+
         
         this.add.image(400, 300, 'sky');
         
@@ -54,7 +49,7 @@ class Scene1 extends Phaser.Scene {
         });
 
         resetButton.on('pointerdown', function(){   
-            resetConfig();                   
+            resetConfig();                               
             this.scene.start('scene1');
         },this);
     }

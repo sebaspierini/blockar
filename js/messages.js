@@ -1,13 +1,16 @@
-function messageForVariables(text,x,y){
+function messageForVariables(text,x,y){       
     let style = {
         fontSize: '16px',
         fontFamily: 'Arial',
-        color: 'black',    
-        backgroundColor: 'white'        
-    };        
-    var message = yo.add.text(x, y, '',style);    
-    message.setText(' = '+ text);
-    message.visible = true;    
+        color: 'white',    
+        backgroundColor: '#333'        
+    };   
+    if(yo){
+        let message = yo.add.text(x + 5, y - 3, '',style);    
+        message.setText(' = '+ text);
+        message.visible = true;  
+    }     
+      
 }
 
 function messageSprite(text, width_a = 140, height_a = 30, x_a = 0, y_a = 0){

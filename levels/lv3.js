@@ -7,17 +7,11 @@ class Scene3 extends Phaser.Scene {
     
     preload ()
     {    
-        this.load.image('sky', 'assets/sky.png');
-        this.load.image('play', 'assets/play.png');
-        this.load.image('reset', 'assets/reset.png');
-        this.load.image('menu', 'assets/menu.png');  
-        this.load.image('info', 'assets/info.png');
-        this.load.image('code', 'assets/code.png');      
+        interfaceDefine(this);
         this.load.image('motherboard', 'assets/motherboard.png');        
         this.load.image('memory', 'assets/ram-memory.png');  
         this.load.image('disk', 'assets/hard-disk.png');  
         this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 }); 
-        this.load.spritesheet('switch', 'assets/switch.png', { frameWidth: 256, frameHeight: 136 });
     }
     
     create ()
@@ -43,11 +37,11 @@ class Scene3 extends Phaser.Scene {
         
         this.add.grid(horizontal, vertical, width, height, cellWidth, cellHeight, 0xDADADA).setAltFillStyle(0xA5A5A5).setOutlineStyle();
 
-        messageForVariables(cantMemory,posXExecutables + (cellWidth * 3) + 10,posYExecutables);
-        messageForVariables(cantDisk,posXExecutables + (cellWidth * 4) + 10,posYExecutables);
+        messageForVariables(cantMemory,posXExecutables  + 10,PosYVar);
+        messageForVariables(cantDisk,posXExecutables + (cellWidth ) + 10,PosYVar);
 
-        this.add.image(posXExecutables + (cellWidth * 3) - 10, posYExecutables, 'memory').setDisplaySize(30,30);
-        this.add.image(posXExecutables + (cellWidth * 4) - 10, posYExecutables, 'disk').setDisplaySize(30,30);        
+        this.add.image(posXExecutables - 5, PosYVar, 'memory').setDisplaySize(30,30);
+        this.add.image(posXExecutables + (cellWidth ) - 5, PosYVar, 'disk').setDisplaySize(30,30);        
 
         var pc = this.physics.add.image(initPosX - 10, initPosY - 10, 'motherboard').setDisplaySize(40,40);
         pc.enableBody(true,initPosX - 10,initPosY - 5,true,true);

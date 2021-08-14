@@ -1,15 +1,54 @@
-function createButtonsGame(){
-    playButton = yo.add.image(posXExecutables, posYExecutables, 'play').setInteractive().setDisplaySize(50,50);
-    menuButton = yo.add.image(posXExecutables + cellWidth, posYExecutables, 'menu').setInteractive().setDisplaySize(50,50);
-    resetButton = yo.add.image(posXExecutables, posYExecutables, 'reset').setInteractive().setDisplaySize(50,50);
-    resetButton.visible = false;  
-    //infoButton = yo.add.image(posXExecutables + cellWidth, posYExecutables, 'info').setInteractive().setDisplaySize(40,40);
-    //codeButton = yo.add.image(posXExecutables + (cellWidth * 2), posYExecutables, 'code').setInteractive().setDisplaySize(40,40);    
+function createButtonsGame(){    
+    playButton = yo.add.image(posXExecutables + (cellWidth * 3), posYExecutables, 'play').setInteractive().setDisplaySize(50,50);
+    menuButton = yo.add.image(posXExecutables + (cellWidth * 4 ), posYExecutables, 'menu').setInteractive().setDisplaySize(50,50);
+    resetButton = yo.add.image(posXExecutables + (cellWidth * 3), posYExecutables, 'reset').setInteractive().setDisplaySize(50,50);      
+    infoButton = yo.add.image(posXExecutables + +5, posYExecutables, 'info').setInteractive().setDisplaySize(40,40);    
+    codeButton = yo.add.image(posXExecutables + 5 , posYExecutables, 'code').setInteractive().setDisplaySize(40,40);
+    enlarge = yo.add.image(posXExecutables + (cellWidth * 5) , posYExecutables, 'enlarge').setInteractive().setDisplaySize(40,40);
+    reduce = yo.add.image(posXExecutables + (cellWidth * 5) , posYExecutables, 'reduce').setInteractive().setDisplaySize(40,40);
+    
+    yo.add.image(posXExecutables + (cellWidth * 4) - 5, PosYVar, 'blocks').setDisplaySize(30,30);
+    messageForVariables(cantBlocks,posXExecutables + (cellWidth * 4) + 10, PosYVar);
 
     var posXtextOn_2x = posXExecutables + (cellWidth * 2);
     on_2x = yo.physics.add.sprite(posXtextOn_2x , posYExecutables, 'switch').setInteractive().setDisplaySize(50,30); 
-               
-    //yo.add.text(posXtextOn_2x - 60, posYExecutables, BTN_ACELERATION_TEXT, {fontFamily: 'Arial', color: '#000000',fontSize: '14px'}).setOrigin(0.5);
+       
+    if(beginScene){
+        let begin = yo.add.text(posXExecutables + (cellWidth * 2) + 30, posYExecutables + cellHeight, BTN_BEGIN_TEXT, {
+            fontFamily: 'Arial',backgroundColor:'#333',padding: {
+            left: 20,
+            right: 20,
+            top: 20,
+            bottom: 20,
+        },
+        color: 'rgb(236, 236, 236)',
+        fontSize: '21px'
+        }).setOrigin(0.5).setInteractive();
+
+        playButton.visible = false;
+        menuButton.visible = false;
+        resetButton.visible = false;
+        infoButton.visible = false;
+        on_2x.visible = false;
+        
+        beginScene = false;
+        enlarge.visible = false;
+
+        begin.on('pointerdown', function(){ 
+            $(".blocklyTextMy").hide();                                             
+            $("#blocklyDiv").show(); 
+            playButton.visible = true;
+            menuButton.visible = true;        
+            infoButton.visible = true;  
+            on_2x.visible = true;
+            //codeButton.visible = true; 
+            begin.visible = false;               
+            enlarge.visible = true;                             
+        });
+    }
+    resetButton.visible = false;
+    reduce.visible = false;
+    codeButton.visible = false;
 
     on_2x.on('pointerdown', function(){                                              
         if(on_off){
@@ -23,26 +62,59 @@ function createButtonsGame(){
         }
     }); 
 
-    on_2x.visible = true;
-
     createAnimationOn2x();
 
     menuButton.on('pointerdown', function(){   
         demoWorkspace.dispose();
         score = "menu";         
-
+        $('#blocklyArea').attr('class','centerBlocklyDiv');
+        onresize();
     });
 
-    // infoButton.on('pointerdown', function(){                                                          
-    //     document.getElementById("blocklyTextId").value = infoText;
-    //     buttonSelect = 1;                
-    // });
+    infoButton.on('pointerdown', function(){   
+        $(".blocklyTextMy").show();                                                       
+        $("#blocklyDiv").hide();
+        enlarge.visible = false; 
+        reduce.visible = false; 
+        codeButton.visible = true;
+        infoButton.visible = false;                    
+    });
 
-    // codeButton.on('pointerdown', function(){                                              
-    //     document.getElementById("blocklyTextId").value = codeBlockly;     
-    //     buttonSelect = 2;                             
-    // });
+    codeButton.on('pointerdown', function(){ 
+        $(".blocklyTextMy").hide();                                             
+        $("#blocklyDiv").show();
+        enlarge.visible = true;
+        infoButton.visible = true;   
+        codeButton.visible = false;                             
+    }); 
     
+    enlarge.on('pointerdown', function(){   
+        $('#blocklyArea').attr('class','centerBlocklyDivResize');
+        onresize();
+        reduce.visible = true;   
+        enlarge.visible = false; 
+    });
+
+    reduce.on('pointerdown', function(){   
+        $('#blocklyArea').attr('class','centerBlocklyDiv');
+        onresize();
+        reduce.visible = false;   
+        enlarge.visible = true;                     
+    });
+    
+}
+
+function interfaceDefine(yo){       
+    yo.load.image('sky', 'assets/sky.png');
+    yo.load.image('blocks', 'assets/blocks.png');
+    yo.load.image('play', 'assets/play.png');
+    yo.load.image('reset', 'assets/reset.png');
+    yo.load.image('enlarge', 'assets/enlarge.png');
+    yo.load.image('reduce', 'assets/reduce.png');
+    yo.load.image('menu', 'assets/menu.png');
+    yo.load.image('info', 'assets/info.png');
+    yo.load.image('code', 'assets/code.png'); 
+    yo.load.spritesheet('switch', 'assets/switch.png', { frameWidth: 256, frameHeight: 136 });   
 }
 
 function playConfig(){
@@ -56,9 +128,10 @@ function resetConfig(){
     endExcecution = false;
     gameOver = false;    
     timeSprite = 1000;
-    on_off = false;
-    buttonSelect = 1;       
-    stopMessage = false;  
+    on_off = false;           
+    stopMessage = false;
+    $(".blocklyTextMy").hide();                                             
+    $("#blocklyDiv").show();      
 }
 
 function setUpdateConfig(){

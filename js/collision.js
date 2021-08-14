@@ -43,8 +43,8 @@ function collectDisk(sprite,disk){
         messageSprite(NO_GET_MORE_TEXT);            
     }else{
         if (takeDisk){                
-            cantDisk--;
-            messageForVariables(cantDisk,posXExecutables + (cellWidth * 4) + 10,posYExecutables);
+            cantDisk--;            
+            messageForVariables(cantDisk,posXExecutables + cellWidth + 10,PosYVar);
             if(cantDisk === 0){
                 disk.disableBody(true,true);
             }    
@@ -61,7 +61,7 @@ function collectMemory(sprite,memory){
     }else{
         if (takeMemory){           
             cantMemory--;               
-            messageForVariables(cantMemory,posXExecutables + (cellWidth * 3) + 10,posYExecutables);
+            messageForVariables(cantMemory,posXExecutables + 10,PosYVar);
             if(cantMemory === 0){
                 memory.disableBody(true,true);
             }  
@@ -77,7 +77,7 @@ function collectVideoCard(sprite,videoCard){
     }else{
         if (takeVideoCard){           
             cantVideoCard--;               
-            messageForVariables(cantVideoCard,posXExecutables + (cellWidth * 3) + 10,posYExecutables);
+            messageForVariables(cantVideoCard,posXExecutables + 10,PosYVar);
             if(cantVideoCard === 0){
                 videoCard.disableBody(true,true);
             }  
@@ -101,8 +101,8 @@ function collectPc(sprite,pcLv2){
         messageSprite(NO_GET_MORE_TEXT);            
     }else{
         if (takePc){        
-            cantPc--;    
-            messageForVariables(cantPc,posXExecutables + (cellWidth * 3) + 20,posYExecutables);      
+            cantPc--;                
+            messageForVariables(cantPc,posXExecutables +10,PosYVar);                  
             if(cantPc === 0){
                 pcLv2.disableBody(true,true);
             }     

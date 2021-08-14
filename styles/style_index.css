@@ -3,8 +3,14 @@ body {
 }
 
 .centerBlocklyDiv{
-  height:425px; 
+  height:480px; 
   width: 400px; 
+  position: absolute;
+}
+
+.centerBlocklyDivResize{
+  height:480px; 
+  width: 666px; 
   position: absolute;
 }
 
@@ -14,11 +20,14 @@ body {
   float: left;
 }
 
-.blocklyText{  
-  height: 194px;
-  width: 395px;             
-  position: absolute;            
-  margin-left: 400px;
+.blocklyTextMy{  
+  height: 474px;
+  width: 394px;             
+  position: absolute;   
+  background: #333;
+  color: rgb(236, 236, 236);         
+  /* margin-left: 400px; */
   resize: none;
   font-size:16px;
+  z-index: 100;
 }
