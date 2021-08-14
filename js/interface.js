@@ -36,7 +36,7 @@ function createButtonsGame(){
 
         begin.on('pointerdown', function(){ 
             $(".blocklyTextMy").hide();                                             
-            $("#blocklyDiv").show(); 
+            $(".classBlocklyDiv").show(); 
             playButton.visible = true;
             menuButton.visible = true;        
             infoButton.visible = true;  
@@ -67,13 +67,13 @@ function createButtonsGame(){
     menuButton.on('pointerdown', function(){   
         demoWorkspace.dispose();
         score = "menu";         
-        $('#blocklyArea').attr('class','centerBlocklyDiv');
-        onresize();
+        $('#blocklyArea').attr('class','centerBlocklyDiv classBlocklyDiv');        
+        onresize();        
     });
 
     infoButton.on('pointerdown', function(){   
         $(".blocklyTextMy").show();                                                       
-        $("#blocklyDiv").hide();
+        $(".classBlocklyDiv").hide();
         enlarge.visible = false; 
         reduce.visible = false; 
         codeButton.visible = true;
@@ -82,21 +82,21 @@ function createButtonsGame(){
 
     codeButton.on('pointerdown', function(){ 
         $(".blocklyTextMy").hide();                                             
-        $("#blocklyDiv").show();
+        $(".classBlocklyDiv").show();
         enlarge.visible = true;
         infoButton.visible = true;   
         codeButton.visible = false;                             
     }); 
     
     enlarge.on('pointerdown', function(){   
-        $('#blocklyArea').attr('class','centerBlocklyDivResize');
+        $('#blocklyArea').attr('class','centerBlocklyDivResize classBlocklyDiv');
         onresize();
         reduce.visible = true;   
         enlarge.visible = false; 
     });
 
     reduce.on('pointerdown', function(){   
-        $('#blocklyArea').attr('class','centerBlocklyDiv');
+        $('#blocklyArea').attr('class','centerBlocklyDiv classBlocklyDiv');
         onresize();
         reduce.visible = false;   
         enlarge.visible = true;                     
@@ -131,7 +131,7 @@ function resetConfig(){
     on_off = false;           
     stopMessage = false;
     $(".blocklyTextMy").hide();                                             
-    $("#blocklyDiv").show();      
+    $(".classBlocklyDiv").show();      
 }
 
 function setUpdateConfig(){

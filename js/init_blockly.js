@@ -223,12 +223,12 @@ function inject_blockly(maxBlocks = 0){
 }
 
 function hideBlocks(){
-    $("#blocklyDiv").hide();
+    $(".classBlocklyDiv").hide();
     $(".blocklyTextMy").hide();
 }
 
 function showBlocks(){ 
-    $("#blocklyDiv").show();   
+    $(".classBlocklyDiv").show();   
     $(".blocklyTextMy").show();    
 }
 
