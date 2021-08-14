@@ -2,7 +2,7 @@ function messageForVariables(text,x,y){
     let style = {
         fontSize: '16px',
         fontFamily: 'Arial',
-        color: 'white',    
+        color: 'rgb(236, 236, 236)',    
         backgroundColor: '#333'        
     };   
     if(yo){

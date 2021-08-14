@@ -1,4 +1,5 @@
-function createButtonsGame(){    
+function createButtonsGame(){ 
+
     playButton = yo.add.image(posXExecutables + (cellWidth * 3), posYExecutables, 'play').setInteractive().setDisplaySize(50,50);
     menuButton = yo.add.image(posXExecutables + (cellWidth * 4 ), posYExecutables, 'menu').setInteractive().setDisplaySize(50,50);
     resetButton = yo.add.image(posXExecutables + (cellWidth * 3), posYExecutables, 'reset').setInteractive().setDisplaySize(50,50);      
@@ -7,14 +8,33 @@ function createButtonsGame(){
     enlarge = yo.add.image(posXExecutables + (cellWidth * 5) , posYExecutables, 'enlarge').setInteractive().setDisplaySize(40,40);
     reduce = yo.add.image(posXExecutables + (cellWidth * 5) , posYExecutables, 'reduce').setInteractive().setDisplaySize(40,40);
     
+    textPlay = yo.add.text(posXExecutables + (cellWidth * 3) + 5, posYExecutables + 40, '', {
+        fontFamily: 'Arial', color: 'rgb(236, 236, 236)',  fontSize: '16px'
+    }).setOrigin(0.5).setInteractive();
+    
+    let textInfo = yo.add.text(posXExecutables + 5, posYExecutables + 50, '', {
+        fontFamily: 'Arial', color: 'rgb(236, 236, 236)',  fontSize: '16px'
+    }).setOrigin(0.5).setInteractive();
+
+    let textMenu = yo.add.text(posXExecutables + (cellWidth * 4 ), posYExecutables + 40, '', {
+        fontFamily: 'Arial', color: 'rgb(236, 236, 236)',  fontSize: '16px'
+    }).setOrigin(0.5).setInteractive();
+
+    let on_2xText = yo.add.text(posXExecutables + (cellWidth * 2 ), posYExecutables + 40, '', {
+        fontFamily: 'Arial', color: 'rgb(236, 236, 236)',  fontSize: '16px'
+    }).setOrigin(0.5).setInteractive();
+
+    let enlargeText = yo.add.text(posXExecutables + (cellWidth * 5 ), posYExecutables + 50, '', {
+        fontFamily: 'Arial', color: 'rgb(236, 236, 236)',  fontSize: '16px'
+    }).setOrigin(0.5).setInteractive();
+    
     yo.add.image(posXExecutables + (cellWidth * 4) - 5, PosYVar, 'blocks').setDisplaySize(30,30);
     messageForVariables(cantBlocks,posXExecutables + (cellWidth * 4) + 10, PosYVar);
-
-    var posXtextOn_2x = posXExecutables + (cellWidth * 2);
-    on_2x = yo.physics.add.sprite(posXtextOn_2x , posYExecutables, 'switch').setInteractive().setDisplaySize(50,30); 
+    
+    on_2x = yo.physics.add.sprite(posXExecutables + (cellWidth * 2) , posYExecutables, 'switch').setInteractive().setDisplaySize(50,30); 
        
     if(beginScene){
-        let begin = yo.add.text(posXExecutables + (cellWidth * 2) + 30, posYExecutables + cellHeight, BTN_BEGIN_TEXT, {
+        let begin = yo.add.text(posXExecutables + (cellWidth * 2) + 30, posYExecutables + cellHeight + 20, BTN_BEGIN_TEXT, {
             fontFamily: 'Arial',backgroundColor:'#333',padding: {
             left: 20,
             right: 20,
@@ -26,7 +46,8 @@ function createButtonsGame(){
         }).setOrigin(0.5).setInteractive();
 
         playButton.visible = false;
-        menuButton.visible = false;
+        //menuButton.visible = false;
+        textMenu.setText(MENU_TEXT);
         resetButton.visible = false;
         infoButton.visible = false;
         on_2x.visible = false;
@@ -38,13 +59,23 @@ function createButtonsGame(){
             $(".blocklyTextMy").hide();                                             
             $(".classBlocklyDiv").show(); 
             playButton.visible = true;
-            menuButton.visible = true;        
-            infoButton.visible = true;  
+            textPlay.setText(RUN_TEXT);
+            menuButton.visible = true;
+            textMenu.setText(MENU_TEXT);        
+            infoButton.visible = true; 
+            textInfo.setText(OBJETIVE_TEXT); 
             on_2x.visible = true;
-            //codeButton.visible = true; 
+            on_2xText.setText(SPEED_UP_TEXT);            
             begin.visible = false;               
-            enlarge.visible = true;                             
+            enlarge.visible = true;
+            enlargeText.setText(ENLARGE_TEXT);                             
         });
+    }else{
+        textPlay.setText(RUN_TEXT);
+        textInfo.setText(OBJETIVE_TEXT);
+        textMenu.setText(MENU_TEXT);
+        on_2xText.setText(SPEED_UP_TEXT);
+        enlargeText.setText(ENLARGE_TEXT);
     }
     resetButton.visible = false;
     reduce.visible = false;
@@ -55,10 +86,12 @@ function createButtonsGame(){
             on_2x.anims.play('off');     
             timeSprite = 1000;            
             on_off = false;
+            on_2xText.setText(SPEED_UP_TEXT);            
         }else{
             on_2x.anims.play('on');  
             timeSprite = 100;              
             on_off = true;
+            on_2xText.setText(SPEED_DOWN_TEXT);
         }
     }); 
 
@@ -74,9 +107,11 @@ function createButtonsGame(){
     infoButton.on('pointerdown', function(){   
         $(".blocklyTextMy").show();                                                       
         $(".classBlocklyDiv").hide();
-        enlarge.visible = false; 
+        enlarge.visible = false;
+        enlargeText.setText(""); 
         reduce.visible = false; 
         codeButton.visible = true;
+        textInfo.setText(BLOCKS_TEXT);
         infoButton.visible = false;                    
     });
 
@@ -84,14 +119,17 @@ function createButtonsGame(){
         $(".blocklyTextMy").hide();                                             
         $(".classBlocklyDiv").show();
         enlarge.visible = true;
-        infoButton.visible = true;   
+        enlargeText.setText(ENLARGE_TEXT);
+        infoButton.visible = true;
+        textInfo.setText(OBJETIVE_TEXT);   
         codeButton.visible = false;                             
     }); 
     
     enlarge.on('pointerdown', function(){   
         $('#blocklyArea').attr('class','centerBlocklyDivResize classBlocklyDiv');
         onresize();
-        reduce.visible = true;   
+        reduce.visible = true;
+        enlargeText.setText(REDUCE_TEXT);   
         enlarge.visible = false; 
     });
 
@@ -99,7 +137,8 @@ function createButtonsGame(){
         $('#blocklyArea').attr('class','centerBlocklyDiv classBlocklyDiv');
         onresize();
         reduce.visible = false;   
-        enlarge.visible = true;                     
+        enlarge.visible = true;
+        enlargeText.setText(ENLARGE_TEXT);
     });
     
 }
@@ -120,6 +159,7 @@ function interfaceDefine(yo){
 function playConfig(){
     playButton.visible = false;
     resetButton.visible = true; 
+    textPlay.setText(RESET_TEXT);
     runCode();
 }
 
