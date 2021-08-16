@@ -113,7 +113,7 @@ function runCode() {
 }
 
 function inject_blockly(maxBlocks = 0){
-
+    $("#blocklyTextId3").hide();
     showBlocks(); 
     var blocklyArea = document.getElementById('blocklyArea');
     var blocklyDiv = document.getElementById('blocklyDiv');

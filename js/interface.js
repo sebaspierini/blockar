@@ -145,22 +145,33 @@ function createButtonsGame(){
 }
 
 function addPoints(){
-    let puntos = 0;
+    let points = 0;
     if(attempts === 1 ){ 
-        puntos = 3;                               
+        points = 3;                               
     }
     if(attempts === 2){
-        puntos = 2;                              
+        points = 2;                              
     }
     if(attempts > 2){
-        puntos = 1;
+        points = 1;
     }
-    scoreLevels[levelCurrent].points = puntos;
+    scoreLevels[levelCurrent].points = points;
     scoreLevels[levelCurrent].attempts = attempts;
     localStorage.setItem("scores",JSON.stringify(scoreLevels));
-    document.getElementById("blocklyTextId2").value = POINT_OBJETIVE_TEXT+'\n'+ATTEMPTS_TEXT+attempts+'\n\n'+POINT_FOR_ATTEMPTS+puntos; 
+    document.getElementById("blocklyTextId2").value = POINT_OBJETIVE_TEXT+'\n'+ATTEMPTS_TEXT+attempts+'\n\n'+POINT_FOR_ATTEMPTS+points; 
     infoButton.emit('pointerdown');
     attempts = 0;  
+}
+
+function addPointsTotal(){
+    let pointsTotal = 0;
+    let attemptsTotal = 0;
+    scoreLevels.forEach(function(value){
+        pointsTotal = pointsTotal + value.points;
+        attemptsTotal = attemptsTotal + value.attempts;
+    });
+    document.getElementById("blocklyTextId3").value = TOTAL_TEXT+'\n\n'+ATTEMPTS_TEXT+attemptsTotal+'\n\n'+POINT_FOR_ATTEMPTS+pointsTotal;
+    $("#blocklyTextId3").show();
 }
 
 function interfaceDefine(yo){       

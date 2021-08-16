@@ -21,8 +21,7 @@ body {
 }
 
 .blocklyTextMy1{
-  height: 250px;  
-  /* height: 474px; */
+  height: 250px;    
   width: 394px;             
   position: absolute;   
   background: #333;
@@ -40,6 +39,19 @@ body {
   background: #333;
   color: rgb(236, 236, 236);         
   margin-top: 255px;
+  resize: none;
+  font-size:16px;
+  z-index: 100;
+  display: none;
+}
+
+.blocklyTextMy3{
+  height: 364px;    
+  width: 394px;             
+  position: absolute;   
+  background: #333;
+  color: rgb(236, 236, 236);         
+  margin-top: 50px;
   resize: none;
   font-size:16px;
   z-index: 100;

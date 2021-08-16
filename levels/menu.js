@@ -13,14 +13,15 @@ class SceneMenu extends Phaser.Scene {
     
     create ()
     {              
-        var screenCenterX = this.physics.world.bounds.width / 2;
+        //var screenCenterX = this.physics.world.bounds.width / 2;
         //var screenCenterY = this.physics.world.bounds.height / 2;            
-        this.add.text(screenCenterX, 20, TITLE_MENU_TEXT, {fontFamily: 'Arial', color: '#ffffff',fontSize: '32px'}).setOrigin(0.5);
+        this.add.text(420, 5, TITLE_MENU_TEXT, {fontFamily: 'Arial', color: '#ffffff',fontSize: '32px'});
+        this.add.text(5, 5, 'BlockAr', {fontFamily: 'Arial', color: '#ffffff',fontSize: '32px'});
             
         var distance = 120;
         var config1 = {
-            x: 50,
-            y: 150,
+            x: 420,
+            y: 50,
             text: '',
             padding: {
                 left: 32,
@@ -51,8 +52,9 @@ class SceneMenu extends Phaser.Scene {
     
         let lv2_2Click = this.make.text(config1).setInteractive();
 
-        config1.x = config1.x + distance;        
+        config1.x = 420;        
         config1.text = '4';
+        config1.y = 180;
     
         let lv2Click = this.make.text(config1).setInteractive();
     
@@ -66,7 +68,7 @@ class SceneMenu extends Phaser.Scene {
     
         let lv3Click = this.make.text(config1).setInteractive();
 
-        config1.x = 50;        
+        config1.x = 420;        
         config1.y = config1.y + 130;     
         config1.text = '7';
     
@@ -78,7 +80,7 @@ class SceneMenu extends Phaser.Scene {
         beginScene = true;
         cantBlocks = 1;
         resetConfig();
-        hideBlocks();
+        hideBlocks();                        
         
         scoreLevels = JSON.parse(localStorage.getItem('scores'));
         
@@ -88,7 +90,9 @@ class SceneMenu extends Phaser.Scene {
                 scoreLevels[i] = {points: 0, attempts:0};                
             }   
             localStorage.setItem("scores",JSON.stringify(scoreLevels));                   
-        }                
+        }
+        
+        addPointsTotal();
         
         lv1Click.on('pointerdown', function(){                           
             inject_blockly();                                                  
