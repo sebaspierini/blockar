@@ -12,7 +12,7 @@ function createButtonsGame(){
         fontFamily: 'Arial', color: 'rgb(236, 236, 236)',  fontSize: '16px'
     }).setOrigin(0.5).setInteractive();
     
-    let textInfo = yo.add.text(posXExecutables + 5, posYExecutables + 50, '', {
+    textInfo = yo.add.text(posXExecutables + 5, posYExecutables + 50, '', {
         fontFamily: 'Arial', color: 'rgb(236, 236, 236)',  fontSize: '16px'
     }).setOrigin(0.5).setInteractive();
 
@@ -24,7 +24,7 @@ function createButtonsGame(){
         fontFamily: 'Arial', color: 'rgb(236, 236, 236)',  fontSize: '16px'
     }).setOrigin(0.5).setInteractive();
 
-    let enlargeText = yo.add.text(posXExecutables + (cellWidth * 5 ), posYExecutables + 50, '', {
+    enlargeText = yo.add.text(posXExecutables + (cellWidth * 5 ), posYExecutables + 50, '', {
         fontFamily: 'Arial', color: 'rgb(236, 236, 236)',  fontSize: '16px'
     }).setOrigin(0.5).setInteractive();
     
@@ -93,7 +93,7 @@ function createButtonsGame(){
             on_off = true;
             on_2xText.setText(SPEED_DOWN_TEXT);
         }
-    }); 
+    });     
 
     createAnimationOn2x();
 
@@ -112,7 +112,8 @@ function createButtonsGame(){
         reduce.visible = false; 
         codeButton.visible = true;
         textInfo.setText(BLOCKS_TEXT);
-        infoButton.visible = false;                    
+        infoButton.visible = false;        
+        //document.getElementById("blocklyTextId2").value = POINT_OBJETIVE_TEXT+'\n'+ATTEMPTS_TEXT+attempts+'\n\n'+POINT_FOR_ATTEMPTS+scoreLevels[levelCurrent];                    
     });
 
     codeButton.on('pointerdown', function(){ 
@@ -143,6 +144,25 @@ function createButtonsGame(){
     
 }
 
+function addPoints(){
+    let puntos = 0;
+    if(attempts === 1 ){ 
+        puntos = 3;                               
+    }
+    if(attempts === 2){
+        puntos = 2;                              
+    }
+    if(attempts > 2){
+        puntos = 1;
+    }
+    scoreLevels[levelCurrent].points = puntos;
+    scoreLevels[levelCurrent].attempts = attempts;
+    localStorage.setItem("scores",JSON.stringify(scoreLevels));
+    document.getElementById("blocklyTextId2").value = POINT_OBJETIVE_TEXT+'\n'+ATTEMPTS_TEXT+attempts+'\n\n'+POINT_FOR_ATTEMPTS+puntos; 
+    infoButton.emit('pointerdown');
+    attempts = 0;  
+}
+
 function interfaceDefine(yo){       
     yo.load.image('sky', 'assets/sky.png');
     yo.load.image('blocks', 'assets/blocks.png');
@@ -157,6 +177,7 @@ function interfaceDefine(yo){
 }
 
 function playConfig(){
+    attempts++;
     playButton.visible = false;
     resetButton.visible = true; 
     textPlay.setText(RESET_TEXT);

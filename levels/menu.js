@@ -74,54 +74,82 @@ class SceneMenu extends Phaser.Scene {
         
         // Reseteo score a un valor distinto de 'menu' con score = 'menu' indico que vengo a esta clase.
         score = '1';  
+        attempts = 0;
         beginScene = true;
         cantBlocks = 1;
         resetConfig();
         hideBlocks();
         
-         
-
+        scoreLevels = JSON.parse(localStorage.getItem('scores'));
+        
+        if(scoreLevels === null){
+            scoreLevels = [];            
+            for (var i=0;i<8;i++){                
+                scoreLevels[i] = {points: 0, attempts:0};                
+            }   
+            localStorage.setItem("scores",JSON.stringify(scoreLevels));                   
+        }                
+        
         lv1Click.on('pointerdown', function(){                           
             inject_blockly();                                                  
-            showCategoriesLv1();                                                
+            showCategoriesLv1();
+            levelCurrent = 1;
+            this.updateAttempts();                                                
             this.scene.start('scene1');    
-        }, this);
-    
-        lv2Click.on('pointerdown', function(){   
-            inject_blockly(11);                
-            showCategoriesLv2();                                                                         
-            this.scene.start('scene2');    
-        }, this);
+        }, this);        
 
         lv2_1Click.on('pointerdown', function(){   
             inject_blockly(5);                
-            showCategoriesLv2_1();                                                             
+            showCategoriesLv2_1();
+            levelCurrent = 2;
+            this.updateAttempts();                                                             
             this.scene.start('scene2_1');    
         }, this);
 
         lv2_2Click.on('pointerdown', function(){   
             inject_blockly(9);                
-            showCategoriesLv2();                                                             
+            showCategoriesLv2();
+            levelCurrent = 3;
+            this.updateAttempts();                                                             
             this.scene.start('scene2_2');    
+        }, this);
+
+        lv2Click.on('pointerdown', function(){   
+            inject_blockly(11);                
+            showCategoriesLv2();
+            levelCurrent = 4; 
+            this.updateAttempts();                                                                        
+            this.scene.start('scene2');    
+        }, this);
+
+        lv5_1Click.on('pointerdown', function(){
+            inject_blockly(17);            
+            showCategoriesLv5_1(); 
+            levelCurrent = 5;
+            this.updateAttempts();                
+            this.scene.start('scene5_1');   
         }, this);
         
         lv3Click.on('pointerdown', function(){
             inject_blockly();            
-            showCategoriesLv3();                   
+            showCategoriesLv3();
+            levelCurrent = 6; 
+            this.updateAttempts();                  
             this.scene.start('scene3');   
         }, this);
 
         lv4Click.on('pointerdown', function(){
             inject_blockly();            
-            showCategoriesLv4();                 
+            showCategoriesLv4();
+            levelCurrent = 7; 
+            this.updateAttempts();                
             this.scene.start('scene4');   
         }, this);
+        
+    }
 
-        lv5_1Click.on('pointerdown', function(){
-            inject_blockly(17);            
-            showCategoriesLv5_1();                 
-            this.scene.start('scene5_1');   
-        }, this);
+    updateAttempts(){                
+        document.getElementById("blocklyTextId2").value = POINT_OBJETIVE_TEXT+'\n'+ATTEMPTS_TEXT+scoreLevels[levelCurrent].attempts+'\n\n'+POINT_FOR_ATTEMPTS+scoreLevels[levelCurrent].points;        
     }
     
     }

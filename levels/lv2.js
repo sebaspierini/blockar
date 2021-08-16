@@ -77,7 +77,8 @@ class Scene2 extends Phaser.Scene {
         }  
 
         if(cantShop === 5 && cantPc === 0 && !stopMessage){
-            messageSprite(GAME_COMPLETED_TEXT);                
+            messageSprite(GAME_COMPLETED_TEXT); 
+            addPoints();           
         }
           
         if(endExcecution && (cantShop < 5 || cantPc > 0)){ 

@@ -5,10 +5,7 @@ function collectStar (sprite, star)
     if (takeElement){
         star.disableBody(true, true); 
         cantStars--; 
-        takeElement = false;  
-        if(cantStars === 0){        
-            messageSprite(GAME_COMPLETED_TEXT);                       
-        }        
+        takeElement = false;                  
     }    
 }
 
@@ -19,10 +16,7 @@ function collectBombs (sprite, bomb)
     if (disableBomb){   
         disableBomb = false;      
         cantBombs--;                
-        bomb.disableBody(true, true);  
-        if(cantBombs === 0){        
-            messageSprite(GAME_COMPLETED_TEXT);                    
-        }                                
+        bomb.disableBody(true, true);                                          
     }    
 
     let keyAnimSprite = sprite.anims.currentAnim.key;

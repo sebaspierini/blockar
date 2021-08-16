@@ -94,7 +94,8 @@ class Scene3 extends Phaser.Scene {
         }
         
         if(cantPc === 6 && cantMemory === 0 && cantDisk === 0 && !stopMessage){
-            messageSprite(GAME_COMPLETED_TEXT);                       
+            messageSprite(GAME_COMPLETED_TEXT);
+            addPoints();                     
         }
         
         if(endExcecution && cantPc < 6){

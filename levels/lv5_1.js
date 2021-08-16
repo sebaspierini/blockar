@@ -84,7 +84,8 @@ class Scene5_1 extends Phaser.Scene {
         }
         
         if(cantPc === 2 && cantVideoCard === 0 && !stopMessage){
-            messageSprite(GAME_COMPLETED_TEXT);                       
+            messageSprite(GAME_COMPLETED_TEXT); 
+            addPoints();                
         }
         
         if(endExcecution && (cantVideoCard > 0 || cantPc < 2)){

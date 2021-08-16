@@ -20,14 +20,28 @@ body {
   float: left;
 }
 
-.blocklyTextMy{  
-  height: 474px;
+.blocklyTextMy1{
+  height: 250px;  
+  /* height: 474px; */
+  width: 394px;             
+  position: absolute;   
+  background: #333;
+  color: rgb(236, 236, 236);           
+  resize: none;
+  font-size:16px;
+  z-index: 100;
+  display: none;
+}
+
+.blocklyTextMy2{
+  height: 219px;    
   width: 394px;             
   position: absolute;   
   background: #333;
   color: rgb(236, 236, 236);         
-  /* margin-left: 400px; */
+  margin-top: 255px;
   resize: none;
   font-size:16px;
   z-index: 100;
+  display: none;
 }

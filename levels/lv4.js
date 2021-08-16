@@ -62,7 +62,12 @@ class Scene4 extends Phaser.Scene {
         // Con embedded se puede ver si el sprite se encuentra dentro de un objeto con el que puede colisionar. 
         if(!sprite.body.embedded){
             thereIsBomb = false;            
-        }         
+        }  
+        
+        if(cantBombs === 0 && !stopMessage){        
+            messageSprite(GAME_COMPLETED_TEXT);
+            addPoints();             
+        }
         
         if(endExcecution && cantBombs > 0){                                       
             endExcecution = false;               

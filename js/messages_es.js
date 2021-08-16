@@ -31,3 +31,6 @@ const RUN_TEXT = 'Ejecutar\n';
 const RESET_TEXT = 'Reiniciar\n';
 const ENLARGE_TEXT = 'Ampliar\nárea de\nbloques';
 const REDUCE_TEXT = 'Reducir\nárea de\nbloques';
+const POINT_FOR_ATTEMPTS = "Puntuación: ";
+const POINT_OBJETIVE_TEXT = "Puntuaciones:\n -Un intento equivale a 3 puntos.\n -Dos intentos equivale a 2 puntos.\n -Tres intentos o más, equivale a 1 punto.\n";
+const ATTEMPTS_TEXT = "Intentos por objetivo cumplido: ";

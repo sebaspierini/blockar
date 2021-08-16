@@ -78,12 +78,13 @@
 <body>
     <div id="blocklyArea" class="centerBlocklyDiv classBlocklyDiv"></div>
     <div id="blocklyDiv" class="centerBlocklyDiv classBlocklyDiv"></div>
-    <textarea id="blocklyTextId" class="blocklyTextMy" readonly></textarea>
+
+    <textarea id="blocklyTextId" class="blocklyTextMy1 blocklyTextMy" readonly></textarea>
+    <textarea id="blocklyTextId2" class="blocklyTextMy2 blocklyTextMy" readonly></textarea>
+
     <div id="gameRight" class="centergame"></div>
     
-    <xml id='toolbox' style='display: none'> 
-        <!-- <block type="start" deletable="false" movable="false"></block>  --> 
-        
+    <xml id='toolbox' style='display: none'>                
         <category name='Movimientos' toolboxitemid="movement_sprite" colour='#a55b6d'>                        
             <block type='move_right'></block>
             <block type='move_left'></block>
@@ -153,7 +154,7 @@
       </xml>       
     
 <script type="text/javascript">
-
+var levelCurrent;
 var onresize;
 var textPlay;
 var myInterpreter = null;
@@ -249,6 +250,9 @@ var thereIsShop;
 var thereIsVideoCard;
 var codeBlockly = '';
 var stopMesagge = false;
+
+var scoreLevels;
+var attempts;
 
 var stack;
 

@@ -2,7 +2,7 @@ class Scene1 extends Phaser.Scene {
 
     constructor ()
     {
-        super({ key: 'scene1' });        
+        super({ key: 'scene1' });                
     }
     
     preload ()
@@ -13,14 +13,14 @@ class Scene1 extends Phaser.Scene {
     }
     
     create ()
-    {        
+    {                   
         cantStars = 1;
         yo = this;
         posX = initPosX;
         posY = initPosY;    
         infoText = OBJETIVE_LV1_TEXT;        
         document.getElementById("blocklyTextId").value = infoText;          
-        this.add.image(400, 300, 'sky');
+        this.add.image(400, 300, 'sky');         
         
         this.add.grid(horizontal, vertical, width, height, cellWidth, cellHeight, 0xDADADA).setAltFillStyle(0xA5A5A5).setOutlineStyle();
 
@@ -40,10 +40,10 @@ class Scene1 extends Phaser.Scene {
 
         createAnimationDude();        
 
-        createButtonsGame();
+        createButtonsGame();        
         
         playButton.on('pointerdown', function(){                       
-            playConfig();                   
+            playConfig();                                          
         });
 
         resetButton.on('pointerdown', function(){   
@@ -59,7 +59,12 @@ class Scene1 extends Phaser.Scene {
             thereIsStar = false;            
         }  
 
-        if(endExcecution && cantStars > 0){                                                                            
+        if(cantStars === 0 && !stopMessage){        
+            messageSprite(GAME_COMPLETED_TEXT);
+            addPoints();                                             
+        }
+
+        if(endExcecution && cantStars > 0){                                    
             endExcecution = false;               
             if(!gameOver){                
                 messageSprite(INCOMPLETE_GAME_TEXT);
@@ -67,6 +72,4 @@ class Scene1 extends Phaser.Scene {
         }            
     }
 
-    
-    
-    }
+}
