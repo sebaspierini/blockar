@@ -34,4 +34,4 @@ const REDUCE_TEXT = 'Reducir\nárea de\nbloques';
 const POINT_FOR_ATTEMPTS = "Puntuación: ";
 const POINT_OBJETIVE_TEXT = "Puntuaciones:\n -Un intento equivale a 3 puntos.\n -Dos intentos equivale a 2 puntos.\n -Tres intentos o más, equivale a 1 punto.\n";
 const ATTEMPTS_TEXT = "Intentos por objetivo cumplido: ";
-const TOTAL_TEXT = "A continuación se muestra la suma de puntos e intentos por objetivo cumplido de cada desafío: ";
+const TOTAL_TEXT = "Los desafíos completados se mostrarán en color verde.\n\nA continuación se muestra la suma de puntos e intentos por objetivo cumplido de cada desafío: ";
