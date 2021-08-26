@@ -12,7 +12,17 @@ class SceneMenu extends Phaser.Scene {
     }
     
     create ()
-    {              
+    {                
+        scoreLevels = JSON.parse(localStorage.getItem('scores'));
+
+        if(scoreLevels === null){
+            scoreLevels = [];            
+            for (var i=0;i<8;i++){                
+                scoreLevels[i] = {points: 0, attempts:0};                
+            }   
+            localStorage.setItem("scores",JSON.stringify(scoreLevels));                   
+        }
+
         //var screenCenterX = this.physics.world.bounds.width / 2;
         //var screenCenterY = this.physics.world.bounds.height / 2;            
         this.add.text(420, 5, TITLE_MENU_TEXT, {fontFamily: 'Arial', color: '#ffffff',fontSize: '32px'});
@@ -37,42 +47,117 @@ class SceneMenu extends Phaser.Scene {
                 backgroundColor: '#ffffff',            
             }
         };
-   
-        config1.text = '1';
-    
-        let lv1Click = this.make.text(config1).setInteractive();
-    
-        config1.x = config1.x + distance;        
-        config1.text = '2';
-    
-        let lv2_1Click = this.make.text(config1).setInteractive();
 
-        config1.x = config1.x + distance;        
-        config1.text = '3';
-    
-        let lv2_2Click = this.make.text(config1).setInteractive();
+        var config2 = {
+            x: 420,
+            y: 50,
+            text: '',
+            padding: {
+                left: 32,
+                right: 32,
+                top: 20,
+                bottom: 20
+            },
+            style: {
+                fontSize: '64px',
+                fontFamily: 'Arial',
+                color: '#000000',
+                align: 'center',
+                backgroundColor: '#33FF6E',            
+            }
+        };
+           
+        let lv1Click;
+        let lv2_1Click;
+        let lv2_2Click;
+        let lv2Click;
+        let lv5_1Click;
+        let lv3Click;
+        let lv4Click;
+        let x = 420;
+        let y;
 
-        config1.x = 420;        
-        config1.text = '4';
-        config1.y = 180;
-    
-        let lv2Click = this.make.text(config1).setInteractive();
-    
-        config1.x = config1.x + distance;        
-        config1.text = '5';
-    
-        let lv5_1Click = this.make.text(config1).setInteractive();
-    
-        config1.x = config1.x + distance;        
-        config1.text = '6';
-    
-        let lv3Click = this.make.text(config1).setInteractive();
+        if(scoreLevels[1].attempts>0){
+            config2.text = '1';
+            lv1Click = this.make.text(config2).setInteractive();
+        }else{
+            config1.text = '1';
+            lv1Click = this.make.text(config1).setInteractive();
+        }
 
-        config1.x = 420;        
-        config1.y = config1.y + 130;     
-        config1.text = '7';
+        x = x + distance;
+        if(scoreLevels[2].attempts>0){
+            config2.x = x;        
+            config2.text = '2';
+            lv2_1Click = this.make.text(config2).setInteractive();
+        }else{
+            config1.x = x;        
+            config1.text = '2';
+            lv2_1Click = this.make.text(config1).setInteractive();
+        }
+
+        x = x + distance;
+        if(scoreLevels[3].attempts>0){
+            config2.x = x;        
+            config2.text = '3';        
+            lv2_2Click = this.make.text(config2).setInteractive();            
+        }else{
+            config1.x = x;        
+            config1.text = '3';        
+            lv2_2Click = this.make.text(config1).setInteractive();  
+        }            
+            
+        x = 420;
+        y = 180;
+        if(scoreLevels[4].attempts>0){
+            config2.x = 420;        
+            config2.text = '4';
+            config2.y = y;        
+            lv2Click = this.make.text(config2).setInteractive();          
+        }else{
+            config1.x = 420;        
+            config1.text = '4';
+            config1.y = y;        
+            lv2Click = this.make.text(config1).setInteractive(); 
+        }     
+        
+        x = x + distance;
+        if(scoreLevels[5].attempts>0){
+            config2.x = x; 
+            config2.y = y;        
+            config2.text = '5';        
+            lv5_1Click = this.make.text(config2).setInteractive();          
+        }else{
+            config1.x = x;    
+            config1.y = y;      
+            config1.text = '5';        
+            lv5_1Click = this.make.text(config1).setInteractive();
+        }     
+        
+        x = x + distance;
+        if(scoreLevels[6].attempts>0){
+            config2.x = x;   
+            config2.y = y;       
+            config2.text = '6';        
+            lv3Click = this.make.text(config2).setInteractive();     
+        }else{
+            config1.x = x;  
+            config1.y = y;        
+            config1.text = '6';        
+            lv3Click = this.make.text(config1).setInteractive();
+        }                      
     
-        let lv4Click = this.make.text(config1).setInteractive();
+        if(scoreLevels[7].attempts>0){
+            config2.x = 420;        
+            config2.y = y + 130;     
+            config2.text = '7';        
+            lv4Click = this.make.text(config2).setInteractive();  
+        }else{
+            config1.x = 420;        
+            config1.y = y + 130;     
+            config1.text = '7';        
+            lv4Click = this.make.text(config1).setInteractive();
+        } 
         
         // Reseteo score a un valor distinto de 'menu' con score = 'menu' indico que vengo a esta clase.
         score = '1';  
@@ -80,17 +165,7 @@ class SceneMenu extends Phaser.Scene {
         beginScene = true;
         cantBlocks = 1;
         resetConfig();
-        hideBlocks();                        
-        
-        scoreLevels = JSON.parse(localStorage.getItem('scores'));
-        
-        if(scoreLevels === null){
-            scoreLevels = [];            
-            for (var i=0;i<8;i++){                
-                scoreLevels[i] = {points: 0, attempts:0};                
-            }   
-            localStorage.setItem("scores",JSON.stringify(scoreLevels));                   
-        }
+        hideBlocks();                                                    
         
         addPointsTotal();
         
