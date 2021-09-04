@@ -20,6 +20,7 @@ class Scene5_1 extends Phaser.Scene {
         posY = initPosY;    
         cantVideoCard = 2;                
         stack = 0;
+        cantPc = 0;
         infoText = OBJETIVE_LV5_1_TEXT;
         document.getElementById("blocklyTextId").value = infoText;
 
