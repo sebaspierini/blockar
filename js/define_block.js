@@ -146,7 +146,7 @@ Blockly.Blocks['move_left'] = {
   Blockly.Blocks['get_memory'] = {
     init: function() {
       this.appendDummyInput()
-          .appendField("Tomar memoria");
+          .appendField("Tomar memoria ram");
       this.setInputsInline(false);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
@@ -164,7 +164,7 @@ Blockly.Blocks['move_left'] = {
   Blockly.Blocks['get_disk'] = {
     init: function() {
       this.appendDummyInput()
-          .appendField("Tomar disco");
+          .appendField("Tomar disco duro");
       this.setInputsInline(false);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
