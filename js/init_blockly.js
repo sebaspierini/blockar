@@ -39,7 +39,21 @@ function generateCodeAndLoadIntoInterpreter(event) {
     latestCode = Blockly.JavaScript.workspaceToCode(demoWorkspace);    
     cantBlocks = demoWorkspace.getAllBlocks().length;
     
-    messageForVariables(cantBlocks,posXExecutables + (cellWidth * 4) + 10, PosYVar);  
+    
+    let style = {
+        fontSize: '16px',
+        fontFamily: 'Arial',
+        color: 'black',    
+                
+    };   
+    if(yo){
+        if(message_blocks_counts){
+            message_blocks_counts.visible = false;
+        }
+        message_blocks_counts = yo.add.text(posXExecutables + (cellWidth * 4) + 10 + 5, PosYVar - 3, '',style);            
+        message_blocks_counts.setText(' = '+ cantBlocks);
+        message_blocks_counts.visible = true;  
+    }       
     
     // codeBlockly = latestCode;
 
@@ -199,7 +213,7 @@ function inject_blockly(maxBlocks = 0){
         'toolboxForegroundColour': '#fff',
         'flyoutBackgroundColour': '#252526',
         'flyoutForegroundColour': '#ccc',
-        'flyoutOpacity': 0.4,
+        'flyoutOpacity': 0.9,
         'scrollbarColour': '#797979',
         'insertionMarkerColour': '#fff',
         'insertionMarkerOpacity': 0.4,

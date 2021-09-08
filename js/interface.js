@@ -29,7 +29,19 @@ function createButtonsGame(){
     }).setOrigin(0.5).setInteractive();
     
     yo.add.image(posXExecutables + (cellWidth * 4) - 5, PosYVar, 'blocks').setDisplaySize(30,30);
-    messageForVariables(cantBlocks,posXExecutables + (cellWidth * 4) + 10, PosYVar);
+
+    let style = {
+        fontSize: '16px',
+        fontFamily: 'Arial',
+        color: 'black',    
+                
+    };   
+    if(yo){                
+        message_blocks_counts = yo.add.text(posXExecutables + (cellWidth * 4) + 10 + 5, PosYVar - 3, '',style);            
+        message_blocks_counts.setText(' = '+ cantBlocks);
+        message_blocks_counts.visible = true;  
+    }
+    //messageForVariables(cantBlocks,posXExecutables + (cellWidth * 4) + 10, PosYVar);
     
     on_2x = yo.physics.add.sprite(posXExecutables + (cellWidth * 2) , posYExecutables, 'switch').setInteractive().setDisplaySize(50,30); 
        
