@@ -1,4 +1,9 @@
 # BlockAr
 
-Link de secuencia didáctica
-https://docs.google.com/document/d/183riHq1lvMjgv1uu-uSzb0hgxch-x7jKaZ2Gln8lOPA/edit?usp=sharing
+Es una app con fines educativos, permite introducir a los usuarios al pensamiento computacional de forma entretenida.
+
+## Notas
+
+* La carpeta descargables cuenta con dos apk según versión de android.
+* El archivo Secuencia didáctica.pdf sirve de guía para el docente en la clase.
+
